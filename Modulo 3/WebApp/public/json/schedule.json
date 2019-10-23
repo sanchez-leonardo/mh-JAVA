@@ -1,0 +1,245 @@
+{
+  "season": [
+    {
+      "month_id": 1,
+      "month": "September",
+      "dates": [
+        {
+          "day": 1,
+          "date": "9/01",
+          "matches": [
+            {
+              "match_id": "u1u4930",
+              "team_1": "U1",
+              "team_2": "U4",
+              "stadium_name": "AJ Katzenmaier",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u2u31300",
+              "team_1": "U2",
+              "team_2": "U3",
+              "stadium_name": "Greenbay",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "date": "9/08",
+          "matches": [
+            {
+              "match_id": "u5u6930",
+              "team_1": "U5",
+              "team_2": "U6",
+              "stadium_name": "Howard A Yaeger",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u1u61300",
+              "team_1": "U6",
+              "team_2": "U1",
+              "stadium_name": " Marjorie P Hart",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "date": "9/15",
+          "matches": [
+            {
+              "match_id": "u2u4930",
+              "team_1": "U2",
+              "team_2": "U4",
+              "stadium_name": "North",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u3u51300",
+              "team_1": "U3",
+              "team_2": "U5",
+              "stadium_name": "AJ Katzenmaier",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "date": "9/22",
+          "matches": [
+            {
+              "match_id": "u1u3930",
+              "team_1": "U1",
+              "team_2": "U3",
+              "stadium_name": "South",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u2u61300",
+              "team_1": "U2",
+              "team_2": "U6",
+              "stadium_name": "Howard A Yaeger",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "date": "9/29",
+          "matches": [
+            {
+              "match_id": "u4u5930",
+              "team_1": "U4",
+              "team_2": "U5",
+              "stadium_name": "Greenbay",
+              "time": "9:30"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month_id": 2,
+      "month": "October",
+      "dates": [
+        {
+          "day": 1,
+          "date": "10/06",
+          "matches": [
+            {
+              "match_id": "u2u5930",
+              "team_1": "U2",
+              "team_2": "U5",
+              "stadium_name": "Marjorie P Hart",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u1u61300",
+              "team_1": "U1",
+              "team_2": "U6",
+              "stadium_name": "South",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "date": "10/13",
+          "matches": [
+            {
+              "match_id": "u5u6930",
+              "team_1": "U3",
+              "team_2": "U4",
+              "stadium_name": "Howard A Yaeger",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u1u51300",
+              "team_1": "U5",
+              "team_2": "U1",
+              "stadium_name": "Greenbay",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "date": "10/20",
+          "matches": [
+            {
+              "match_id": "u3u6930",
+              "team_1": "U6",
+              "team_2": "U3",
+              "stadium_name": "North",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u2u41300",
+              "team_1": "U2",
+              "team_2": "U4",
+              "stadium_name": "Marjorie P Hart",
+              "time": "13:00"
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "date": "10/27",
+          "matches": [
+            {
+              "match_id": "u1u3930",
+              "team_1": "U1",
+              "team_2": "U3",
+              "stadium_name": "AJ Katzenmaier",
+              "time": "9:30"
+            },
+            {
+              "match_id": "u5u61300",
+              "team_1": "U5",
+              "team_2": "U6",
+              "stadium_name": "Howard A Yeager",
+              "time": "13:00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stadium_info": [
+    {
+      "stadium_name": "AJ Katzenmaier",
+      "street": "Walton St.",
+      "number": "24 W",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60610",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11878.942237363033!2d-87.63125808504918!3d41.89854386949053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f69da7%3A0x15e198c063fc787c!2sAJ+Katzenmaier+Elementary!5e0!3m2!1ses-419!2sar!4v1561594969767!5m2!1ses-419!2sar"
+    },
+    {
+      "stadium_name": "Greenbay",
+      "street": "Orleans St.",
+      "number": "1734 N",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60614",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0227959923004!2d-87.64002218431752!3d41.913868671153516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd3407260c45b%3A0xb351205fae50c6f3!2sGreenbay+Elementary!5e0!3m2!1ses-419!2sar!4v1561668403754!5m2!1ses-419!2sar"
+    },
+    {
+      "stadium_name": "Howard A Yeager",
+      "street": "Southport Ave.",
+      "number": "2245 N",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60614",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1484.2961289826592!2d-87.6636457020194!3d41.92312326239191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f852467%3A0xb6cb22b2f0358874!2sHoward+A+Yeager+Elementary!5e0!3m2!1ses-419!2sar!4v1561668514457!5m2!1ses-419!2sar"
+    },
+    {
+      "stadium_name": "Marjorie P Hart",
+      "street": "Orchad St.",
+      "number": "2625",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60614",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.289653643657!2d-87.6481613843172!3d41.929626870166636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd30f2637f9d7%3A0xdbff5d5dfcfcfa35!2sMarjorie+P+Hart+Elementary!5e0!3m2!1ses-419!2sar!4v1561668565553!5m2!1ses-419!2sar"
+    },
+    {
+      "stadium_name": "North",
+      "street": "Ogden Ave.",
+      "number": "1409 N",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60610",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.3364885871188!2d-87.64834428431767!3d41.90712467157587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd33af14860a5%3A0x5736e62f19086c62!2sNorth+Elementary!5e0!3m2!1ses-419!2sar!4v1561668738289!5m2!1ses-419!2sar"
+    },
+    {
+      "stadium_name": "South",
+      "street": "Fremont St.",
+      "number": "2101 N",
+      "state": "IL",
+      "district": "Chicago",
+      "zip": "60614",
+      "embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5937.486135970001!2d-87.65463923346958!3d41.91988172869734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd3196e269cbf%3A0x1caabcbc4893f0da!2sSt+James+Lutheran+School!5e0!3m2!1ses-419!2sar!4v1561668833577!5m2!1ses-419!2sar"
+    }
+  ]
+}

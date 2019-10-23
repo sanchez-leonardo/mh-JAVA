@@ -1,0 +1,312 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+header {
+  height: 15%;
+  background-image: url(../images/design3_image1.jpg);
+  background-size: cover;
+  background-position: bottom;
+  overflow: hidden;
+}
+
+header h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-stretch: expanded;
+  font-size: 3em;
+}
+
+nav {
+  display: block;
+  width: 100%;
+  background-color: beige;
+  margin-top: 1px;
+}
+
+nav a {
+  float: left;
+  width: 16.5%;
+  margin-left: 0.06%;
+  margin-right: 0.05%;
+  border: 2px solid forestgreen;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+  background: linear-gradient(to top, black 1%, darkolivegreen);
+}
+
+section {
+  margin: 40px 10%;
+  padding: 20px;
+  font-size: 1.2em;
+}
+
+section > h2 {
+  text-align: center;
+}
+
+section > img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0.1;
+}
+
+/*específico "home"*/
+/*Se usaron estilos de las tabla de rules*/
+
+/* especifico "About" */
+article {
+  margin: 10px 5%;
+  padding: 0px 30px;
+}
+
+article > h2 {
+  margin-top: 20px;
+}
+
+article > p {
+  padding: 0px 30px;
+}
+
+/* Específicos de "information" */
+em {
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+  margin: 20px 0px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  width: 25%;
+  padding: 2px 5px;
+}
+
+#month1 th,
+#month2 th {
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+#month1 tr > th:first-child,
+#month2 tr > th:first-child {
+  text-transform: uppercase;
+}
+
+#month1 td,
+#month2 td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#gameLoc th {
+  text-align: left;
+}
+
+.schoolInfo {
+  text-align: right;
+  vertical-align: middle;
+}
+
+iframe {
+  width: 400px;
+  height: 200px;
+  border: 0px;
+  margin: 0px;
+}
+
+.blank {
+  padding: 5px;
+}
+
+#phone {
+  text-align: right;
+}
+
+/* Especificos de "rules" */
+ul h3,
+ul strong {
+  text-transform: uppercase;
+}
+
+.mainList {
+  margin: 10px 5%;
+  ;
+  padding: 0px 30px;
+}
+
+.mainList > li {
+  margin-top: 20px;
+}
+
+.subList > li {
+  margin-top: 10px;
+}
+
+.listClean {
+  list-style-type: none;
+}
+
+.listSqr {
+  list-style-type: square;
+}
+
+.listCirc {
+  list-style-type: circle;
+}
+
+.listAbc {
+  list-style-type: lower-alpha;
+}
+
+/* específicos de "registration"*/
+form {
+  margin: 10px 5%;
+  padding: 0px 30px;
+}
+
+fieldset {
+  border: none;
+  margin-top: 10px;
+}
+
+.outline {
+  border: 5px dotted lightblue;
+}
+
+.red {
+  border: 5px dotted red;
+}
+
+legend {
+  font-size: 1.2em;
+}
+
+label {
+  display: inline-block;
+  height: 1.5em;
+  padding-left: 10px;
+}
+
+.singleColumn {
+  width: 100%
+}
+
+.dualColumn {
+  display: inline-block;
+  width: 50%;
+}
+
+div.dualColumn {
+  display: inline-block;
+  width: 49%;
+}
+
+fieldset.dualColumn {
+  width: 49%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  float: right;
+}
+
+input[name="first_name"],
+input[name="last_name"] {
+  width: 65%;
+}
+
+input[name="street_address"] {
+  width: 85%;
+}
+
+input[name="city"] {
+  width: 90%;
+}
+
+input[name="zip_code"] {
+  width: 80%;
+}
+
+input[name="parent_guardian"] {
+  width: 80%;
+}
+
+input[name="phone"] {
+  width: 75%;
+}
+
+input[name="email"] {
+  width: 85%;
+}
+
+div.dualColumn label {
+  padding-right: 20px;
+}
+
+select {
+  display: block;
+  margin: auto;
+  width: 50%;
+  height: 2em;
+}
+
+option {
+  color: blue;
+}
+
+fieldset.dualColumn label {
+  width: 50%;
+  padding-left: 50px;
+}
+
+fieldset.dualColumn div > label {
+  width: 40%;
+  padding-left: 30px;
+}
+
+fieldset > p {
+  margin-bottom: 15px;
+}
+
+input[name="parent_signature"] {
+  width: 50%;
+}
+
+input[value="Register"] {
+  display: block;
+  width: 30%;
+  height: 3em;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* específico "contact" */
+.contactInfo {
+  margin: 30px 5%;
+  padding: 0px 30px;
+}

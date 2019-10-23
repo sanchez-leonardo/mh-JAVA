@@ -1,0 +1,42 @@
+{
+  "short_name": "N.Y.S.L.",
+  "name": "N.Y.S.L.",
+  "icons": [
+    {
+      "src": "../assets/nysl_icon_70.png",
+      "sizes": "70x70",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/nysl_icon_150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/nysl_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/nysl_icon_310.png",
+      "sizes": "310x310",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/nysl_icon_310x150.png",
+      "sizes": "310x150",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/nysl_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=a2hs",
+  "background_color": "green",
+  "display": "fullscreen",
+  "scope": "../",
+  "theme_color": "olivedrab",
+  "prefer_related_applications": false
+}

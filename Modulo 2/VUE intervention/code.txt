@@ -1,0 +1,69 @@
+----------------------------------------------
+HTML
+
+<style>
+  * {
+    box-sizing: border-box
+  }
+
+  p {
+    display: inline-block;
+    font-size: 1.2em;
+    margin-left: 50px
+  }
+
+  button {
+    display:inline-block;
+    margin-left: 50px
+  }
+</style>
+
+<div v-for="(person, index) in orderedPeople">
+  <p>{{ index+1 }}. {{ person.name }}, {{ age(person.year) }}.</p><button type="button" v-on:click="color">Color</button>
+</div>
+
+
+------------------------------------------------
+
+SCRIPT
+
+methods: {
+
+  randomNum: function(){
+    return parseInt(Math.random() * (256 - 0))
+  },
+
+  randomColor: function(){
+    return 'rgb('+this.randomNum()+','+this.randomNum()+','+this.randomNum()+')'
+  },
+
+  color: function(e){
+    e.target.parentElement.firstChild.style.color = this.randomColor();
+  },
+
+  orderByYear: function(a, b) {
+    if (a.year < b.year){
+      return -1;
+    }
+    if ( a.year > b.year ){
+      return 1;
+    }
+    return 0;
+  },
+
+
+  age: function(year){
+    return 2018 - year
+  }
+
+},
+
+computed: {
+
+  orderedPeople: function(){
+    return this.people.sort(this.orderByYear)
+  }
+
+}
+
+})

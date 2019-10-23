@@ -1,0 +1,95 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+header {
+	height: 20%;
+	background-image: url("../images/design1_image1.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+header h1 {
+	text-align: center;
+	font-size: 3em;
+}
+
+
+nav {
+	display: inline-block;
+	width: 10%;
+	float: left;
+	border: 2px solid black;
+}
+
+nav a {
+	display: block;
+	border-bottom: 2px solid black;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1.5em;
+}
+
+nav a:last-child {
+	border: none;
+}
+
+section {
+	width: 90%;
+	display: inline-block;
+	float: left;
+	padding: 20px 20px 0px 50px;
+	font-size: 1.2em;
+}
+
+div {
+	position: relative;
+}
+
+div>h1 {
+	background-color: black;
+	text-align: center;
+	color: white;
+	height: 35px;
+}
+
+.logo {
+	width: 120px;
+	position: absolute;
+	top: 50%;
+	right: 20%;
+	transform: translate(-50%, -50%);
+}
+
+footer {
+	clear: both;
+}
+
+/*Especificos de index*/
+
+ul, li {
+	list-style: none;
+}
+
+section li {
+	margin-bottom: 15px;
+}
+
+/*Especificos de "About" */
+
+section article {
+	margin-bottom: 20px;
+}
+
+/*Especificos de "Contact" */
+
+section p {
+	margin-bottom: 20px;
+}

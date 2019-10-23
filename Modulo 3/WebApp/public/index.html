@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <title>N.Y.S.L.</title>
+    <meta
+      name="description"
+      content="N.Y.S.L. WebApp for checking on the season's matches, locations and messages"
+    />
+
+    <link rel="stylesheet" href="./styles/nysl-app-style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=BioRhyme"
+      rel="stylesheet"
+    />
+
+    <!-- icon Safari -->
+    <link rel="apple-touch-icon" href="../public/assets/nysl_icon_192.png" />
+
+    <!-- icon chrome/opera -->
+    <link rel="icon" href="../public/assets/nysl_icon_192.png" />
+
+    <!-- icons IE -->
+    <meta
+      name="msapplication-square70x70logo"
+      content="../public/assets/nysl_icon_70.png"
+    />
+    <meta
+      name="msapplication-square150x150logo"
+      content="../public/assets/nysl_icon_150.png"
+    />
+    <meta
+      name="msapplication-wide310x150logo"
+      content="../public/assets/nysl_icon_310x150.png"
+    />
+    <meta
+      name="msapplication-square310x310logo"
+      content="../public/assets/nysl_icon_310.png"
+    />
+
+    <!-- theme color -->
+    <meta name="theme-color" content="olivedrab" />
+    <!-- theme color and startup image for safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link
+      rel="apple-touch-startup-image"
+      href="../public/assets/nysl_icon_192.png"
+    />
+
+    <link rel="manifest" href="/nysl-app.webmanifest" />
+  </head>
+
+  <body>
+    <header>
+      <label id="menuBtnContainer" for="menuBtn">
+        <input
+          id="menuBtn"
+          type="checkbox"
+          name="menu-open-button"
+          aria-label="Menu Open button"
+        />
+        <span class="menuLine"></span>
+        <span class="menuLine"></span>
+        <span class="menuLine"></span>
+      </label>
+      <h1>N.Y.S.L.</h1>
+
+      <img
+        src="assets/nysl_logo.png"
+        alt="nysl logo"
+        style="height: 8vh; width:auto"
+      />
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+      <ul id="menu-list" aria-hidden="true">
+        <li id="add-to-hs" class="menu-item ">
+          <p>A2HS</p>
+        </li>
+        <li
+          id="sign-up"
+          class="menu-item logged-out"
+          onclick="showModal(this.id)"
+        >
+          <p>Sign up</p>
+        </li>
+        <li
+          id="log-in"
+          class="menu-item logged-out"
+          onclick="showModal(this.id)"
+        >
+          <p>Log In</p>
+        </li>
+        <li id="log-out" class="menu-item logged-in" onclick="confirmLogOut()">
+          <p>Log out</p>
+        </li>
+        <li id="exit" class="menu-item">
+          <p>Exit</p>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Landing Tab -->
+      <div id="tab-landing">
+        <article class="bordered-round shadowed" id="main-info">
+          <h2>Today's Matches</h2>
+          <div id="current-match"></div>
+        </article>
+
+        <a href="#tab-fixture" class="link-button bordered-round">
+          <img
+            alt="button image"
+            aria-hidden="true"
+            src="assets/soccer-ball-sm-left.png"
+            style="max-height: 100%"
+          />
+          <p>Fixture</p>
+          <img
+            alt="button image"
+            aria-hidden="true"
+            src="assets/soccer-ball-sm-right.png"
+            style="max-height: 100%"
+          />
+        </a>
+
+        <a href="#tab-maps" class="link-button bordered-round">
+          <img
+            alt="button image"
+            aria-hidden="true"
+            src="assets/soccer-ball-sm-left.png"
+            style="max-height: 100%"
+          />
+          <p>Maps</p>
+          <img
+            alt="button image"
+            aria-hidden="true"
+            src="assets/soccer-ball-sm-right.png"
+            style="max-height: 100%"
+          />
+        </a>
+      </div>
+
+      <!-- Fixture Tab -->
+      <div id="tab-fixture">
+        <article class="bordered-round shadowed" id="match-info">
+          <h2>Fall Schedule</h2>
+        </article>
+        <div class="dual-container bordered-round">
+          <a href="#tab-landing" class="link-button dual-button">
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-left.png"
+              style="max-height: 100%"
+            />
+            <p>Home</p>
+          </a>
+          <a href="#tab-maps" class="link-button dual-button">
+            <p>Maps</p>
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-right.png"
+              style="max-height: 100%"
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- Messages Tab -->
+      <div id="tab-messages">
+        <article class="bordered-round shadowed" id="messages-screen">
+          <h2>N.Y.S.L. Messenger</h2>
+          <div id="messages-section">
+            <h3 id="match-title">Match</h3>
+            <div class="full-size" id="chat">
+              <div id="messages-feed"></div>
+            </div>
+            <button
+              class="bordered-round shadowed"
+              id="message"
+              onclick="showModal(this.id)"
+            >
+              Add Message
+            </button>
+          </div>
+        </article>
+
+        <div class="dual-container bordered-round">
+          <a href="#tab-fixture" class="link-button dual-button">
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-left.png"
+              style="max-height: 100%"
+            />
+            <p>Fixture</p>
+          </a>
+          <a href="#tab-landing" class="link-button dual-button">
+            <p>Home</p>
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-right.png"
+              style="max-height: 100%"
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- Maps tab -->
+      <div id="tab-maps">
+        <article class="bordered-round shadowed" id="map-section">
+          <h2>Stadiums</h2>
+          <div id="map-selection">
+            <iframe
+              class="full-size"
+              id="selected-map"
+              title="Selected Map"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1049.931510336172!2d-87.62955281265843!3d41.90028126539248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x15e198c063fc787c!2sAJ+Katzenmaier+Elementary!5e0!3m2!1ses-419!2sar!4v1561676114954!5m2!1ses-419!2sar"
+            ></iframe>
+            <select
+              class="bordered-round shadowed"
+              name="stadium-select"
+              id="stadium-select"
+              onchange="selectedMapLocation()"
+              aria-label="Stadium Select"
+            >
+            </select>
+          </div>
+        </article>
+        <div class="dual-container bordered-round">
+          <a href="#tab-fixture" class="link-button dual-button">
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-left.png"
+              style="max-height: 100%"
+            />
+            <p>Fixture</p>
+          </a>
+
+          <a href="#tab-landing" class="link-button dual-button">
+            <p>Home</p>
+            <img
+              alt="button image"
+              aria-hidden="true"
+              src="assets/soccer-ball-sm-right.png"
+              style="max-height: 100%"
+            />
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- sign up -->
+    <div id="sign-up-modal" class="modal" aria-hidden="true">
+      <div class="modal-content bordered-round">
+        <div class="close" onclick="closeModal()">&times;</div>
+        <form id="sign-up-form">
+          <h3>Sign Up</h3>
+          <input
+            type="text"
+            id="sign-up-name"
+            placeholder="Display Name"
+            required
+          />
+          <input
+            type="email"
+            id="sign-up-email"
+            placeholder="E-Mail"
+            required
+          />
+          <input
+            type="password"
+            id="sign-up-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit" id="sign-up-btn">Sign Up!</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- log in -->
+    <div id="log-in-modal" class="modal" aria-hidden="true">
+      <div class="modal-content bordered-round">
+        <div class="close" onclick="closeModal()">&times;</div>
+        <form id="log-in-form">
+          <h3>Log In</h3>
+          <input type="email" id="log-in-email" placeholder="E-Mail" required />
+          <input
+            type="password"
+            id="log-in-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit" id="log-in-btn">Log In!</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div id="message-modal" class="modal" aria-hidden="true">
+      <div class="modal-content bordered-round">
+        <div class="close" onclick="closeModal()">&times;</div>
+        <form id="message-form">
+          <h3>Add message!</h3>
+          <input type="text" id="message-title" placeholder="Title" />
+          <textarea
+            id="message-body"
+            rows="4"
+            cols="50"
+            placeholder="Type your message"
+            required
+          ></textarea>
+          <button type="submit" id="add-message">Send!</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- core Firebase JS SDK  -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <!-- SDKs - Auth and Db -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+    <!-- Scripts -->
+    <script src="./scripts/general.js"></script>
+    <script src="./scripts/menu.js"></script>
+    <script src="./scripts/content-gen.js"></script>
+    <script src="./scripts/auth-db.js"></script>
+    <!-- Screen Lock beta -->
+    <script src="./scripts/screen-lock.js"></script>
+  </body>
+</html>

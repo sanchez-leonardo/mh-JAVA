@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Registration</title>
+  <link rel="stylesheet" href="styles/NYSL_3.css">
+</head>
+
+<body>
+  <header>
+    <h1>Northside Youth Soccer League</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="information.html">Game Info</a>
+    <a href="rules.html">Rules</a>
+    <a href="#">Registration</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <section>
+    <img class="logo" src="Images/nysl_logo.png" alt="NYSL Logo">
+    <h2>Registration form</h2>
+    <form action="show_data.html" method="get">
+      <fieldset class="outline">
+        <legend>Personal info</legend>
+        <div>
+          <label class="dualColumn">Player's first name:<input type="text" name=first_name required></label><label class="dualColumn">Player's last name:<input type="text" name="last_name" required></label>
+        </div>
+        <div>
+          <label class="singleColumn">Street address: <input type="text" name="street_address"></label>
+        </div>
+        <div>
+          <label class="dualColumn">City:<input type="text" name="city"></label><label class="dualColumn">Zip code:<input type="text" name="zip_code"></label>
+        </div>
+        <div>
+          <div class="dualColumn">
+            <label>Birth date (mm/dd/yyyy):<input type="date" name="birth_date"></label>
+          </div>
+          <div class="dualColumn">
+            <label>Gender:</label>
+            <label><input type="radio" name="gender" value="male">Male</label>
+            <label><input type="radio" name="gender" value="female">Female</label>
+            <label><input type="radio" name="gender" value="other">Other</label>
+          </div>
+        </div>
+        <div class="dualColumn">
+          <label>Grade:</label>
+          <label><input type="radio" name="grade" value="pre-school">Pre-School</label>
+          <label><input type="radio" name="grade" value="1st">1st</label>
+          <label><input type="radio" name="grade" value="2nd">2nd</label>
+          <label><input type="radio" name="grade" value="3rd">3rd</label>
+          <label><input type="radio" name="grade" value="4th">4th</label>
+          <label><input type="radio" name="grade" value="5th">5th</label>
+        </div>
+        <div>
+          <label class="singleColumn">Parent/Guardian's name:<input type="text" name="parent_guardian" required></label>
+        </div>
+        <div>
+          <label class="dualColumn">Contact phone:<input type="tel" name="phone"></label><label class="dualColumn">Email:<input type="email" name="email" required></label>
+        </div>
+      </fieldset>
+      <fieldset class="outline">
+        <legend>Which elementary schools do you live near?</legend>
+        <fieldset class="dualColumn">
+          <legend>Closest:</legend>
+          <select name="closest_elementary_1">
+            <option value="" disabled selected>-------------</option>
+            <option value="AJ Katzenmaier">AJ Katzenmaier</option>
+            <option value="Greenbay">Greenbay</option>
+            <option value="Howard A Yeager">Howard A Yeager</option>
+            <option value="Marjorie p Hart">Marjorie p Hart</option>
+            <option value="North Elementary">North Elementary</option>
+            <option value="South Elementary">South Elementary</option>
+          </select>
+        </fieldset>
+        <fieldset class="dualColumn">
+          <legend>Second closest:</legend>
+          <select name="closest_elementary_2">
+            <option value="" disabled selected>-------------</option>
+            <option value="AJ Katzenmaier">AJ Katzenmaier</option>
+            <option value="Greenbay">Greenbay</option>
+            <option value="Howard A Yeager">Howard A Yeager</option>
+            <option value="Marjorie p Hart">Marjorie p Hart</option>
+            <option value="North Elementary">North Elementary</option>
+            <option value="South Elementary">South Elementary</option>
+          </select>
+        </fieldset>
+      </fieldset>
+      <fieldset class="outline">
+        <legend>What position(s) do you...</legend>
+        <fieldset class="dualColumn">
+          <legend>...normally play?</legend>
+          <label><input type="checkbox" name="playstyle" value="forward">Forward</label><label><input type="checkbox" name="playstyle" value="midfield">Midfield</label><label><input type="checkbox" name="playstyle" value="defense">Defense</label><label><input type="checkbox" name="playstyle" value="goalkeeper">Goalkeeper</label>
+        </fieldset>
+        <fieldset class="dualColumn">
+          <legend>...want to play?</legend>
+          <label><input type="checkbox" name="playstyle_preferred" value="forward">Forward</label><label><input type="checkbox" name="playstyle_preferred" value="midfield">Midfield</label><label><input type="checkbox" name="playstyle_preferred" value="defense">Defense</label><label><input type="checkbox" name="playstyle_preferred" value="goalkeeper">Goalkeeper</label>
+        </fieldset>
+      </fieldset>
+      <fieldset class="outline">
+        <legend>Uniform:</legend>
+        <label class="singleColumn"><input type="checkbox" name="uniform" value="posses">Already has uniform</label>
+        <fieldset class="dualColumn">
+          <legend>Jersey size:</legend>
+          <div>
+            <label><input type="radio" name="jersey_size" value="youth_small">Youth small</label>
+            <label><input type="radio" name="jersey_size" value="youth_medium">Youth medium</label>
+            <label><input type="radio" name="jersey_size" value="youth_large">Youth large</label>
+          </div>
+          <div>
+            <label><input type="radio" name="jersey_size" value="small">Small</label>
+            <label><input type="radio" name="jersey_size" value="medium">Medium</label>
+            <label><input type="radio" name="jersey_size" value="large">Large</label>
+            <label><input type="radio" name="jersey_size" value="extra_large">Extra large</label>
+          </div>
+        </fieldset>
+        <fieldset class="dualColumn">
+          <legend>Shorts size:</legend>
+          <div>
+            <label><input type="radio" name="shorts_size" value="youth_small">Youth small</label>
+            <label><input type="radio" name="shorts_size" value="youth_medium">Youth medium</label>
+            <label><input type="radio" name="shorts_size" value="youth_large">Youth large</label>
+          </div>
+          <div>
+            <label><input type="radio" name="shorts_size" value="small">Small</label>
+            <label><input type="radio" name="shorts_size" value="medium">Medium</label>
+            <label><input type="radio" name="shorts_size" value="large">Large</label>
+            <label><input type="radio" name="shorts_size" value="extra_large">Extra large</label>
+          </div>
+        </fieldset>
+      </fieldset>
+      <fieldset class="outline red">
+        <legend>Permission to play:</legend>
+        <p>I, the parent or guardian of the minor registrant, agree that the registrant and I will abide by all the rules of the Northside Youth Soccer League (NYSL). In recognizing the possibility of physical injury associated with soccer and in consideration for the &quot;League&quot; accepting the registrant for its soccer programs and activities, I hereby release, discharge, and/or otherwise indemnify NYSL, their employees and associated personnel and volunteers, including the facilities used for practices and games, against any claim by or on behalf of the registrant as a result of the registrant’s participation in the program and/or being transported to or from NYSL sponsored activities, which transportation.</p>
+        <p>By entering my name below, I hereby agree and authorize the above. In addition, by signing below, I also acknowledge that I have read the cancellation policy and agree to its terms. </p>
+        <div>
+          <label class="dualColumn">Parent/Guardian Signature: <input type="text" name="parent_signature" required></label><label class="dualColumn">Date: <input type="date" name="signature_date" required></label>
+        </div>
+      </fieldset>
+      <input type="submit" value="Register">
+    </form>
+  </section>
+  <footer></footer><!-- seccion para copyright e info de desarrollador-->
+</body>
+</html>

@@ -1,0 +1,94 @@
+Jurisdictions:
+
+{
+  jurisdictions {
+    states: edges {
+      state: node {
+        id
+        name
+      }
+    }
+  }
+}
+
+
+Upper and lower from 1 jurisdiction (Ohio)
+
+{
+  jurisdiction(name: "Ohio") {
+    name
+    organizations(classification: ["lower", "upper"], first: 10) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+
+
+Senate and congress of Ohio jurisdiction:
+
+{
+  senate: people(memberOf: "ocd-organization/401c065d-0f85-4c93-b87b-1675a7ef6c1a", first: 100) {
+    edges {
+      member: node {
+        name
+        membership: currentMemberships(classification: ["lower", "upper", "party"]) {
+          organization {
+            name
+            classification
+          }
+        }
+      }
+    }
+  }
+}
+
+--------------------
+
+{
+  house: people(memberOf: "ocd-organization/3cb2bb10-f68b-4a7d-a7c5-41986e71ff3a", first: 100) {
+    edges {
+      member: node {
+        name
+        membership: currentMemberships(classification: ["lower", "upper", "party"]) {
+          organization {
+            name
+            classification
+          }
+        }
+      }
+    }
+  }
+}
+
+Fetch: No funciono por falta de config de CORS en servidor (en teoria)
+
+var url = 'https://openstates.org/graphql';
+
+var query = `query: {
+  jurisdictions {
+    states: edges {
+      state: node {
+        id
+        name
+      }
+    }
+  }
+}`;
+
+var init = {
+  method: 'POST',
+  headers:  {'Content-Type': 'application/json',
+             'x-api-key': '1e13327e-05c6-4214-a3f3-e07e42225c7a'},
+  body: JSON.stringify({query})
+};
+
+//'x-api-key': ' 1e13327e-05c6-4214-a3f3-e07e42225c7a'
+
+
+fetch(url, init).then(response => response.json()).then(obj => console.log(obj));

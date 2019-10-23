@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>VUE.js Intervention</title>
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+    p {
+      display: inline-block;
+      font-size: 1.2em;
+      margin-left: 50px
+    }
+
+    button {
+      display: inline-block;
+      margin-left: 50px
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <div v-for="(person, index) in orderedPeople">
+      <p>{{ index+1 }}. {{ person.name }}, {{ age(person.year) }}.</p><button type="button" v-on:click="color">Color</button>
+    </div>
+
+  </div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script src="script.js" type="text/javascript"></script>
+
+</html>

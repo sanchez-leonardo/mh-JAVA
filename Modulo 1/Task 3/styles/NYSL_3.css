@@ -1,0 +1,170 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+}
+
+html, body {
+	height: 100%;
+	position: relative;
+}
+
+body {
+	background-color: aliceblue;
+}
+
+header{
+	height: 15%;
+	background-image: url(../images/design3_image1.jpg);
+	background-size: cover;
+	background-position: bottom;
+	overflow: hidden;
+}
+
+header h1 {
+	text-align: center;
+	text-transform: uppercase;
+	font-stretch: expanded;
+	font-size: 3em;
+}
+
+nav {
+	display: block;
+	width: 100%;
+	background-color: beige;
+	margin-top: 1px;
+}
+
+nav a {
+	float: left;
+	width: 19.90%;
+	margin-left: 0.05%;
+	margin-right: 0.05%;
+	border: 2px solid forestgreen;
+	border-radius: 5px;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 2em;
+	color: white;
+	background-color: darkolivegreen;
+}
+
+section {
+	margin: 40px 100px;
+	padding: 20px;
+	font-size: 1.2em;
+}
+
+section>h2 {
+	text-align: center;
+}
+
+section>img {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+  transform: translate(-50%, -50%);
+	z-index: -1;
+	opacity: 0.1;
+}
+
+/*específico "home"*/
+/*Se usaron estilos de las tabla de rules*/
+
+/* especifico "About" */
+article {
+	margin: 10px 20px;
+	padding: 0px 30px;
+}
+
+article>h2 {
+	margin-top: 20px;
+}
+
+article>p {
+	padding: 0px 30px;
+}
+
+/* específico "contact" */
+
+.contactInfo {
+	margin: 30px 20px;
+	padding: 0px 30px;
+}
+
+/* Específicos de "information" */
+em {
+	text-decoration: underline;
+}
+
+table {
+	width: 100%;
+	margin: 20px 20px;
+	padding: 0px 30px;
+}
+
+th, td {
+	width: 25%;
+	padding: 2px 5px;
+}
+
+#month1 th, #month2 th {
+	text-decoration: underline;
+	font-size: 1.1em;
+}
+
+#month1 tr>th:first-child, #month2 tr>th:first-child {
+	text-transform: uppercase;
+}
+
+#month1 td, #month2 td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+#gameLoc th {
+	text-align: left;
+}
+
+#gameLoc .blank {
+	padding: 5px;
+}
+
+#email {
+	text-align: right;
+}
+
+/* Especificos de "rules" */
+ul h3, ul strong {
+	text-transform: uppercase;
+}
+
+.mainList {
+	margin: 10px 20px;
+	padding: 0px 30px;
+}
+
+.mainList>li {
+	margin-top: 20px;
+}
+
+.subList>li {
+	margin-top: 10px;
+}
+
+.listClean {
+	list-style-type: none;
+}
+
+.listSqr {
+	list-style-type: square;
+}
+
+.listCirc {
+	list-style-type: circle;
+}
+
+.listAbc {
+	list-style-type: lower-alpha;
+}

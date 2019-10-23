@@ -1,0 +1,560 @@
+/* General and media queries */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'BioRhyme';
+}
+
+:root {
+  --clearGreen: rgba(161, 226, 145, 0.568);
+}
+
+body,
+select,
+button {
+  font-size: 1rem;
+}
+
+body {
+  width: 100vw;
+  background: url('../assets/grass-background-2.jpg') center/cover no-repeat
+    fixed;
+}
+
+header {
+  height: 10vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: rgba(5, 20, 12, 0.767);
+}
+
+header h1 {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: rgb(250, 235, 215);
+}
+
+article {
+  background: var(--clearGreen);
+  padding: 2vh 2vw;
+  overflow: auto;
+}
+
+article > h2 {
+  display: block;
+  text-align: center;
+  font-size: 1.75rem;
+}
+
+.bordered-round {
+  border-top: 1px solid whitesmoke;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid darkgray;
+  border-right: 1px solid darkgray;
+  border-radius: 3rem;
+}
+
+.shadowed {
+  box-shadow: 0 0 0.1rem 0.1rem #333333;
+}
+
+#messages-feed > p:first-of-type {
+  text-align: center;
+  margin-top: 20%;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Menu */
+/* Menu con JS */
+/* Contenedor del checkbox y span que hacen el boton */
+#menuBtnContainer {
+  position: relative;
+  z-index: 100;
+  height: 1.6em;
+  width: 1.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+/* checkbox base oculto */
+#menuBtn {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+/* spans */
+.menuLine {
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  background-color: white;
+  transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+.menuLine:first-of-type {
+  transform: translateY(-0.5em);
+}
+
+.menuLine:last-of-type {
+  transform: translateY(0.5em);
+}
+
+/* transformación de spans al clickear el boton */
+#menuBtn:checked ~ .menuLine {
+  background-color: black;
+}
+
+#menuBtn:checked ~ .menuLine:first-of-type {
+  transform: rotate(-45deg);
+}
+
+#menuBtn:checked ~ .menuLine:nth-child(3) {
+  opacity: 0;
+}
+
+#menuBtn:checked ~ .menuLine:last-of-type {
+  transform: rotate(45deg);
+}
+
+/* #menuBtn:checked~#checkmark {
+  opacity: 1;
+} */
+
+.movedBtn {
+  transform: translateX(15vw);
+}
+
+#menu {
+  display: block;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transform-origin: 100% 0%;
+  transform: translate(-100%, 0);
+  transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+#menu-list {
+  height: 100vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15vh;
+  align-items: center;
+  list-style: none;
+  background-color: white;
+}
+
+.menu-item {
+  display: block;
+  width: 80%;
+  margin-top: 1em;
+  text-align: end;
+  cursor: pointer;
+}
+
+@media only screen and (orientation: portrait) {
+  body {
+    height: 100vh;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    /* snap! */
+    display: flex;
+    width: 100vw;
+    height: 90vh;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    /* snap! */
+  }
+
+  div[id*='tab'] {
+    /* snap! */
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+    width: 100vw;
+    /* snap! */
+    display: grid;
+    padding: 1vh 1vw;
+    row-gap: 1vh;
+  }
+
+  #tab-landing {
+    grid-template-rows: auto repeat(2, 10vh);
+  }
+
+  #tab-fixture,
+  #tab-maps,
+  #tab-messages {
+    grid-template-rows: auto 10vh;
+  }
+
+  #current-match > ul {
+    display: grid;
+    row-gap: 10vh;
+    margin-top: 10vh;
+    font-size: 1.5rem;
+  }
+
+  .link-button {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      var(--clearGreen),
+      rgba(0, 0, 0, 0.6)
+    );
+  }
+
+  .link-button:link,
+  .link-button:visited {
+    color: black;
+    text-decoration: none;
+  }
+
+  .link-button:hover,
+  .link-button:visited {
+    color: black;
+    text-decoration: none;
+  }
+
+  .link-button > p {
+    margin: 0 auto;
+  }
+
+  .dual-container {
+    display: flex;
+    height: 10vh;
+  }
+
+  .dual-button {
+    width: 50%;
+  }
+
+  .dual-container > .dual-button:first-of-type {
+    border-left: 1px solid darkgray;
+    border-right: 1px solid whitesmoke;
+    border-radius: 3rem 0 0 3rem;
+  }
+
+  .dual-container > .dual-button:last-of-type {
+    border-left: 1px solid darkgray;
+    border-right: 1px solid gray;
+    border-radius: 0 3rem 3rem 0;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  body {
+    height: 100vh;
+  }
+
+  /* #menu {
+        margin: -4vh 0 0 -35vw;
+    } */
+
+  main {
+    display: grid;
+    height: 90vh;
+    width: 100vw;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(auto, 60vh);
+    row-gap: 1vh;
+    column-gap: 1vw;
+    padding: 1vw;
+  }
+
+  /* Si hay problemas de compatibilidad, cambiar a display: grid
+     y quitar los articles de cada #tab */
+  div[id*='tab'] {
+    display: contents;
+  }
+
+  #main-info {
+    grid-column: 1 / span 2;
+    grid-row: 1 / 2;
+  }
+
+  #current-match > ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1.5rem;
+  }
+
+  #match-info {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  #map-section,
+  #message-screen {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+  #tab-messages {
+    display: none;
+  }
+
+  .link-button,
+  .dual-container {
+    display: none;
+  }
+}
+
+/* Estilo provisorio cuando no se instalo la aplicación en dispositivos mobiles pequeños */
+@media screen and (orientation: landscape) and (max-height: 640px) {
+  body,
+  main {
+    height: auto;
+  }
+
+  main {
+    grid-template-rows: auto 100vh;
+  }
+}
+
+/* Pantallas grandes */
+@media screen and (min-width: 1280px) {
+  main {
+    width: 75vw;
+    margin: 0 auto;
+  }
+}
+
+/* Main content */
+
+.full-size {
+  width: 100%;
+  height: 100%;
+}
+
+#messages-section button,
+#map-section select {
+  width: 80%;
+  height: 90%;
+  font-size: 1.1rem;
+  background: transparent;
+}
+
+/* Landing Tab */
+
+#current-match > p {
+  margin-top: 2vh;
+}
+
+#current-match > p:first-of-type {
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Fixture Tab */
+#match-info > ul {
+  margin-top: 2vh;
+}
+
+#match-info ul,
+#match-info li {
+  list-style: none outside;
+}
+
+.season-month {
+  display: grid;
+}
+
+.season-month > li > ul {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  border-top: 1px solid black;
+}
+
+.season-date {
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+.date-match {
+  display: grid;
+  grid-template-columns: 3fr 3fr 1fr 1fr;
+  margin-top: 1vh;
+}
+
+.date-match p {
+  display: inline-block;
+  text-align: center;
+}
+
+.date-match p:last-of-type {
+  grid-column: 1 / span 2;
+}
+
+.date-match .message-link {
+  grid-column: 3 / 4;
+  grid-row: 1 / span 2;
+  display: block;
+  border: none;
+  background: transparent url('../assets/chat_icon.png') center/50% no-repeat;
+}
+
+.date-match .map-link {
+  grid-column: 4 / 5;
+  grid-row: 1 / span 2;
+  display: block;
+  border: none;
+  background: transparent url('../assets/location-icon.png') center/50%
+    no-repeat;
+}
+
+/* maps Tab */
+#map-selection {
+  display: grid;
+  width: 100%;
+  height: 85%;
+  margin-top: 2vh;
+  grid-template-rows: auto max-content;
+  row-gap: 2vh;
+  justify-items: center;
+}
+
+/* Messages tab */
+#messages-section {
+  display: grid;
+  width: 100%;
+  height: 85%;
+  margin-top: 2vh;
+  grid-template-rows: min-content auto min-content;
+  row-gap: 2vh;
+  justify-items: center;
+  overflow: auto;
+}
+
+#match-title {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.post-container {
+  border-top: 1px solid black;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.post-person {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.post-person span {
+  font-weight: bolder;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+}
+
+.post-body {
+  font-size: 1.1rem;
+  padding-left: 2rem;
+}
+
+/* Modals */
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content/Box */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 2rem;
+  width: 60vw;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content input {
+  display: block;
+  height: 50px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  overflow: auto;
+}
+
+.modal-content input:first-of-type {
+  margin-top: 1rem;
+}
+
+.modal-content textarea {
+  width: 100%;
+  margin-top: 2vh;
+}
+
+.modal-content button {
+  display: block;
+  width: 50%;
+  height: 2rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  align-self: flex-end;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Modal Activation */
+.active {
+  display: block;
+}
