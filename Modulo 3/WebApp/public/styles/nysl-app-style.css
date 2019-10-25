@@ -133,10 +133,6 @@ article > h2 {
   transform: rotate(45deg);
 }
 
-/* #menuBtn:checked~#checkmark {
-  opacity: 1;
-} */
-
 .movedBtn {
   transform: translateX(15vw);
 }
