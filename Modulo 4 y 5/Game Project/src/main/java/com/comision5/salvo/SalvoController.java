@@ -136,9 +136,7 @@ public class SalvoController {
       Player thePlayer = playerRepo.findByUserName(auth.getName());
 
       GamePlayer aNewGP = new GamePlayer(thePlayer, newGame);
-
       newGame.setGamePlayers(Collections.singletonList(aNewGP));
-
       thePlayer.addGamePlayer(aNewGP);
       //cambio de estado
       newGame.gameStateChanger();
