@@ -1,9 +1,13 @@
 <template>
-    <table></table>
+  <div></div>
 </template>
 
 <script>
-export default{
-    name: "CurrentGames"
-}
+// import { customFetch } from "../../utilities_script";
+
+export default {
+  name: "CurrentGames",
+
+  props: { gamesCallData: Object }
+};
 </script>

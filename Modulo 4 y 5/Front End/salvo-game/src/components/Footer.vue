@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "Main-Footer"
+  name: "App-Footer"
 };
 </script>

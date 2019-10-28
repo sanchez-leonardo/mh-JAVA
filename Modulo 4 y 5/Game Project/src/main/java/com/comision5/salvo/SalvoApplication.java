@@ -240,8 +240,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
             .antMatchers("/rest/**").permitAll()//temporal para chequeo de datos, a cambiar por denyall
-            .antMatchers("/api/games", "/api/game_view/**",
-                    "/api/game/**/players", "/api/games/players/**/ships").hasAuthority("USER")
+            .antMatchers(/*"/api/games",*/ "/api/game_view/**",
+                    "/api/game/**/players", "/api/games/players/**/ships").hasAuthority("USER") // Removida /api/games
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated();
 

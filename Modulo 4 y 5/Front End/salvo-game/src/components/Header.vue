@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "Main-Header"
+  name: "App-Header"
 };
 </script>
