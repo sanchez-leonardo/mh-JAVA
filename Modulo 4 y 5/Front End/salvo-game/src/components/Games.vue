@@ -1,20 +1,20 @@
 <template>
   <div>
     <leaderboard />
-    <current-games v-bind:gamesCallData="gamesCallData" />
+    <games-table v-bind:gamesCallData="gamesCallData" />
   </div>
 </template>
 
 <script>
-import Leaderboard from "../subcomponents/Learderboard";
-import CurrentGames from "../subcomponents/CurrentGames";
+import Leaderboard from "./Learderboard";
+import GamesTable from "./CurrentGamesTable";
 
 export default {
   name: "Games",
 
   components: {
     leaderboard: Leaderboard,
-    "current-games": CurrentGames
+    "games-table": GamesTable
   },
 
   props: { gamesCallData: Object }

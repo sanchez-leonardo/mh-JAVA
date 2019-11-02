@@ -7,8 +7,7 @@
       v-on:logOut="userLogOut"
       v-bind:user="gamesCallData.currentUser"
     />
-    <!-- <router-view /> -->
-    <games v-bind:gamesCallData="gamesCallData" />
+    <router-view />
 
     <app-footer />
   </div>
@@ -19,7 +18,6 @@ import { customFetch } from "../utilities_script";
 
 import Header from "./components/Header.vue";
 import LogForms from "./components/LogForms";
-import Games from "./components/Games.vue";
 import Footer from "./components/Footer.vue";
 
 export default {
@@ -28,7 +26,6 @@ export default {
   components: {
     "app-header": Header,
     "log-forms": LogForms,
-    games: Games,
     "app-footer": Footer
   },
 
