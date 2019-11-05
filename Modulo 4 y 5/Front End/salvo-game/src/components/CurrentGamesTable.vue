@@ -30,8 +30,6 @@ export default {
     "table-row": TableRow
   },
 
-  props: { gamesCallData: Object },
-
-  methods: {}
+  props: { gamesCallData: Object }
 };
 </script>

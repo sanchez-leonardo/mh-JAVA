@@ -65,14 +65,14 @@ export default {
             };
           } else {
             buttonContent = {
-              tag: "router-link",
+              tag: "span",
               content: "Re-Join"
             };
           }
         } else if (this.game.game_players.length == 1) {
           if (!this.userInGame) {
             buttonContent = {
-              tag: "router-link",
+              tag: "span",
               content: "Join"
             };
           }

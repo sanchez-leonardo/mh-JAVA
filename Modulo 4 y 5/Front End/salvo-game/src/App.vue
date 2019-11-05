@@ -7,8 +7,9 @@
       v-on:logOut="userLogOut"
       v-bind:user="gamesCallData.currentUser"
     />
-    <router-view />
-
+    <!-- <router-view /> -->
+    <games-overview v-bind:gamesCallData="gamesCallData" />
+    <game-view v-bind:gpId="1" />
     <app-footer />
   </div>
 </template>
@@ -19,6 +20,8 @@ import { customFetch } from "../utilities_script";
 import Header from "./components/Header.vue";
 import LogForms from "./components/LogForms";
 import Footer from "./components/Footer.vue";
+import Games from "./components/Games";
+import GameView from "./components/GameView";
 
 export default {
   name: "app",
@@ -26,7 +29,9 @@ export default {
   components: {
     "app-header": Header,
     "log-forms": LogForms,
-    "app-footer": Footer
+    "app-footer": Footer,
+    "games-overview": Games,
+    "game-view": GameView
   },
 
   data() {
