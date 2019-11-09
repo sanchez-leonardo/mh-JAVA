@@ -8,7 +8,7 @@
       <Th>Tied</Th>
     </thead>
     <tbody>
-      <tr v-for="(user, key) in users" :key="key">
+      <tr v-for="(user, key) in users" v-bind:key="key">
         <td>{{user.email}}</td>
         <td>{{user.scores.total}}</td>
         <td>{{user.scores.win}}</td>

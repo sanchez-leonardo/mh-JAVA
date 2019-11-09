@@ -1,7 +1,7 @@
 <template>
   <div>
-    <grid />
-    <grid />
+    <grid v-bind:type="playerGrid" />
+    <grid v-bind:type="salvoGrid" />
   </div>
 </template>
 
@@ -19,7 +19,9 @@ export default {
   },
   data() {
     return {
-      gpInfo: {}
+      gpInfo: {},
+      playerGrid: "player",
+      salvoGrid: "salvo"
     };
   },
 
