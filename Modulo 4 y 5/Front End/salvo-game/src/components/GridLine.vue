@@ -39,7 +39,7 @@ export default {
     returnLetterOrNumber(letter, number) {
       if (letter === "0") {
         return number;
-      } else if (number === 0) {
+      } else if (number - 1 === 0) {
         return letter.toUpperCase();
       } else {
         return "";
@@ -48,3 +48,5 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus"></style>
