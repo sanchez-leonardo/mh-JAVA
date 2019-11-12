@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <grid v-bind:type="playerGrid" />
-    <grid v-bind:type="salvoGrid" />
-  </div>
+  <v-container>
+    <v-row>
+      <grid v-bind:type="playerGrid" />
+      <grid v-bind:type="salvoGrid" />
+    </v-row>
+  </v-container>
 </template>
 
 <script>

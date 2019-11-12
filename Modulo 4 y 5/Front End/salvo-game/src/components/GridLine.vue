@@ -1,23 +1,31 @@
 <template>
-  <div class="grid-line">
-    <div
-      v-for="(number,key) in 11"
+  <v-row class="grid-line">
+    <grid-square
+      no-gutters
+      v-for="(number, key) in 11"
       v-bind:key="key"
-      v-bind:id="target+letter+(number - 1)"
+      v-bind:id="target + letter + (number - 1)"
       v-bind:class="squareClassManager(letter, number, target)"
+      v-bind:letter="letter"
+      v-bind:number="number"
     >
-      <p>{{returnLetterOrNumber(letter, number)}}</p>
-    </div>
-  </div>
+    </grid-square>
+  </v-row>
 </template>
 
 <script>
+import GridSquare from "./GridSquare";
+
 export default {
   name: "GridLine",
+
+  components: { "grid-square": GridSquare },
+
   props: {
     target: String,
     letter: String
   },
+
   methods: {
     squareClassManager(letter, number, target) {
       if (
@@ -27,26 +35,14 @@ export default {
         return "blank";
       } else if (letter === "0") {
         return "column-name";
-      } else if (number === 0) {
-        return "column-num";
-      } else if (target == "p") {
-        return "wah";
-      } else if (target == "s") {
-        return "battle-square";
-      }
-    },
-
-    returnLetterOrNumber(letter, number) {
-      if (letter === "0") {
-        return number;
       } else if (number - 1 === 0) {
-        return letter.toUpperCase();
-      } else {
-        return "";
+        return "column-num";
+      } else if (target == "p" && number - 1 !== 0) {
+        return "wah";
+      } else if (target == "s" && number - 1 !== 0) {
+        return "battle-square";
       }
     }
   }
 };
 </script>
-
-<style lang="stylus"></style>

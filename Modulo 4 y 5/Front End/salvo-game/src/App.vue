@@ -16,16 +16,13 @@
 
 <script>
 import { customFetch } from "../utilities_script";
-
 import Header from "./components/Header.vue";
 import LogForms from "./components/LogForms";
 import Footer from "./components/Footer.vue";
 import Games from "./components/Games";
 import GameView from "./components/GameView";
-
 export default {
   name: "app",
-
   components: {
     "app-header": Header,
     "log-forms": LogForms,
@@ -33,17 +30,14 @@ export default {
     "games-overview": Games,
     "game-view": GameView
   },
-
   data() {
     return {
       gamesCallData: {}
     };
   },
-
   methods: {
     userLogIn(formData) {
       let formFields = new URLSearchParams(formData);
-
       customFetch(
         "POST",
         "/api/login",
@@ -55,10 +49,8 @@ export default {
         }
       });
     },
-
     userSignUp(formData) {
       let formFields = new URLSearchParams(formData);
-
       customFetch(
         "POST",
         "/api/players",
@@ -70,11 +62,9 @@ export default {
         }
       });
     },
-
     userLogOut() {
       customFetch("POST", "/api/logout").then(this.gamesInfo());
     },
-
     gamesInfo() {
       fetch("/api/games")
         .then(response => response.json())
@@ -83,7 +73,6 @@ export default {
         });
     }
   },
-
   created() {
     this.gamesInfo();
   }

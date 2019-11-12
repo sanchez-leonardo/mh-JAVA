@@ -7,13 +7,23 @@
       <label for="password">E-Mail</label>
       <input id="password" type="password" v-model="formData.password" />
 
-      <button type="submit" id="log-in" v-on:click="logIn">Log In</button>
+      <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">
+        Log In!
+      </v-btn>
 
-      <button type="submit" id="sign-up" v-on:click="signUp">Sign Up</button>
+      <v-btn
+        small
+        color="primary"
+        type="submit"
+        id="sign-up"
+        v-on:click="signUp"
+      >
+        Sign Up!
+      </v-btn>
     </form>
 
     <div v-if="user">
-      <h2>Hello {{user.email}}</h2>
+      <h2>Hello {{ user.email }}</h2>
 
       <form v-on:submit.prevent>
         <button type="submit" id="log-out" v-on:click="logOut">Log Out!</button>
@@ -21,7 +31,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
