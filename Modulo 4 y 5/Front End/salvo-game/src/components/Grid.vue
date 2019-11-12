@@ -66,4 +66,55 @@ export default {
 .battle-square {
   background-color: cadetblue;
 }
+
+.available-ships {
+  display: flex;
+  height: 30px;
+}
+
+.holder {
+  float: left;
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+}
+
+.shadow {
+  opacity: 0.5;
+  position: relative;
+  z-index: 0;
+}
+
+.holder .image {
+  width: 100%;
+}
+
+.wah .image {
+  height: 100%;
+}
+
+.space {
+  background-color: darkgreen;
+}
+
+.noSpace {
+  background-color: coral;
+}
+
+.rotate-btn {
+  height: 50%;
+  width: 50%;
+  position: relative;
+  z-index: 5;
+  background-image: url("../assets/rotate.png");
+}
+
+.rotated {
+  transform-origin: 10%;
+  transform: rotate(90deg);
+}
 </style>

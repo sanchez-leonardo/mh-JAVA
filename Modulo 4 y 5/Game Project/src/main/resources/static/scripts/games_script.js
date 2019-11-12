@@ -2,23 +2,23 @@
 function logOut(evt) {
   evt.preventDefault();
 
-  customFetch('POST', '/api/logout')
+  customFetch("POST", "/api/logout")
     .then(response => {
       if (response.ok) {
-        location.href = '/web/boarding_page.html';
+        location.href = "/web/boarding_page.html";
       }
     })
     .catch(error => console.log(error));
 }
 
 //Log out
-let logOutBtn = document.getElementById('logOutBtn');
-logOutBtn.addEventListener('click', logOut);
+let logOutBtn = document.getElementById("logOutBtn");
+logOutBtn.addEventListener("click", logOut);
 
 //Back to games
-let backToGamesBtn = document.getElementById('backToGames');
-backToGamesBtn.addEventListener('click', () => {
-  location.href = '/web/games.html';
+let backToGamesBtn = document.getElementById("backToGames");
+backToGamesBtn.addEventListener("click", () => {
+  location.href = "/web/games.html";
 });
 
 //-----------------------------------------------------------------------------------
@@ -27,27 +27,27 @@ backToGamesBtn.addEventListener('click', () => {
 function createGame(evt) {
   evt.preventDefault();
 
-  customFetch('POST', '/api/games')
+  customFetch("POST", "/api/games")
     .then(response => {
       if (response.status == 201) {
         response.json().then(data => goToGame(data.gpId));
       } else {
-        alert('Something went south, try again later');
+        alert("Something went south, try again later");
       }
     })
     .catch(error => console.log(error));
 }
 
 //Botón de creación de juegos
-let gameCreator = document.getElementById('gameCreator');
-gameCreator.addEventListener('click', createGame);
+let gameCreator = document.getElementById("gameCreator");
+gameCreator.addEventListener("click", createGame);
 
 //-----------------------------------------------------------------------------------
 
 //Función para boton Join Game
 //join game fetch
 function joinGame(gameId) {
-  customFetch('POST', '/api/game/' + gameId + '/players')
+  customFetch("POST", "/api/game/" + gameId + "/players")
     .then(response => {
       if (response.ok) {
         response.json().then(body => goToGame(body.gpId));
@@ -60,7 +60,7 @@ function joinGame(gameId) {
 
 //go to game
 function goToGame(gpId) {
-  window.location.search = 'gp=' + gpId;
+  window.location.search = "gp=" + gpId;
 }
 
 //-----------------------------------------------------------------------------------
@@ -73,14 +73,14 @@ async function postShipList(evt) {
   evt.preventDefault();
 
   if (shipsForPost.length == 5) {
-    let gpId = getQueryVariable('gp');
+    let gpId = getQueryVariable("gp");
 
     customFetch(
-      'POST',
-      '/api/games/players/' + gpId + '/ships',
+      "POST",
+      "/api/games/players/" + gpId + "/ships",
       [
         {
-          'Content-Type': 'application/json;charset=UTF-8'
+          "Content-Type": "application/json;charset=UTF-8"
         }
       ],
       JSON.stringify(shipsForPost)
@@ -92,13 +92,13 @@ async function postShipList(evt) {
       })
       .catch(error => console.log(error));
   } else {
-    alert('Place all your ships to continue');
+    alert("Place all your ships to continue");
   }
 }
 
 // Boton de envío de lista de barcos
-let placeShips = document.getElementById('placeShips');
-placeShips.addEventListener('click', postShipList);
+let placeShips = document.getElementById("placeShips");
+placeShips.addEventListener("click", postShipList);
 
 //-----------------------------------------------------------------------------------
 //Envio de salvos
@@ -109,14 +109,14 @@ async function postSalvoesList(evt) {
   evt.preventDefault();
 
   if (salvoesForPost.length != 0 && salvoesForPost.length <= 5) {
-    let gpId = getQueryVariable('gp');
+    let gpId = getQueryVariable("gp");
 
     customFetch(
-      'POST',
-      '/api/games/players/' + gpId + '/salvoes',
+      "POST",
+      "/api/games/players/" + gpId + "/salvoes",
       [
         {
-          'Content-Type': 'application/json;charset=UTF-8'
+          "Content-Type": "application/json;charset=UTF-8"
         }
       ],
       JSON.stringify(salvoesForPost)
@@ -128,13 +128,13 @@ async function postSalvoesList(evt) {
       })
       .catch(error => console.log(error));
   } else {
-    alert('Could not send salvoes');
+    alert("Could not send salvoes");
   }
 }
 
 // Boton de envío de lista de barcos
-let fireSalvoesBtn = document.getElementById('fireSalvoes');
-fireSalvoesBtn.addEventListener('click', postSalvoesList);
+let fireSalvoesBtn = document.getElementById("fireSalvoes");
+fireSalvoesBtn.addEventListener("click", postSalvoesList);
 
 //-----------------------------------------------------------------------------------
 //Fetch de Games Info, creación de la tabla de juegos y agrega el nombre de usuario al header
@@ -142,12 +142,12 @@ fireSalvoesBtn.addEventListener('click', postSalvoesList);
 let gamesCallData;
 
 function gamesInfo() {
-  fetch('/api/games')
+  fetch("/api/games")
     .then(response => response.json())
     .then(data => {
       gamesCallData = data;
       currentGamesList(gamesCallData);
-      document.getElementById('playerSpan').innerText =
+      document.getElementById("playerSpan").innerText =
         gamesCallData.currentUser.email;
     })
     .catch(error => console.log(error));
@@ -160,19 +160,19 @@ function gamesInfo() {
 let gpById;
 
 function fetchByQueryString() {
-  let queryStringGP = getQueryVariable('gp');
+  let queryStringGP = getQueryVariable("gp");
 
   if (queryStringGP) {
-    document.getElementsByClassName('data')[0].classList.toggle('hide');
-    document.getElementsByClassName('grids')[0].classList.toggle('hide');
-    document.getElementsByClassName('fleetStatus')[0].classList.toggle('hide');
+    document.getElementsByClassName("data")[0].classList.toggle("hide");
+    document.getElementsByClassName("grids")[0].classList.toggle("hide");
+    document.getElementsByClassName("fleetStatus")[0].classList.toggle("hide");
 
-    createGrid('player-grid', 'p');
-    createGrid('salvos-grid', 's');
+    createGrid("player-grid", "p");
+    createGrid("salvos-grid", "s");
 
     salvoesEventListener();
 
-    customFetch('GET', '/api/game_view/' + queryStringGP)
+    customFetch("GET", "/api/game_view/" + queryStringGP)
       .then(response => {
         if (response.ok) {
           response.json().then(data => {
@@ -182,11 +182,11 @@ function fetchByQueryString() {
             if (data.ships.length != 0) {
               data.ships.forEach(ship => paintThemShips(ship));
 
-              document.querySelector('.available-ships').classList.add('hide');
+              document.querySelector(".available-ships").classList.add("hide");
 
-              document.getElementById('placeShips').classList.add('hide');
+              document.getElementById("placeShips").classList.add("hide");
             } else {
-              document.getElementById('salvoes').classList.add('hide');
+              document.getElementById("salvoes").classList.add("hide");
             }
 
             if (Object.keys(data.salvoes).length != 0) {
@@ -202,7 +202,7 @@ function fetchByQueryString() {
             );
           });
         } else {
-          window.location.href = '/web/boarding_page.html';
+          window.location.href = "/web/boarding_page.html";
         }
       })
       .catch(error => console.log(error));
@@ -215,7 +215,7 @@ function checkForChanges(previousState, previousTurn, previousGPState) {
   var intervalId = setInterval(changesChange, 5000);
 
   function changesChange() {
-    customFetch('GET', '/api/game_state/' + getQueryVariable('gp')).then(
+    customFetch("GET", "/api/game_state/" + getQueryVariable("gp")).then(
       response => {
         if (response.ok) {
           response.json().then(data => {
@@ -225,7 +225,7 @@ function checkForChanges(previousState, previousTurn, previousGPState) {
               previousGPState != data.game_player_state
             ) {
               location.reload(true);
-            } else if (data.game_state == 'over') {
+            } else if (data.game_state == "over") {
               window.clearInterval(intervalId);
             }
           });
@@ -250,61 +250,61 @@ function checkForChanges(previousState, previousTurn, previousGPState) {
 // game_view respectivo
 
 function currentGamesList(data) {
-  let tableBody = document.getElementById('gamesList');
+  let tableBody = document.getElementById("gamesList");
 
   data.games.forEach(game => {
-    let gameRow = document.createElement('tr');
+    let gameRow = document.createElement("tr");
 
-    let gameId = document.createElement('td');
+    let gameId = document.createElement("td");
     gameId.innerText = game.id;
     gameRow.appendChild(gameId);
 
     game.game_players.forEach(gp => {
-      let player = document.createElement('td');
+      let player = document.createElement("td");
       player.innerText = gp.player.email;
-      player.setAttribute('data-id', gp.player.id);
+      player.setAttribute("data-id", gp.player.id);
       gameRow.appendChild(player);
     });
 
     if (game.game_players.length == 1) {
-      gameRow.appendChild(document.createElement('td'));
+      gameRow.appendChild(document.createElement("td"));
     }
 
-    let gameCreation = document.createElement('td');
+    let gameCreation = document.createElement("td");
     gameCreation.innerText = game.created;
     gameRow.appendChild(gameCreation);
 
-    let joinCell = document.createElement('td');
+    let joinCell = document.createElement("td");
     gameRow.appendChild(joinCell);
 
     let playerInGame = game.game_players
       .map(gp => gp.player.id)
       .includes(data.currentUser.id);
 
-    if (game.game_state == 'over') {
+    if (game.game_state == "over") {
       joinCell.innerHTML = `<p>Game Over</p>`;
     } else if (
-      (game.game_state == 'ship' || game.game_state == 'salvo') &&
+      (game.game_state == "ship" || game.game_state == "salvo") &&
       !playerInGame
     ) {
       joinCell.innerHTML = `<p>Game Full</p>`;
-    } else if (game.game_state != 'over' && playerInGame) {
-      let joinGameBtn = document.createElement('button');
-      joinGameBtn.innerText = 'Re-Join Game';
-      joinGameBtn.classList.add('join', 'list-button');
+    } else if (game.game_state != "over" && playerInGame) {
+      let joinGameBtn = document.createElement("button");
+      joinGameBtn.innerText = "Re-Join Game";
+      joinGameBtn.classList.add("join", "list-button");
 
       let gpId = game.game_players.filter(
         gp => gp.player.id == data.currentUser.id
       )[0].id;
 
-      joinGameBtn.setAttribute('onclick', `goToGame(${gpId})`);
+      joinGameBtn.setAttribute("onclick", `goToGame(${gpId})`);
 
       joinCell.appendChild(joinGameBtn);
-    } else if (game.game_state == 'waiting_p2') {
-      let joinGameBtn = document.createElement('button');
-      joinGameBtn.innerText = 'Join Game';
-      joinGameBtn.classList.add('join', 'list-button');
-      joinGameBtn.setAttribute('onclick', `joinGame(${game.id})`);
+    } else if (game.game_state == "waiting_p2") {
+      let joinGameBtn = document.createElement("button");
+      joinGameBtn.innerText = "Join Game";
+      joinGameBtn.classList.add("join", "list-button");
+      joinGameBtn.setAttribute("onclick", `joinGame(${game.id})`);
 
       joinCell.appendChild(joinGameBtn);
     }
@@ -321,32 +321,32 @@ function createGrid(id, target) {
   //Contenedor de la grilla
   let grid = document.getElementById(id);
   //Patrón de letras
-  let gridLetters = ['0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+  let gridLetters = ["0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 
   gridLetters.forEach((letter, i) => {
-    let squareLine = document.createElement('div');
-    squareLine.setAttribute('class', 'grid-line ' + letter);
+    let squareLine = document.createElement("div");
+    squareLine.setAttribute("class", "grid-line " + letter);
 
     for (i = 0; i < 11; i++) {
-      let square = document.createElement('div');
-      square.setAttribute('id', target + letter + i);
-      square.setAttribute('class', 'grid-square');
+      let square = document.createElement("div");
+      square.setAttribute("id", target + letter + i);
+      square.setAttribute("class", "grid-square");
 
       if (
-        square.getAttribute('id') == 's00' ||
-        square.getAttribute('id') == 'p00'
+        square.getAttribute("id") == "s00" ||
+        square.getAttribute("id") == "p00"
       ) {
-        square.classList.add('blank');
-      } else if (letter === '0') {
-        square.classList.add('column-name');
+        square.classList.add("blank");
+      } else if (letter === "0") {
+        square.classList.add("column-name");
         square.innerHTML = `<p>${i}</p>`;
       } else if (i === 0) {
-        square.classList.add('column-num');
+        square.classList.add("column-num");
         square.innerHTML = `<p>${letter.toUpperCase()}</p>`;
-      } else if (target == 'p') {
-        square.classList.add('wah');
-      } else if (target == 's') {
-        square.classList.add('battle-square');
+      } else if (target == "p") {
+        square.classList.add("wah");
+      } else if (target == "s") {
+        square.classList.add("battle-square");
       }
 
       squareLine.appendChild(square);
@@ -361,8 +361,8 @@ function createGrid(id, target) {
 function paintThemShips(ship) {
   ship.locations.forEach(location => {
     document
-      .getElementById('p' + location.toLowerCase())
-      .classList.add('piece');
+      .getElementById("p" + location.toLowerCase())
+      .classList.add("piece");
   });
 }
 
@@ -375,8 +375,8 @@ function paintThemSalvoes(data, gamePlayerId) {
 
   Object.entries(data.salvoes[p1Id]).forEach(turn => {
     turn[1].forEach(location => {
-      salvoLocation = document.getElementById('s' + location.toLowerCase());
-      salvoLocation.classList.add('salvo');
+      salvoLocation = document.getElementById("s" + location.toLowerCase());
+      salvoLocation.classList.add("salvo");
       salvoLocation.innerHTML = `<p>${turn[0]}</p>`;
     });
   });
@@ -392,10 +392,10 @@ function paintThemHits(data, gamePlayerId) {
   if (data.salvoes[p2Id]) {
     Object.entries(data.salvoes[p2Id]).forEach(turn => {
       turn[1].forEach(location => {
-        hitLocation = document.getElementById('p' + location.toLowerCase());
+        hitLocation = document.getElementById("p" + location.toLowerCase());
 
-        if (hitLocation.classList.contains('piece')) {
-          hitLocation.classList.add('hit');
+        if (hitLocation.classList.contains("piece")) {
+          hitLocation.classList.add("hit");
           hitLocation.innerHTML = `<p>${turn[0]}</p>`;
         }
       });
@@ -405,8 +405,8 @@ function paintThemHits(data, gamePlayerId) {
 
 //Función que coloca nombre de los jugadores
 function playerNames(data, gpId) {
-  let p1Name = Array.from(document.getElementsByClassName('player1'));
-  let p2Name = Array.from(document.getElementsByClassName('player2'));
+  let p1Name = Array.from(document.getElementsByClassName("player1"));
+  let p2Name = Array.from(document.getElementsByClassName("player2"));
 
   data.game_players.forEach(gp => {
     if (gp.game_player_id == gpId) {
@@ -422,7 +422,7 @@ function playerNames(data, gpId) {
 //En base a fleetstatus del game view
 
 function fleetReport(data) {
-  let queryStringGP = getQueryVariable('gp');
+  let queryStringGP = getQueryVariable("gp");
 
   let p1Id = data.game_players.filter(
     gp => gp.game_player_id == queryStringGP
@@ -432,29 +432,29 @@ function fleetReport(data) {
     gp => gp.game_player_id != queryStringGP
   )[0].player_detail.id;
 
-  liveFeed('player1fleet', data.fleet_status[p1Id]);
+  liveFeed("player1fleet", data.fleet_status[p1Id]);
 
-  liveFeed('player2fleet', data.fleet_status[p2Id]);
+  liveFeed("player2fleet", data.fleet_status[p2Id]);
 }
 
 function liveFeed(containerId, arrayInfo) {
   arrayInfo.forEach(turn => {
     if (turn.hits.lenght != 0) {
       turn.hits.forEach(hit => {
-        let turnRow = document.createElement('tr');
+        let turnRow = document.createElement("tr");
 
-        let turnCell = document.createElement('td');
+        let turnCell = document.createElement("td");
         turnCell.innerHTML = `<p>${turn.turn}</p>`;
 
-        let shipTypeCell = document.createElement('td');
+        let shipTypeCell = document.createElement("td");
         shipTypeCell.innerHTML = `<p>${hit.ship}</p>`;
 
-        let dmgCell = document.createElement('td');
+        let dmgCell = document.createElement("td");
 
         if (hit.sunk) {
           dmgCell.innerHTML = `<p>Sunk!</p>`;
           document.getElementById(
-            containerId + 'Brief'
+            containerId + "Brief"
           ).innerHTML += `<li><p>${hit.ship}</p></li>`;
         } else {
           dmgCell.innerHTML = `<p>${hit.dmg.length}</p>`;
@@ -470,7 +470,7 @@ function liveFeed(containerId, arrayInfo) {
   });
 }
 
-//-----------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------
 // Ship placement madness
 // Drag'n Droppin
 
@@ -485,26 +485,26 @@ let provisoryShip;
 
 /* Eventos sobre elemento arrastrado */
 document.addEventListener(
-  'drag',
+  "drag",
   function(event) {
     let ship = event.target;
-    ship.classList.add('hide');
+    ship.classList.add("hide");
   },
   false
 );
 
 document.addEventListener(
-  'dragstart',
+  "dragstart",
   function(event) {
     //referencia de elemento arrastrado, no todos los eventListener tienen acceso
-    event.dataTransfer.setData('text/plain', event.target.id);
-    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData("text/plain", event.target.id);
+    event.dataTransfer.effectAllowed = "move";
 
-    draggedItemId = event.dataTransfer.getData('text');
+    draggedItemId = event.dataTransfer.getData("text");
 
     let cell = event.target.parentElement;
 
-    if (cell.classList.contains('piece')) {
+    if (cell.classList.contains("piece")) {
       let availableSpace = availableSpaceTakingIntoAccountShipRotation(
         cell,
         draggedItemId
@@ -514,7 +514,7 @@ document.addEventListener(
 
       provisoryShip = data.positions;
 
-      data.positions.forEach(square => square.classList.remove('piece'));
+      data.positions.forEach(square => square.classList.remove("piece"));
 
       event.target.nextSibling.remove();
     }
@@ -523,11 +523,11 @@ document.addEventListener(
 );
 
 document.addEventListener(
-  'dragend',
+  "dragend",
   function(event) {
     let ship = event.target;
 
-    ship.classList.remove('hide');
+    ship.classList.remove("hide");
   },
   false
 );
@@ -535,16 +535,16 @@ document.addEventListener(
 /*Eventos sobre el contenedor destino*/
 //efecto permitido del contenedor destino drop/no drop
 document.addEventListener(
-  'dragover',
+  "dragover",
   function(event) {
     let cell = event.target;
-    if (cell.classList.contains('wah')) {
+    if (cell.classList.contains("wah")) {
       // prevent default to allow drop
       event.preventDefault();
-      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.effectAllowed = "move";
     } else {
       event.preventDefault();
-      event.dataTransfer.effectAllowed = 'none';
+      event.dataTransfer.effectAllowed = "none";
     }
   },
   false
@@ -552,11 +552,11 @@ document.addEventListener(
 
 //Lógica de mostrar posiciones permitidas
 document.addEventListener(
-  'dragenter',
+  "dragenter",
   function(event) {
     let cell = event.target;
 
-    if (cell.classList.contains('wah')) {
+    if (cell.classList.contains("wah")) {
       event.preventDefault();
 
       let availableSpace = availableSpaceTakingIntoAccountShipRotation(
@@ -569,20 +569,20 @@ document.addEventListener(
         shipLocations = data.positions;
 
         shipLocations.forEach(square => {
-          if (!square.classList.contains('piece')) {
-            square.classList.add('space');
-            square.classList.remove('noSpace');
+          if (!square.classList.contains("piece")) {
+            square.classList.add("space");
+            square.classList.remove("noSpace");
           } else {
-            square.classList.add('noSpace');
+            square.classList.add("noSpace");
           }
         });
       } else {
         shipLocations = availableSpace;
-        availableSpace.forEach(square => square.classList.add('noSpace'));
+        availableSpace.forEach(square => square.classList.add("noSpace"));
       }
     } else {
-      Array.from(document.getElementsByClassName('wah')).forEach(square =>
-        square.classList.remove('space', 'noSpace')
+      Array.from(document.getElementsByClassName("wah")).forEach(square =>
+        square.classList.remove("space", "noSpace")
       );
     }
   },
@@ -590,12 +590,12 @@ document.addEventListener(
 );
 
 document.addEventListener(
-  'dragleave',
+  "dragleave",
   function(event) {
     //Resetear celdas cuando se quita el barco del lugar
     let cell = event.target;
 
-    if (cell.classList.contains('wah')) {
+    if (cell.classList.contains("wah")) {
       let availableSpace = availableSpaceTakingIntoAccountShipRotation(
         cell,
         draggedItemId
@@ -605,20 +605,20 @@ document.addEventListener(
 
       removeData.positions
         .filter(square => !shipLocations.includes(square))
-        .forEach(square => square.classList.remove('space', 'noSpace'));
+        .forEach(square => square.classList.remove("space", "noSpace"));
     }
   },
   false
 );
 
 document.addEventListener(
-  'drop',
+  "drop",
   function(event) {
     let cell = event.target;
-    let ship = document.getElementById(event.dataTransfer.getData('text'));
+    let ship = document.getElementById(event.dataTransfer.getData("text"));
 
     //Si es en un lugar permitido
-    if (cell.classList.contains('wah')) {
+    if (cell.classList.contains("wah")) {
       // prevent default
       event.preventDefault();
 
@@ -626,49 +626,49 @@ document.addEventListener(
         cell.appendChild(ship);
 
         shipLocations.forEach(square => {
-          square.classList.remove('space');
-          square.classList.add('piece');
+          square.classList.remove("space");
+          square.classList.add("piece");
         });
 
         addShipToArray(shipsForPost, ship.id, shipLocations);
 
         addRotateBtn(cell, draggedItemId);
 
-        console.log('drop succesfull');
+        console.log("drop succesfull");
       } else {
         if (provisoryShip.length != 0) {
           provisoryShip.forEach(square => {
-            square.classList.add('piece');
+            square.classList.add("piece");
           });
 
           addRotateBtn(provisoryShip[0], draggedItemId);
         }
 
-        console.log('drop failed, orangy thingy');
+        console.log("drop failed, orangy thingy");
       }
 
-      Array.from(document.getElementsByClassName('wah')).forEach(square =>
-        square.classList.remove('space', 'noSpace')
+      Array.from(document.getElementsByClassName("wah")).forEach(square =>
+        square.classList.remove("space", "noSpace")
       );
       event.dataTransfer.clearData();
-      draggedItemId = '';
+      draggedItemId = "";
       shipLocations = [];
       provisoryShip = [];
     } else {
       if (provisoryShip.length != 0) {
         provisoryShip.forEach(square => {
-          square.classList.add('piece');
+          square.classList.add("piece");
         });
 
         addRotateBtn(provisoryShip[0], draggedItemId);
       }
-      console.log('drop failed, not valid area');
+      console.log("drop failed, not valid area");
 
-      Array.from(document.getElementsByClassName('wah')).forEach(square =>
-        square.classList.remove('space', 'noSpace')
+      Array.from(document.getElementsByClassName("wah")).forEach(square =>
+        square.classList.remove("space", "noSpace")
       );
       event.dataTransfer.clearData();
-      draggedItemId = '';
+      draggedItemId = "";
       shipLocations = [];
       provisoryShip = [];
     }
@@ -679,7 +679,7 @@ document.addEventListener(
 //Si hay espacio suficiente, devuelve true y un array de posiciones del barco
 function fits(id, array) {
   switch (id) {
-    case 'carrier':
+    case "carrier":
       return array.length >= 5
         ? {
             fits: true,
@@ -689,8 +689,7 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-      break;
-    case 'battleship':
+    case "battleship":
       return array.length >= 4
         ? {
             fits: true,
@@ -700,8 +699,7 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-      break;
-    case 'destroyer':
+    case "destroyer":
       return array.length >= 3
         ? {
             fits: true,
@@ -711,8 +709,7 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-      break;
-    case 'submarine':
+    case "submarine":
       return array.length >= 3
         ? {
             fits: true,
@@ -722,8 +719,7 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-      break;
-    case 'patrolboat':
+    case "patrolboat":
       return array.length >= 2
         ? {
             fits: true,
@@ -733,23 +729,22 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-      break;
   }
 }
 //true si es una posición válida
 
 function dropPossible(array) {
   return (
-    array.every(square => !square.classList.contains('piece')) &&
-    array.every(square => !square.classList.contains('noSpace'))
+    array.every(square => !square.classList.contains("piece")) &&
+    array.every(square => !square.classList.contains("noSpace"))
   );
 }
 
 //botton para rotar barcos
 function addRotateBtn(cell, imgId) {
-  let btn = document.createElement('button');
-  btn.setAttribute('class', 'rotate-btn');
-  btn.setAttribute('onclick', `rotateShip("${imgId}")`);
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "rotate-btn");
+  btn.setAttribute("onclick", `rotateShip("${imgId}")`);
 
   cell.appendChild(btn);
 }
@@ -761,30 +756,30 @@ function rotateShip(imgId) {
   let availableSpace;
   let data;
 
-  if (cell.classList.contains('piece')) {
+  if (cell.classList.contains("piece")) {
     availableSpace = availableSpaceTakingIntoAccountShipRotation(cell, imgId);
 
     data = fits(imgId, availableSpace);
 
     provisoryShip = data.positions;
 
-    data.positions.forEach(square => square.classList.remove('piece'));
+    data.positions.forEach(square => square.classList.remove("piece"));
   }
 
-  shipImg.classList.toggle('rotated');
+  shipImg.classList.toggle("rotated");
 
   posibleSpace = availableSpaceTakingIntoAccountShipRotation(cell, imgId);
 
   posibleData = fits(imgId, posibleSpace);
 
   if (dropPossible(posibleData.positions) && posibleData.fits) {
-    posibleData.positions.forEach(square => square.classList.add('piece'));
+    posibleData.positions.forEach(square => square.classList.add("piece"));
 
     addShipToArray(shipsForPost, imgId, posibleData.positions);
   } else {
-    shipImg.classList.toggle('rotated');
+    shipImg.classList.toggle("rotated");
 
-    provisoryShip.forEach(square => square.classList.add('piece'));
+    provisoryShip.forEach(square => square.classList.add("piece"));
   }
 }
 
@@ -792,12 +787,12 @@ function rotateShip(imgId) {
 function availableSpaceTakingIntoAccountShipRotation(cell, shipId) {
   let ship = document.getElementById(shipId);
 
-  if (ship.classList.contains('rotated')) {
-    let gridLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+  if (ship.classList.contains("rotated")) {
+    let gridLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 
     let gridLetterNumber = gridLetters.indexOf(cell.id.slice(1, 2));
 
-    let grid = Array.from(document.getElementsByClassName('wah'));
+    let grid = Array.from(document.getElementsByClassName("wah"));
 
     let gridRow = grid.filter(square => square.id.slice(2) == cell.id.slice(2));
 
@@ -828,28 +823,28 @@ function addShipToArray(shipArr, shipId, locations) {
 //Ubicación de salvoes
 function addSalvoToList(evt) {
   if (
-    !evt.target.classList.contains('salvo') &&
-    !evt.target.classList.contains('shot') &&
+    !evt.target.classList.contains("salvo") &&
+    !evt.target.classList.contains("shot") &&
     salvoesForPost.length < 5
   ) {
-    evt.target.classList.add('shot');
+    evt.target.classList.add("shot");
 
     salvoesForPost.push(evt.target.id.slice(1));
-  } else if (evt.target.classList.contains('shot')) {
-    evt.target.classList.remove('shot');
+  } else if (evt.target.classList.contains("shot")) {
+    evt.target.classList.remove("shot");
 
     salvoesForPost.splice(salvoesForPost.indexOf(evt.target.id.slice(1)), 1);
   } else {
-    alert('Only five shots per round');
+    alert("Only five shots per round");
   }
 }
 
 //Agrega el event listener on click a la grilla
 function salvoesEventListener() {
-  let battleGrid = Array.from(document.getElementsByClassName('battle-square'));
+  let battleGrid = Array.from(document.getElementsByClassName("battle-square"));
 
   battleGrid.forEach(square =>
-    square.addEventListener('click', addSalvoToList)
+    square.addEventListener("click", addSalvoToList)
   );
 }
 
@@ -861,18 +856,18 @@ async function customFetch(
   reqMethod,
   pathUrl,
   headerParams = [],
-  reqBody = ''
+  reqBody = ""
 ) {
   let init;
 
   switch (reqMethod) {
-    case 'GET':
+    case "GET":
       init = {
-        method: 'GET'
+        method: "GET"
       };
       break;
 
-    case 'POST':
+    case "POST":
       if (headerParams.length != 0) {
         let headerObj = new Headers();
         headerParams.forEach(header =>
@@ -880,13 +875,13 @@ async function customFetch(
         );
 
         init = {
-          method: 'POST',
+          method: "POST",
           headers: headerObj,
           body: reqBody
         };
       } else {
         init = {
-          method: 'POST'
+          method: "POST"
         };
       }
   }
@@ -901,9 +896,9 @@ async function customFetch(
 //Función que captura el valor de una variable del query string
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
-  var vars = query.split('&');
+  var vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
+    var pair = vars[i].split("=");
     if (pair[0] == variable) {
       return pair[1];
     }

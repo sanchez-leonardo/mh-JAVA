@@ -1,4 +1,4 @@
-export async function customFetch(
+async function customFetch(
   reqMethod,
   pathUrl,
   headerParams = [],
@@ -36,8 +36,21 @@ export async function customFetch(
   }
 }
 
+//Función que captura el valor de una variable del query string
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split('&');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+    if (pair[0] == variable) {
+      return pair[1];
+    }
+  }
+  return false;
+}
+
 function emailIsValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export default { customFetch, emailIsValid };
+export { customFetch, getQueryVariable, emailIsValid };

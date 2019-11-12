@@ -9,7 +9,7 @@
 
 <script>
 import Grid from "./Grid";
-import { customFetch } from "../../utilities_script";
+import { customFetch } from "../scripts/utilities_script";
 
 export default {
   name: "GameView",

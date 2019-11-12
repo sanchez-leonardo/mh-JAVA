@@ -11,8 +11,11 @@
         src="../assets/ships/carrierhor.png"
         id="carrier"
         class="ship image"
-        draggable="true"
         alt="carrier image"
+        draggable="true"
+        @drag="drag"
+        @dragstart="dragstart"
+        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -26,8 +29,11 @@
         src="../assets/ships/battleshiphor.png"
         id="battleship"
         class="ship image"
-        draggable="true"
         alt="battleship image"
+        draggable="true"
+        @drag="drag"
+        @dragstart="dragstart"
+        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -41,8 +47,11 @@
         src="../assets/ships/destroyerhor.png"
         id="destroyer"
         class="ship image"
-        draggable="true"
         alt="destroyer image"
+        draggable="true"
+        @drag="drag"
+        @dragstart="dragstart"
+        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -56,8 +65,11 @@
         src="../assets/ships/submarinehor.png"
         id="submarine"
         class="ship image"
-        draggable="true"
         alt="submarine image"
+        draggable="true"
+        @drag="drag"
+        @dragstart="dragstart"
+        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -71,66 +83,71 @@
         src="../assets/ships/patrolboathor.png"
         id="patrolboat"
         class="ship image"
-        draggable="true"
         alt="patrolboat image"
+        draggable="true"
+        @drag="drag"
+        @dragstart="dragstart"
+        @dragend="dragend"
       />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+// eslint-disable-next-line no-unused-vars
+import {
+  draggedItemId,
+  // eslint-disable-next-line no-unused-vars
+  provisoryShip,
+  availableSpaceTakingIntoAccountShipRotation,
+  fits
+} from "../scripts/drag_and_drop";
+
+export default {
+  data() {
+    return {};
+  },
+
+  methods: {
+    /* Eventos sobre elemento arrastrado */
+    drag(event) {
+      let ship = event.target;
+      ship.classList.add("hide");
+    },
+
+    dragstart(event) {
+      //referencia de elemento arrastrado, no todos los eventListener tienen acceso
+      event.dataTransfer.setData("text/plain", event.target.id);
+      event.dataTransfer.effectAllowed = "move";
+
+      draggedItemId = event.dataTransfer.getData("text");
+
+      let cell = event.target.parentElement;
+
+      if (cell.classList.contains("piece")) {
+        let availableSpace = availableSpaceTakingIntoAccountShipRotation(
+          cell,
+          draggedItemId
+        );
+
+        let data = fits(draggedItemId, availableSpace);
+
+        provisoryShip = data.positions;
+
+        data.positions.forEach(square => square.classList.remove("piece"));
+
+        event.target.nextSibling.remove();
+      }
+    },
+
+    dragend(event) {
+      let ship = event.target;
+
+      ship.classList.remove("hide");
+    }
+  }
+};
 </script>
 
 <style>
-.available-ships {
-  display: flex;
-  height: 30px;
-}
-
-.holder {
-  float: left;
-  position: relative;
-}
-
-.image {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-}
-
-.shadow {
-  opacity: 0.5;
-  position: relative;
-  z-index: 0;
-}
-
-.holder .image {
-  width: 100%;
-}
-
-.wah .image {
-  height: 100%;
-}
-
-.space {
-  background-color: darkgreen;
-}
-
-.noSpace {
-  background-color: coral;
-}
-
-.rotate-btn {
-  height: 50%;
-  width: 50%;
-  position: relative;
-  z-index: 5;
-  background-image: url("../assets/rotate.png");
-}
-
-.rotated {
-  transform-origin: 10%;
-  transform: rotate(90deg);
-}
 </style>

@@ -7,19 +7,9 @@
       <label for="password">E-Mail</label>
       <input id="password" type="password" v-model="formData.password" />
 
-      <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">
-        Log In!
-      </v-btn>
+      <v-btn small dark color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
 
-      <v-btn
-        small
-        color="primary"
-        type="submit"
-        id="sign-up"
-        v-on:click="signUp"
-      >
-        Sign Up!
-      </v-btn>
+      <v-btn small dark color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
     </form>
 
     <div v-if="user">
