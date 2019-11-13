@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-container tag="section">
     <leaderboard />
     <games-table v-bind:gamesCallData="gamesCallData" />
-  </div>
+  </v-container>
 </template>
 
 <script>
-import Leaderboard from "./Learderboard";
+import Leaderboard from "./LearderboardTable";
 import GamesTable from "./CurrentGamesTable";
 
 export default {

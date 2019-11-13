@@ -31,6 +31,13 @@ export default {
     customFetch("GET", "/api/game_view/" + this.gpId)
       .then(response => response.json())
       .then(data => (this.gpInfo = data));
+  },
+
+  mounted() {
+    const dragAndDropScript = document.createElement("script");
+    dragAndDropScript.setAttribute("src", "./scripts/drag_and_drop.js");
+    dragAndDropScript.async = true;
+    document.head.appendChild(dragAndDropScript);
   }
 };
 </script>

@@ -1,12 +1,10 @@
 <template>
   <tr>
-    <td>{{game.id}}</td>
-    <td>{{player1}}</td>
-    <td>{{player2}}</td>
-    <td>{{game.created}}</td>
-    <td>
-      <status-cell v-if="loggedUser" v-bind:content="statusCell" />
-    </td>
+    <td class="text-center">{{game.id}}</td>
+    <td class="text-center">{{player1}}</td>
+    <td class="text-center">{{player2}}</td>
+    <td class="text-center">{{game.created}}</td>
+    <status-cell v-bind:content="statusCell" v-if="loggedUser" />
   </tr>
 </template>
 
@@ -53,27 +51,32 @@ export default {
 
       if (this.game.game_state == "over") {
         buttonContent = {
-          tag: "span",
+          tag: "cell",
           content: "Game Over"
         };
       } else {
         if (this.game.game_players.length == 2) {
           if (!this.userInGame) {
             buttonContent = {
-              tag: "span",
+              tag: "cell",
               content: "Game Full"
             };
           } else {
             buttonContent = {
-              tag: "span",
+              tag: "btn",
               content: "Re-Join"
             };
           }
         } else if (this.game.game_players.length == 1) {
           if (!this.userInGame) {
             buttonContent = {
-              tag: "span",
+              tag: "btn",
               content: "Join"
+            };
+          } else {
+            buttonContent = {
+              tag: "btn",
+              content: "Re-Join"
             };
           }
         }

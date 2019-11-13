@@ -13,9 +13,6 @@
         class="ship image"
         alt="carrier image"
         draggable="true"
-        @drag="drag"
-        @dragstart="dragstart"
-        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -31,9 +28,6 @@
         class="ship image"
         alt="battleship image"
         draggable="true"
-        @drag="drag"
-        @dragstart="dragstart"
-        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -49,9 +43,6 @@
         class="ship image"
         alt="destroyer image"
         draggable="true"
-        @drag="drag"
-        @dragstart="dragstart"
-        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -67,9 +58,6 @@
         class="ship image"
         alt="submarine image"
         draggable="true"
-        @drag="drag"
-        @dragstart="dragstart"
-        @dragend="dragend"
       />
     </div>
     <div class="holder">
@@ -85,67 +73,14 @@
         class="ship image"
         alt="patrolboat image"
         draggable="true"
-        @drag="drag"
-        @dragstart="dragstart"
-        @dragend="dragend"
       />
     </div>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import {
-  draggedItemId,
-  // eslint-disable-next-line no-unused-vars
-  provisoryShip,
-  availableSpaceTakingIntoAccountShipRotation,
-  fits
-} from "../scripts/drag_and_drop";
-
 export default {
-  data() {
-    return {};
-  },
-
-  methods: {
-    /* Eventos sobre elemento arrastrado */
-    drag(event) {
-      let ship = event.target;
-      ship.classList.add("hide");
-    },
-
-    dragstart(event) {
-      //referencia de elemento arrastrado, no todos los eventListener tienen acceso
-      event.dataTransfer.setData("text/plain", event.target.id);
-      event.dataTransfer.effectAllowed = "move";
-
-      draggedItemId = event.dataTransfer.getData("text");
-
-      let cell = event.target.parentElement;
-
-      if (cell.classList.contains("piece")) {
-        let availableSpace = availableSpaceTakingIntoAccountShipRotation(
-          cell,
-          draggedItemId
-        );
-
-        let data = fits(draggedItemId, availableSpace);
-
-        provisoryShip = data.positions;
-
-        data.positions.forEach(square => square.classList.remove("piece"));
-
-        event.target.nextSibling.remove();
-      }
-    },
-
-    dragend(event) {
-      let ship = event.target;
-
-      ship.classList.remove("hide");
-    }
-  }
+  name: "ShipsContainer"
 };
 </script>
 

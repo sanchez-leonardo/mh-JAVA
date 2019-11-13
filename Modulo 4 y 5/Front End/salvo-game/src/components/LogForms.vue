@@ -1,28 +1,52 @@
 <template>
-  <div>
-    <form v-on:submit.prevent v-if="!user">
-      <label for="userName">E-Mail</label>
-      <input id="userName" type="text" v-model="formData.userName" />
+  <v-container>
+    <v-form v-on:submit.prevent dense>
+      <v-row justify="space-around" v-if="!user">
+        <v-col cols="5">
+          <v-text-field
+            id="userName"
+            type="text"
+            label="User Name"
+            v-model="formData.userName"
+            v-bind:rules="userNameRules"
+          ></v-text-field>
+        </v-col>
 
-      <label for="password">E-Mail</label>
-      <input id="password" type="password" v-model="formData.password" />
+        <v-col cols="5">
+          <v-text-field
+            id="password"
+            type="password"
+            label="Password"
+            v-model="formData.password"
+            v-bind:rules="passwordRules"
+          ></v-text-field>
+        </v-col>
 
-      <v-btn small dark color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
+        <v-col cols="1">
+          <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
+        </v-col>
 
-      <v-btn small dark color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
-    </form>
+        <v-col cols="1">
+          <v-btn small color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
+        </v-col>
+      </v-row>
 
-    <div v-if="user">
-      <h2>Hello {{ user.email }}</h2>
+      <v-row justify="space-around" v-if="user">
+        <v-col cols="8">
+          <h2 class="text-center">Hello {{ user.email }}</h2>
+        </v-col>
 
-      <form v-on:submit.prevent>
-        <button type="submit" id="log-out" v-on:click="logOut">Log Out!</button>
-      </form>
-    </div>
-  </div>
+        <v-col cols="4">
+          <v-btn small color="primary" type="submit" id="log-out" v-on:click="logOut">Log Out!</v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
+import { emailIsValid } from "../scripts/utilities_script";
+
 export default {
   name: "LogForms",
 
@@ -32,10 +56,17 @@ export default {
 
   data() {
     return {
+      valid: false,
       formData: {
         userName: "",
         password: ""
-      }
+      },
+      userNameRules: [
+        userName => emailIsValid(userName) || "Please, use a valid email"
+      ],
+      passwordRules: [
+        password => password.length > 2 || "Password must be 6 characters long"
+      ]
     };
   },
 

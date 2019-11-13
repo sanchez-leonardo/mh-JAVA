@@ -52,22 +52,73 @@ export default {
 </script>
 
 <style>
-.blank {
-  background-color: black;
+/* Grid */
+#player-grid,
+#salvo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(11, 1fr);
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  border: solid 2px black;
+}
+
+.grid-line {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+}
+
+.grid-square {
+  display: inline-block;
+  position: relative;
+  border: solid 1px black;
+  background-color: cornflowerblue;
+}
+
+.grid-square > p {
+  text-align: center;
+  color: white;
 }
 
 .column-name,
 .column-num {
-  background-color: darkgrey;
-  color: white;
+  background-color: darkgray;
 }
 
-.wah,
-.battle-square {
-  background-color: cadetblue;
+.blank {
+  background-color: black;
+}
+
+.wah {
+  background-color: cornflowerblue;
+}
+
+.piece {
+  background-color: limegreen;
+}
+
+.salvo {
+  background-color: slategrey;
+}
+
+.piece.hit {
+  background-color: crimson;
+}
+
+.shot {
+  background-color: darkblue;
+}
+
+/* Ship management */
+
+#player {
+  display: flex;
+  flex-direction: column;
 }
 
 .available-ships {
+  width: 500px;
   display: flex;
   height: 30px;
 }

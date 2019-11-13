@@ -8,8 +8,7 @@
       v-bind:class="squareClassManager(letter, number, target)"
       v-bind:letter="letter"
       v-bind:number="number"
-    >
-    </grid-square>
+    ></grid-square>
   </v-row>
 </template>
 
@@ -32,15 +31,15 @@ export default {
         target + letter + (number - 1) == "s00" ||
         target + letter + (number - 1) == "p00"
       ) {
-        return "blank";
+        return "grid-square blank";
       } else if (letter === "0") {
-        return "column-name";
+        return "grid-square column-name";
       } else if (number - 1 === 0) {
-        return "column-num";
+        return "grid-square column-num";
       } else if (target == "p" && number - 1 !== 0) {
-        return "wah";
+        return "grid-square wah";
       } else if (target == "s" && number - 1 !== 0) {
-        return "battle-square";
+        return "grid-square battle-square";
       }
     }
   }

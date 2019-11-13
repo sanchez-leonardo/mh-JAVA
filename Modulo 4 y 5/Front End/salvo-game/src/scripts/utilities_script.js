@@ -1,17 +1,17 @@
-async function customFetch(
+export async function customFetch(
   reqMethod,
   pathUrl,
   headerParams = [],
-  reqBody = ''
+  reqBody = ""
 ) {
   let init;
 
   switch (reqMethod) {
-    case 'GET':
-      init = { method: 'GET' };
+    case "GET":
+      init = { method: "GET" };
       break;
 
-    case 'POST':
+    case "POST":
       if (headerParams.length !== 0) {
         let headerObj = new Headers();
         headerParams.forEach(header =>
@@ -19,12 +19,12 @@ async function customFetch(
         );
 
         init = {
-          method: 'POST',
+          method: "POST",
           headers: headerObj,
           body: reqBody
         };
       } else {
-        init = { method: 'POST' };
+        init = { method: "POST" };
       }
   }
 
@@ -37,11 +37,11 @@ async function customFetch(
 }
 
 //Función que captura el valor de una variable del query string
-function getQueryVariable(variable) {
+export function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
-  var vars = query.split('&');
+  var vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
+    var pair = vars[i].split("=");
     if (pair[0] == variable) {
       return pair[1];
     }
@@ -49,8 +49,6 @@ function getQueryVariable(variable) {
   return false;
 }
 
-function emailIsValid(email) {
+export function emailIsValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
-export { customFetch, getQueryVariable, emailIsValid };

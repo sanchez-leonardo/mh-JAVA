@@ -1,7 +1,7 @@
 <template>
-  <header>
-    <h1>Battleship thingy</h1>
-  </header>
+  <v-container tag="header" fluid>
+    <h1 class="text-center">Battleship thingy</h1>
+  </v-container>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <app-header />
     <log-forms
       v-on:logIn="userLogIn($event)"
@@ -7,11 +7,13 @@
       v-on:logOut="userLogOut"
       v-bind:user="gamesCallData.currentUser"
     />
-    <!-- <router-view /> -->
-    <games-overview v-bind:gamesCallData="gamesCallData" />
-    <game-view v-bind:gpId="1" />
+    <v-content tag="main">
+      <!-- <router-view /> -->
+      <games-overview v-bind:gamesCallData="gamesCallData" />
+      <!-- <game-view v-bind:gpId="11" /> -->
+    </v-content>
     <app-footer />
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -20,7 +22,7 @@ import Header from "./components/Header.vue";
 import LogForms from "./components/LogForms";
 import Footer from "./components/Footer.vue";
 import Games from "./components/Games";
-import GameView from "./components/GameView";
+// import GameView from "./components/GameView";
 
 export default {
   name: "app",
@@ -28,8 +30,8 @@ export default {
     "app-header": Header,
     "log-forms": LogForms,
     "app-footer": Footer,
-    "games-overview": Games,
-    "game-view": GameView
+    "games-overview": Games
+    // "game-view": GameView
   },
 
   data() {
@@ -62,21 +64,22 @@ export default {
         formFields
       ).then(response => {
         if (response.ok) {
-          this.userLogIn(formFields).then(this.gamesInfo());
+          this.userLogIn(formFields);
         }
       });
     },
 
     userLogOut() {
-      customFetch("POST", "/api/logout").then(this.gamesInfo());
+      customFetch("POST", "/api/logout").then(() => this.gamesInfo());
     },
 
     gamesInfo() {
-      fetch("/api/games")
+      customFetch("GET", "/api/games")
         .then(response => response.json())
         .then(data => {
           this.gamesCallData = data;
-        });
+        })
+        .catch(err => (this.data = err));
     }
   },
 
