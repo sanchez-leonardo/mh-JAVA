@@ -1,8 +1,10 @@
 <template>
-  <v-col>
-    <h1>{{ (type + " grid") | capitalize }}</h1>
-    <ships-container v-if="type === 'player'" />
-    <div v-bind:id="type + '-grid'">
+  <v-col cols="5" align-self="center">
+    <h1
+      class="headline font-italic font-weight-medium text-left ma-2"
+    >{{ (type + " grid") | capitalize }}</h1>
+    <ships-container v-if="shipState" class="ma-2 mx-auto" />
+    <div v-bind:id="type + '-grid'" class="ma-2 mx-auto">
       <grid-line
         v-for="(gridLetter, key) in gridLetters"
         v-bind:key="key"
@@ -10,10 +12,25 @@
         v-bind:target="target"
       />
     </div>
+    <v-row align="center" justify="center" class="ma-2" no-gutters>
+      <v-col cols="auto" v-if="shipState">
+        <v-btn
+          medium
+          color="primary"
+          type="button"
+          id="post-ships"
+          v-on:click="postShips"
+        >Place Ships!</v-btn>
+      </v-col>
+      <v-col cols="auto" v-if="!shipState">
+        <v-btn medium color="primary" type="button" id="post-salvo" v-on:click="postShips">Shoot!</v-btn>
+      </v-col>
+    </v-row>
   </v-col>
 </template>
 
 <script>
+import { postShipList } from "../scripts/drag_and_drop";
 import GridLine from "./GridLine";
 import ShipsContainer from "./ShipsContainer";
 
@@ -25,7 +42,7 @@ export default {
     "ships-container": ShipsContainer
   },
 
-  props: { type: String },
+  props: { type: String, gpInfo: Object, gpId: String },
 
   data() {
     return {
@@ -40,12 +57,22 @@ export default {
       } else {
         return "s";
       }
+    },
+
+    shipState() {
+      return this.gpInfo.game_state === "ship";
     }
   },
 
   filters: {
     capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  },
+
+  methods: {
+    postShips() {
+      postShipList(event, this.gpId);
     }
   }
 };
@@ -55,19 +82,19 @@ export default {
 /* Grid */
 #player-grid,
 #salvo-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(11, 1fr);
+  /* display: grid; */
+  /* grid-template-columns: 1fr; */
+  /* grid-template-rows: repeat(11, 1fr); */
   width: 500px;
-  height: 500px;
-  margin: 0 auto;
-  border: solid 2px black;
+  /* height: 500px; */
+  /* margin: 0 auto; */
+  /* border: solid 2px black; */
 }
 
-.grid-line {
+/*.grid-line {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
-}
+} */
 
 .grid-square {
   display: inline-block;
@@ -124,7 +151,7 @@ export default {
 }
 
 .holder {
-  float: left;
+  /* float: left; */
   position: relative;
 }
 

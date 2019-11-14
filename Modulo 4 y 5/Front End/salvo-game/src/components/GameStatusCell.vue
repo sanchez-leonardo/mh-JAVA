@@ -21,31 +21,25 @@ export default {
   methods: {
     async joinGame(gameId) {
       let gpId;
-  await customFetch("POST", "/api/game/" + gameId + "/players")
-    .then(response => {
-      if (response.ok) {
-        response.json().then(body => gpId = body.gpId
-        );
-        
-      } else {
-        alert("Yeah... couldn't. Try again some other time");
+
+      await customFetch("POST", "/api/game/" + gameId + "/players")
+        .then(response => response.json())
+        .then(data => (gpId = data.gpId));
+
+      return gpId;
+    },
+
+    goToGameView(id) {
+      this.$router.push({ name: "GameView", params: { id: id } });
+    },
+
+    btnMethod() {
+      if (this.content.type === "join") {
+        this.joinGame(this.content.id).then(gpId => this.goToGameView(gpId));
+      } else if (this.content.type === "rejoin") {
+        this.goToGameView(this.content.id);
       }
-    })
-
-    return gpId
-},
-
-goToGameView(id){
-  this.$router.push({name: "GameView", params:{id: id}})
-},
-
-btnMethod(){
-  if (this.content.type === "join") {
-    this.joinGame(this.content.id).then((id) => this.goToGameView(id))
-  } else if(this.content.type === "rejoin"){
-    this.goToGameView(this.content.id)
-  }
-}
+    }
   }
 };
 </script>

@@ -1,7 +1,6 @@
 <template>
-  <v-row class="grid-line">
+  <v-row class="grid-line" no-gutters>
     <grid-square
-      no-gutters
       v-for="(number, key) in 11"
       v-bind:key="key"
       v-bind:id="target + letter + (number - 1)"

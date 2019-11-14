@@ -46,8 +46,10 @@ export default {
         .includes(this.user.email);
     },
 
-    userGpId(){
-      return this.game.game_players.filter(gp => gp.player.id === this.user.id)[0].id
+    userGpId() {
+      return this.game.game_players.filter(
+        gp => gp.player.id === this.user.id
+      )[0].id;
     },
 
     statusCell() {
@@ -74,7 +76,7 @@ export default {
               tag: "btn",
               type: "rejoin",
               content: "Re-Join",
-              id: this.userGpId
+              id: this.userGpId.toString()
             };
           }
         } else if (this.game.game_players.length == 1) {
@@ -90,7 +92,7 @@ export default {
               tag: "btn",
               type: "rejoin",
               content: "Re-Join",
-              id: this.userGpId
+              id: this.userGpId.toString()
             };
           }
         }

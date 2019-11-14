@@ -1,5 +1,5 @@
 <template>
-  <v-col v-html="renderContent"></v-col>
+  <v-col v-html="renderContent" class="pa-0" no-gutters></v-col>
 </template>
 
 <script>

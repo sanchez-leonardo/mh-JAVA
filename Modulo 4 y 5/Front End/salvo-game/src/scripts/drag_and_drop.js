@@ -1,48 +1,54 @@
 /* eslint-disable no-console */
-// import { customFetch, getQueryVariable } from './utilities_script';
+/*  eslint-disable no-unused-vars */
+
+// import { customFetch } from "./utilities_script";
 
 //contenedor para barcos ubicados
 let shipsForPost = [];
 
+//another super important annotation
+
 //Envío de lista de barcos
-// async function postShipList(evt) {
-//   evt.preventDefault();
+export function postShipList(evt, gpId) {
+  evt.preventDefault();
 
-//   if (shipsForPost.length == 5) {
-//     let gpId = getQueryVariable('gp');
+  console.log(gpId);
+  console.log(shipsForPost);
 
-//     customFetch(
-//       'POST',
-//       '/api/games/players/' + gpId + '/ships',
-//       [
-//         {
-//           'Content-Type': 'application/json;charset=UTF-8'
-//         }
-//       ],
-//       JSON.stringify(shipsForPost)
-//     )
-//       .then(response => {
-//         if (response.ok) {
-//           window.location.reload();
-//         }
-//       })
-//       .catch(error => console.log(error));
-//   } else {
-//     alert('Place all your ships to continue');
-//   }
-// }
+  // if (shipsForPost.length == 5) {
+  //   // let gpId = getQueryVariable('gp');
+  //   customFetch(
+  //     "POST",
+  //     "/api/games/players/" + gpId + "/ships",
+  //     [
+  //       {
+  //         "Content-Type": "application/json;charset=UTF-8"
+  //       }
+  //     ],
+  //     JSON.stringify(shipsForPost)
+  //   )
+  //     .then(response => {
+  //       if (response.ok) {
+  //         window.location.reload();
+  //       }
+  //     })
+  //     .catch(error => console.log(error));
+  // } else {
+  //   alert("Place all your ships to continue");
+  // }
+}
 
 // Ship placement madness
 // Drag'n Droppin
 
 //Variable necesaria para transportar el ID a los eventos donde no llega DataTransfer
-let draggedItemId;
+let draggedItemId = "";
 
 //Necesario para pasar info de posiciones de barco durante el drag
-let shipLocations;
+let shipLocations = [];
 
 //Ubicacion temporal del barco movido en caso q el destino no sea valido
-let provisoryShip;
+let provisoryShip = [];
 
 /* Eventos sobre elemento arrastrado */
 document.addEventListener(
@@ -310,7 +316,6 @@ function addRotateBtn(cell, imgId) {
 }
 
 //función que agrega la clase para rotar barcos
-// eslint-disable-next-line no-unused-vars
 function rotateShip(imgId) {
   let shipImg = document.getElementById(imgId);
   let cell = shipImg.parentElement;

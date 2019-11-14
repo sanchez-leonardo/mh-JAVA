@@ -1,47 +1,45 @@
 <template>
-  <v-container>
-    <v-form v-on:submit.prevent dense>
-      <v-row justify="space-around" v-if="!user">
-        <v-col cols="5">
-          <v-text-field
-            id="userName"
-            type="text"
-            label="User Name"
-            v-model="formData.userName"
-            v-bind:rules="userNameRules"
-          ></v-text-field>
-        </v-col>
+  <v-form v-on:submit.prevent dense>
+    <v-row justify="space-around" v-if="!user">
+      <v-col cols="5">
+        <v-text-field
+          id="userName"
+          type="text"
+          label="User Name"
+          v-model="formData.userName"
+          v-bind:rules="userNameRules"
+        ></v-text-field>
+      </v-col>
 
-        <v-col cols="5">
-          <v-text-field
-            id="password"
-            type="password"
-            label="Password"
-            v-model="formData.password"
-            v-bind:rules="passwordRules"
-          ></v-text-field>
-        </v-col>
+      <v-col cols="5">
+        <v-text-field
+          id="password"
+          type="password"
+          label="Password"
+          v-model="formData.password"
+          v-bind:rules="passwordRules"
+        ></v-text-field>
+      </v-col>
 
-        <v-col cols="1">
-          <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
-        </v-col>
+      <v-col cols="1">
+        <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
+      </v-col>
 
-        <v-col cols="1">
-          <v-btn small color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
-        </v-col>
-      </v-row>
+      <v-col cols="1">
+        <v-btn small color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
+      </v-col>
+    </v-row>
 
-      <v-row justify="space-around" v-if="user">
-        <v-col cols="8">
-          <h2 class="text-center">Hello {{ user.email }}</h2>
-        </v-col>
+    <v-row justify="space-around" v-if="user">
+      <v-col cols="8">
+        <h2 class="text-center">Hello {{ user.email }}</h2>
+      </v-col>
 
-        <v-col cols="4">
-          <v-btn small color="primary" type="submit" id="log-out" v-on:click="logOut">Log Out!</v-btn>
-        </v-col>
-      </v-row>
-    </v-form>
-  </v-container>
+      <v-col cols="4">
+        <v-btn small color="primary" type="submit" id="log-out" v-on:click="logOut">Log Out!</v-btn>
+      </v-col>
+    </v-row>
+  </v-form>
 </template>
 
 <script>
