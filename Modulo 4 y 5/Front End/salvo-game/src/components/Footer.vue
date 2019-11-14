@@ -1,5 +1,5 @@
 <template>
-  <v-footer app fixed>
+  <v-footer app absolute>
     <v-col class="text-center" cols="12">
       {{ new Date().getFullYear() }} —
       <strong>Not Extactly Copyrighted</strong>

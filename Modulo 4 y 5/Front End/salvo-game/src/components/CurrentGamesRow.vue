@@ -46,37 +46,51 @@ export default {
         .includes(this.user.email);
     },
 
+    userGpId(){
+      return this.game.game_players.filter(gp => gp.player.id === this.user.id)[0].id
+    },
+
     statusCell() {
       let buttonContent = {};
 
       if (this.game.game_state == "over") {
         buttonContent = {
           tag: "cell",
-          content: "Game Over"
+          type: "text",
+          content: "Game Over",
+          id: null
         };
       } else {
         if (this.game.game_players.length == 2) {
           if (!this.userInGame) {
             buttonContent = {
               tag: "cell",
-              content: "Game Full"
+              type: "text",
+              content: "Game Full",
+              id: null
             };
           } else {
             buttonContent = {
               tag: "btn",
-              content: "Re-Join"
+              type: "rejoin",
+              content: "Re-Join",
+              id: this.userGpId
             };
           }
         } else if (this.game.game_players.length == 1) {
           if (!this.userInGame) {
             buttonContent = {
               tag: "btn",
-              content: "Join"
+              type: "join",
+              content: "Join",
+              id: this.game.id
             };
           } else {
             buttonContent = {
               tag: "btn",
-              content: "Re-Join"
+              type: "rejoin",
+              content: "Re-Join",
+              id: this.userGpId
             };
           }
         }

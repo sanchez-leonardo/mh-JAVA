@@ -8,9 +8,8 @@
       v-bind:user="gamesCallData.currentUser"
     />
     <v-content tag="main">
-      <!-- <router-view /> -->
       <games-overview v-bind:gamesCallData="gamesCallData" />
-      <!-- <game-view v-bind:gpId="11" /> -->
+      <router-view></router-view>
     </v-content>
     <app-footer />
   </v-app>
@@ -31,7 +30,7 @@ export default {
     "log-forms": LogForms,
     "app-footer": Footer,
     "games-overview": Games
-    // "game-view": GameView
+    // ,    "game-view": GameView
   },
 
   data() {

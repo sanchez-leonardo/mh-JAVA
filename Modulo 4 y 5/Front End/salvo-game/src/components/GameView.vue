@@ -28,7 +28,7 @@ export default {
   },
 
   created() {
-    customFetch("GET", "/api/game_view/" + this.gpId)
+    customFetch("GET", "/api/game_view/" + this.$route.params.id)
       .then(response => response.json())
       .then(data => (this.gpInfo = data));
   },
