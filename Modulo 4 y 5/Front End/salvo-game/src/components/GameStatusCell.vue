@@ -19,14 +19,10 @@ export default {
   },
 
   methods: {
-    async joinGame(gameId) {
-      let gpId;
-
-      await customFetch("POST", "/api/game/" + gameId + "/players")
+    joinGame(gameId) {
+      return customFetch("POST", "/api/game/" + gameId + "/players")
         .then(response => response.json())
-        .then(data => (gpId = data.gpId));
-
-      return gpId;
+        .then(data => data.gpId.toString());
     },
 
     goToGameView(id) {

@@ -1,42 +1,51 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-/*  eslint-disable no-unused-vars */
-
-// import { customFetch } from "./utilities_script";
 
 //contenedor para barcos ubicados
 let shipsForPost = [];
 
-//another super important annotation
-
 //Envío de lista de barcos
-export function postShipList(evt, gpId) {
-  evt.preventDefault();
+// function postShipList(gpId) {
+//   if (shipsForPost.length == 5) {
+//     // let gpId = getQueryVariable('gp');
+//     customFetch(
+//       "POST",
+//       "/api/games/players/" + gpId + "/ships",
+//       [
+//         {
+//           "Content-Type": "application/json;charset=UTF-8"
+//         }
+//       ],
+//       JSON.stringify(shipsForPost)
+//     )
+//       .then(response => {
+//         if (response.ok) {
+//           window.location.reload();
+//         }
+//       })
+//       .catch(error => console.log(error));
+//   } else {
+//     alert("Place all your ships to continue");
+//   }
+// }
 
-  console.log(gpId);
-  console.log(shipsForPost);
-
-  // if (shipsForPost.length == 5) {
-  //   // let gpId = getQueryVariable('gp');
-  //   customFetch(
-  //     "POST",
-  //     "/api/games/players/" + gpId + "/ships",
-  //     [
-  //       {
-  //         "Content-Type": "application/json;charset=UTF-8"
-  //       }
-  //     ],
-  //     JSON.stringify(shipsForPost)
-  //   )
-  //     .then(response => {
-  //       if (response.ok) {
-  //         window.location.reload();
-  //       }
-  //     })
-  //     .catch(error => console.log(error));
-  // } else {
-  //   alert("Place all your ships to continue");
-  // }
+async function postShipList(gpId) {
+  if (shipsForPost.length == 5) {
+    return await fetch("/api/games/players/" + gpId + "/ships", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      body: JSON.stringify(shipsForPost)
+    });
+  } else {
+    alert("Place all your ships to continue");
+  }
 }
+
+// let shipsBtn = document.querySelector("#post-ships");
+
+// shipsBtn.addEventListener("click", postShipList(shipsBtn.dataset.gpId));
 
 // Ship placement madness
 // Drag'n Droppin

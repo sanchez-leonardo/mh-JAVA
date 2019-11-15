@@ -39,8 +39,18 @@ export default {
   },
 
   computed: {
+    shipState() {
+      return (
+        this.gpInfo.game_state === "ship" ||
+        this.gpInfo.game_player_state === "waiting_p2"
+      );
+    },
+
     salvoState() {
-      return this.gpInfo.game_state === "salvo";
+      return (
+        this.gpInfo.game_state === "salvo" ||
+        this.gpInfo.game_player_state === "waiting"
+      );
     },
 
     gpId() {
@@ -51,21 +61,26 @@ export default {
   methods: {
     goToGames() {
       this.$router.push("/");
+    },
+
+    getGameViewData() {
+      customFetch("GET", "/api/game_view/" + this.$route.params.id)
+        .then(response => response.json())
+        .then(data => (this.gpInfo = data));
     }
   },
 
   created() {
-    customFetch("GET", "/api/game_view/" + this.$route.params.id)
-      .then(response => response.json())
-      .then(data => (this.gpInfo = data));
-  },
-  mounted() {
-    require("../scripts/drag_and_drop");
-
-    // const dragAndDropScript = document.createElement("script");
-    // dragAndDropScript.setAttribute("src", "../src/scripts/drag_and_drop.js");
-    // dragAndDropScript.async = true;
-    // document.head.appendChild(dragAndDropScript);
+    this.getGameViewData();
   }
+  // ,
+  // mounted() {
+  //   require("../scripts/drag_and_drop");
+  //     const dragAndDropScript = document.createElement("script");
+  //     dragAndDropScript.setAttribute("src", "../src/scripts/drag_and_drop.js");
+  //     dragAndDropScript.async = true;
+  //     document.head.appendChild(dragAndDropScript);
+
+  // }
 };
 </script>

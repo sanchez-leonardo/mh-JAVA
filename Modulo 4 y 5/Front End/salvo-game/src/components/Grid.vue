@@ -3,7 +3,9 @@
     <h1
       class="headline font-italic font-weight-medium text-left ma-2"
     >{{ (type + " grid") | capitalize }}</h1>
+
     <ships-container v-if="shipState" class="ma-2 mx-auto" />
+
     <div v-bind:id="type + '-grid'" class="ma-2 mx-auto">
       <grid-line
         v-for="(gridLetter, key) in gridLetters"
@@ -12,6 +14,7 @@
         v-bind:target="target"
       />
     </div>
+
     <v-row align="center" justify="center" class="ma-2" no-gutters>
       <v-col cols="auto" v-if="shipState">
         <v-btn
@@ -19,18 +22,18 @@
           color="primary"
           type="button"
           id="post-ships"
-          v-on:click="postShips"
+          v-on:click.prevent="postShips"
         >Place Ships!</v-btn>
       </v-col>
-      <v-col cols="auto" v-if="!shipState">
-        <v-btn medium color="primary" type="button" id="post-salvo" v-on:click="postShips">Shoot!</v-btn>
+
+      <v-col cols="auto" v-if="salvoState">
+        <v-btn medium color="primary" type="button" id="post-salvo">Shoot!</v-btn>
       </v-col>
     </v-row>
   </v-col>
 </template>
 
 <script>
-import { postShipList } from "../scripts/drag_and_drop";
 import GridLine from "./GridLine";
 import ShipsContainer from "./ShipsContainer";
 
@@ -60,7 +63,14 @@ export default {
     },
 
     shipState() {
-      return this.gpInfo.game_state === "ship";
+      return (
+        this.gpInfo.game_state === "ship" ||
+        (this.gpInfo.game_state === "waiting_p2" && this.target === "p")
+      );
+    },
+
+    salvoState() {
+      return this.gpInfo.game_state === "salvo" && this.target === "s";
     }
   },
 
@@ -70,9 +80,14 @@ export default {
     }
   },
 
+  // eslint-disable-next-line no-console
   methods: {
     postShips() {
-      postShipList(event, this.gpId);
+      window.postShipList(this.gpId).then(response => {
+        if (response.ok) {
+          this.$forceUpdate;
+        }
+      });
     }
   }
 };

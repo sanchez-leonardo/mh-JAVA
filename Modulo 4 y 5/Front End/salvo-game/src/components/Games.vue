@@ -9,6 +9,17 @@
     <v-divider></v-divider>
     <leaderboard />
     <games-table v-bind:gamesCallData="gamesCallData" />
+    <v-row>
+      <v-col>
+        <v-btn
+          medium
+          color="primary"
+          type="button"
+          id="back-to-games"
+          v-on:click="createGame"
+        >Create Game</v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -72,6 +83,26 @@ export default {
           this.gamesCallData = data;
         })
         .catch(err => (this.data = err));
+    },
+
+    createGame(evt) {
+      evt.preventDefault();
+
+      customFetch("POST", "/api/games")
+        .then(response => {
+          if (response.status == 201) {
+            response.json().then(data =>
+              this.$router.push({
+                name: "GameView",
+                params: { id: data.gpId.toString() }
+              })
+            );
+          } else {
+            alert("Something went south, try again later");
+          }
+        })
+        // eslint-disable-next-line no-console
+        .catch(error => console.log(error));
     }
   },
 

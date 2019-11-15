@@ -85,7 +85,7 @@ export default {
               tag: "btn",
               type: "join",
               content: "Join",
-              id: this.game.id
+              id: this.game.id.toString()
             };
           } else {
             buttonContent = {
