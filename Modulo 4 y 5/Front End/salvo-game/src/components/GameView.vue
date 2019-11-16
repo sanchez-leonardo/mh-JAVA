@@ -8,14 +8,24 @@
           type="button"
           id="back-to-games"
           v-on:click="goToGames"
-        >Go Back</v-btn>
+          >Go Back</v-btn
+        >
       </v-col>
     </v-row>
 
     <v-row justify="space-around">
-      <grid v-bind:gpInfo="gpInfo" v-bind:type="playerGrid" v-bind:gpId="gpId" />
+      <grid
+        v-bind:gpInfo="gpInfo"
+        v-bind:type="playerGrid"
+        v-bind:gpId="gpId"
+      />
       <v-divider v-if="salvoState" vertical></v-divider>
-      <grid v-bind:gpInfo="gpInfo" v-bind:type="salvoGrid" v-bind:gpId="gpId" v-if="salvoState" />
+      <grid
+        v-bind:gpInfo="gpInfo"
+        v-bind:type="salvoGrid"
+        v-bind:gpId="gpId"
+        v-if="salvoState"
+      />
     </v-row>
   </v-container>
 </template>

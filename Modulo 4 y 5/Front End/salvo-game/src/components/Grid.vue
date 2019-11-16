@@ -80,14 +80,15 @@ export default {
     }
   },
 
-  // eslint-disable-next-line no-console
   methods: {
     postShips() {
-      window.postShipList(this.gpId).then(response => {
-        if (response.ok) {
-          this.$forceUpdate;
-        }
-      });
+      // window.postShipList(this.gpId).then(response => {
+      //   if (response.ok) {
+
+      //   }
+      // });
+      // eslint-disable-next-line no-console
+      console.log(window.shipsForPost);
     }
   }
 };

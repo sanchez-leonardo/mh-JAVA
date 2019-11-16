@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 //contenedor para barcos ubicados
-let shipsForPost = [];
+var shipsForPost = [];
 
 //Envío de lista de barcos
 // function postShipList(gpId) {
@@ -62,7 +62,7 @@ let provisoryShip = [];
 /* Eventos sobre elemento arrastrado */
 document.addEventListener(
   "drag",
-  function(event) {
+  function (event) {
     let ship = event.target;
     ship.classList.add("hide");
   },
@@ -71,7 +71,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragstart",
-  function(event) {
+  function (event) {
     //referencia de elemento arrastrado, no todos los eventListener tienen acceso
     event.dataTransfer.setData("shipId", event.target.id);
     event.dataTransfer.effectAllowed = "move";
@@ -100,7 +100,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragend",
-  function(event) {
+  function (event) {
     let ship = event.target;
 
     ship.classList.remove("hide");
@@ -112,7 +112,7 @@ document.addEventListener(
 //efecto permitido del contenedor destino drop/no drop
 document.addEventListener(
   "dragover",
-  function(event) {
+  function (event) {
     let cell = event.target;
     if (cell.classList.contains("wah")) {
       // prevent default to allow drop
@@ -129,7 +129,7 @@ document.addEventListener(
 //Lógica de mostrar posiciones permitidas
 document.addEventListener(
   "dragenter",
-  function(event) {
+  function (event) {
     let cell = event.target;
 
     if (cell.classList.contains("wah")) {
@@ -167,7 +167,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragleave",
-  function(event) {
+  function (event) {
     //Resetear celdas cuando se quita el barco del lugar
     let cell = event.target;
 
@@ -189,7 +189,7 @@ document.addEventListener(
 
 document.addEventListener(
   "drop",
-  function(event) {
+  function (event) {
     let cell = event.target;
     let ship = document.getElementById(event.dataTransfer.getData("shipId"));
 
@@ -256,55 +256,55 @@ document.addEventListener(
 function fits(id, array) {
   switch (id) {
     case "carrier":
-      return array.length >= 5
-        ? {
-            fits: true,
-            positions: array.slice(0, 5)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 5 ?
+        {
+          fits: true,
+          positions: array.slice(0, 5)
+        } :
+        {
+          fits: false,
+          positions: array
+        };
     case "battleship":
-      return array.length >= 4
-        ? {
-            fits: true,
-            positions: array.slice(0, 4)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 4 ?
+        {
+          fits: true,
+          positions: array.slice(0, 4)
+        } :
+        {
+          fits: false,
+          positions: array
+        };
     case "destroyer":
-      return array.length >= 3
-        ? {
-            fits: true,
-            positions: array.slice(0, 3)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 3 ?
+        {
+          fits: true,
+          positions: array.slice(0, 3)
+        } :
+        {
+          fits: false,
+          positions: array
+        };
     case "submarine":
-      return array.length >= 3
-        ? {
-            fits: true,
-            positions: array.slice(0, 3)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 3 ?
+        {
+          fits: true,
+          positions: array.slice(0, 3)
+        } :
+        {
+          fits: false,
+          positions: array
+        };
     case "patrolboat":
-      return array.length >= 2
-        ? {
-            fits: true,
-            positions: array.slice(0, 2)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 2 ?
+        {
+          fits: true,
+          positions: array.slice(0, 2)
+        } :
+        {
+          fits: false,
+          positions: array
+        };
   }
 }
 //true si es una posición válida
