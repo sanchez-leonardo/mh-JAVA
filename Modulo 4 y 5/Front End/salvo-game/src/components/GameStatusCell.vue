@@ -1,6 +1,6 @@
 <template>
   <td class="text-center">
-    <v-btn v-if="isButton" v-on:click="btnMethod" block color="error">{{content.content}}</v-btn>
+    <v-btn block color="error" v-if="isButton" v-on:click="btnMethod">{{content.content}}</v-btn>
     <p v-if="!isButton">{{content.content}}</p>
   </td>
 </template>
@@ -26,7 +26,7 @@ export default {
     },
 
     goToGameView(id) {
-      this.$router.push({ name: "GameView", params: { id: id } });
+      this.$router.push({ name: "GameView", params: { id } });
     },
 
     btnMethod() {

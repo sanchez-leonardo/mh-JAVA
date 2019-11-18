@@ -11,12 +11,7 @@
         </thead>
 
         <tbody>
-          <table-row
-            v-for="(game, key) in gamesCallData.games"
-            v-bind:user="gamesCallData.currentUser"
-            v-bind:game="game"
-            v-bind:key="key"
-          />
+          <TableRow v-for="game in currentGames" :game="game" :key="game.id" />
         </tbody>
       </v-simple-table>
     </v-col>
@@ -24,14 +19,22 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 import TableRow from "./CurrentGamesRow";
 
 export default {
   name: "CurrentGames",
   components: {
-    "table-row": TableRow
+    TableRow
   },
 
-  props: { gamesCallData: Object }
+  computed: mapGetters(["currentGames"]),
+
+  methods: mapActions(["getGamesInfo"]),
+
+  created() {
+    this.getGamesInfo();
+  }
 };
 </script>

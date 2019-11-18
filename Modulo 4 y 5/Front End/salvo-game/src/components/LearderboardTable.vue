@@ -12,7 +12,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="(user, key) in users" v-bind:key="key">
+          <tr v-for="user in leaderboardInfo" :key="user.id">
             <td class="text-center">{{user.email}}</td>
             <td class="text-center">{{user.scores.total}}</td>
             <td class="text-center">{{user.scores.win}}</td>
@@ -26,29 +26,19 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Leaderboard",
 
-  data() {
-    return {
-      leaderBoardData: []
-    };
-  },
+  computed: mapGetters(["leaderboardInfo"]),
 
-  computed: {
-    users() {
-      return this.leaderBoardData
-        .slice(0, 5)
-        .sort((a, b) => b.scores.total - a.scores.total);
-    }
+  methods: {
+    ...mapActions(["getLeaderboardInfo"])
   },
 
   created() {
-    fetch("/api/leaderboard").then(response => {
-      if (response.ok) {
-        response.json().then(data => (this.leaderBoardData = data));
-      }
-    });
+    this.getLeaderboardInfo();
   }
 };
 </script>

@@ -2,38 +2,42 @@
   <v-col cols="5" align-self="center">
     <h1
       class="headline font-italic font-weight-medium text-left ma-2"
-    >{{ (type + " grid") | capitalize }}</h1>
+    >{{ (gridName + " grid") | capitalize }}</h1>
 
-    <ships-container v-if="shipState" class="ma-2 mx-auto" />
+    <ShipsContainer v-if="shipsOrSalvoes === 'ships'" class="ma-2 mx-auto" />
 
-    <div v-bind:id="type + '-grid'" class="ma-2 mx-auto">
-      <grid-line
+    <div :id="gridName + '-grid'" class="ma-2 mx-auto">
+      <GridLine
         v-for="(gridLetter, key) in gridLetters"
-        v-bind:key="key"
-        v-bind:letter="gridLetter"
-        v-bind:target="target"
+        :key="key"
+        :letter="gridLetter"
+        :gridType="gridType"
       />
     </div>
 
     <v-row align="center" justify="center" class="ma-2" no-gutters>
-      <v-col cols="auto" v-if="shipState">
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'ships' && gridType === 'p'">
+        <v-btn medium color="primary" id="post-ships" @click.prevent="postShipList">Place Ships!</v-btn>
+      </v-col>
+
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'">
         <v-btn
           medium
           color="primary"
           type="button"
-          id="post-ships"
-          v-on:click.prevent="postShips"
-        >Place Ships!</v-btn>
-      </v-col>
-
-      <v-col cols="auto" v-if="salvoState">
-        <v-btn medium color="primary" type="button" id="post-salvo">Shoot!</v-btn>
+          id="post-salvo"
+          @click.prevent="postSalvoesList"
+        >Fire!</v-btn>
       </v-col>
     </v-row>
   </v-col>
 </template>
 
 <script>
+/* eslint-disable no-console */
+import { mapActions } from "vuex";
+import { customFetch } from "../scripts/utilities_script";
+
 import GridLine from "./GridLine";
 import ShipsContainer from "./ShipsContainer";
 
@@ -41,11 +45,11 @@ export default {
   name: "Grid",
 
   components: {
-    "grid-line": GridLine,
-    "ships-container": ShipsContainer
+    GridLine,
+    ShipsContainer
   },
 
-  props: { type: String, gpInfo: Object, gpId: String },
+  props: { gridName: String, gpId: String, shipsOrSalvoes: String },
 
   data() {
     return {
@@ -54,23 +58,12 @@ export default {
   },
 
   computed: {
-    target() {
-      if (this.type == "player") {
+    gridType() {
+      if (this.gridName === "player") {
         return "p";
       } else {
         return "s";
       }
-    },
-
-    shipState() {
-      return (
-        this.gpInfo.game_state === "ship" ||
-        (this.gpInfo.game_state === "waiting_p2" && this.target === "p")
-      );
-    },
-
-    salvoState() {
-      return this.gpInfo.game_state === "salvo" && this.target === "s";
     }
   },
 
@@ -81,14 +74,62 @@ export default {
   },
 
   methods: {
-    postShips() {
-      // window.postShipList(this.gpId).then(response => {
-      //   if (response.ok) {
+    ...mapActions(["getGameViewInfo"]),
 
-      //   }
-      // });
-      // eslint-disable-next-line no-console
-      console.log(window.shipsForPost);
+    postShipList() {
+      if (window.shipsForPost.length === 5) {
+        customFetch(
+          "POST",
+          "/api/games/players/" + this.gpId + "/ships",
+          [
+            {
+              "Content-Type": "application/json;charset=UTF-8"
+            }
+          ],
+          JSON.stringify(window.shipsForPost)
+        )
+          .then(response => {
+            if (response.ok) {
+              this.getGameViewInfo(this.gpId);
+            }
+          })
+          .catch(error => console.log(error));
+      } else {
+        alert("Place all your ships to continue");
+      }
+    },
+
+    postSalvoesList() {
+      if (
+        window.salvoesForPost.length != 0 &&
+        window.salvoesForPost.length <= 5
+      ) {
+        customFetch(
+          "POST",
+          "/api/games/players/" + this.gpId + "/salvoes",
+          [
+            {
+              "Content-Type": "application/json;charset=UTF-8"
+            }
+          ],
+          JSON.stringify(window.salvoesForPost)
+        )
+          .then(response => {
+            if (response.ok) {
+              this.getGameViewInfo(this.gpId);
+              window.salvoesForPost.length = 0;
+            }
+          })
+          .catch(error => console.log(error));
+      } else {
+        alert("Could not send salvoes");
+      }
+    }
+  },
+
+  mounted() {
+    if (this.gridType === "s") {
+      window.salvoesListeners();
     }
   }
 };
@@ -116,7 +157,6 @@ export default {
   display: inline-block;
   position: relative;
   border: solid 1px black;
-  background-color: cornflowerblue;
 }
 
 .grid-square > p {
@@ -133,7 +173,8 @@ export default {
   background-color: black;
 }
 
-.wah {
+.wah,
+.battle-square {
   background-color: cornflowerblue;
 }
 

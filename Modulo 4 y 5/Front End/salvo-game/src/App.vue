@@ -1,22 +1,25 @@
 <template>
   <v-app>
-    <app-header />
+    <Header />
+    <LogForms />
     <v-content tag="main">
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-content>
-    <app-footer />
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import LogForms from "./components/LogForms";
 import Footer from "./components/Footer.vue";
 
 export default {
   name: "app",
   components: {
-    "app-header": Header,
-    "app-footer": Footer
+    Header,
+    LogForms,
+    Footer
   }
 };
 </script>

@@ -1,54 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
+// Drag'n Droppin
+// Ship placement madness
+
 //contenedor para barcos ubicados
 var shipsForPost = [];
-
-//Envío de lista de barcos
-// function postShipList(gpId) {
-//   if (shipsForPost.length == 5) {
-//     // let gpId = getQueryVariable('gp');
-//     customFetch(
-//       "POST",
-//       "/api/games/players/" + gpId + "/ships",
-//       [
-//         {
-//           "Content-Type": "application/json;charset=UTF-8"
-//         }
-//       ],
-//       JSON.stringify(shipsForPost)
-//     )
-//       .then(response => {
-//         if (response.ok) {
-//           window.location.reload();
-//         }
-//       })
-//       .catch(error => console.log(error));
-//   } else {
-//     alert("Place all your ships to continue");
-//   }
-// }
-
-async function postShipList(gpId) {
-  if (shipsForPost.length == 5) {
-    return await fetch("/api/games/players/" + gpId + "/ships", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
-      body: JSON.stringify(shipsForPost)
-    });
-  } else {
-    alert("Place all your ships to continue");
-  }
-}
-
-// let shipsBtn = document.querySelector("#post-ships");
-
-// shipsBtn.addEventListener("click", postShipList(shipsBtn.dataset.gpId));
-
-// Ship placement madness
-// Drag'n Droppin
 
 //Variable necesaria para transportar el ID a los eventos donde no llega DataTransfer
 let draggedItemId = "";
@@ -62,7 +19,7 @@ let provisoryShip = [];
 /* Eventos sobre elemento arrastrado */
 document.addEventListener(
   "drag",
-  function (event) {
+  function(event) {
     let ship = event.target;
     ship.classList.add("hide");
   },
@@ -71,7 +28,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragstart",
-  function (event) {
+  function(event) {
     //referencia de elemento arrastrado, no todos los eventListener tienen acceso
     event.dataTransfer.setData("shipId", event.target.id);
     event.dataTransfer.effectAllowed = "move";
@@ -100,7 +57,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragend",
-  function (event) {
+  function(event) {
     let ship = event.target;
 
     ship.classList.remove("hide");
@@ -112,7 +69,7 @@ document.addEventListener(
 //efecto permitido del contenedor destino drop/no drop
 document.addEventListener(
   "dragover",
-  function (event) {
+  function(event) {
     let cell = event.target;
     if (cell.classList.contains("wah")) {
       // prevent default to allow drop
@@ -129,7 +86,7 @@ document.addEventListener(
 //Lógica de mostrar posiciones permitidas
 document.addEventListener(
   "dragenter",
-  function (event) {
+  function(event) {
     let cell = event.target;
 
     if (cell.classList.contains("wah")) {
@@ -167,7 +124,7 @@ document.addEventListener(
 
 document.addEventListener(
   "dragleave",
-  function (event) {
+  function(event) {
     //Resetear celdas cuando se quita el barco del lugar
     let cell = event.target;
 
@@ -189,7 +146,7 @@ document.addEventListener(
 
 document.addEventListener(
   "drop",
-  function (event) {
+  function(event) {
     let cell = event.target;
     let ship = document.getElementById(event.dataTransfer.getData("shipId"));
 
@@ -256,55 +213,55 @@ document.addEventListener(
 function fits(id, array) {
   switch (id) {
     case "carrier":
-      return array.length >= 5 ?
-        {
-          fits: true,
-          positions: array.slice(0, 5)
-        } :
-        {
-          fits: false,
-          positions: array
-        };
+      return array.length >= 5
+        ? {
+            fits: true,
+            positions: array.slice(0, 5)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "battleship":
-      return array.length >= 4 ?
-        {
-          fits: true,
-          positions: array.slice(0, 4)
-        } :
-        {
-          fits: false,
-          positions: array
-        };
+      return array.length >= 4
+        ? {
+            fits: true,
+            positions: array.slice(0, 4)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "destroyer":
-      return array.length >= 3 ?
-        {
-          fits: true,
-          positions: array.slice(0, 3)
-        } :
-        {
-          fits: false,
-          positions: array
-        };
+      return array.length >= 3
+        ? {
+            fits: true,
+            positions: array.slice(0, 3)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "submarine":
-      return array.length >= 3 ?
-        {
-          fits: true,
-          positions: array.slice(0, 3)
-        } :
-        {
-          fits: false,
-          positions: array
-        };
+      return array.length >= 3
+        ? {
+            fits: true,
+            positions: array.slice(0, 3)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "patrolboat":
-      return array.length >= 2 ?
-        {
-          fits: true,
-          positions: array.slice(0, 2)
-        } :
-        {
-          fits: false,
-          positions: array
-        };
+      return array.length >= 2
+        ? {
+            fits: true,
+            positions: array.slice(0, 2)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
   }
 }
 //true si es una posición válida
@@ -392,4 +349,37 @@ function addShipToArray(shipArr, shipId, locations) {
     let index = shipArr.findIndex(el => el.shipType == shipId);
     shipArr[index].shipLocations = locations.map(loc => loc.id.slice(1));
   }
+}
+
+//-----------------------------------------------------------------------------------
+
+//Array contenedor de salvoes
+var salvoesForPost = [];
+
+//Ubicación de salvoes
+function addSalvoToList(evt) {
+  if (
+    !evt.target.classList.contains("salvo") &&
+    !evt.target.classList.contains("shot") &&
+    salvoesForPost.length < 5
+  ) {
+    evt.target.classList.add("shot");
+
+    salvoesForPost.push(evt.target.id.slice(1));
+  } else if (evt.target.classList.contains("shot")) {
+    evt.target.classList.remove("shot");
+
+    salvoesForPost.splice(salvoesForPost.indexOf(evt.target.id.slice(1)), 1);
+  } else {
+    alert("Only five shots per round");
+  }
+}
+
+// Agrega el event listener on click a la grilla
+function salvoesListeners() {
+  let battleGrid = Array.from(document.getElementsByClassName("battle-square"));
+
+  battleGrid.forEach(square =>
+    square.addEventListener("click", addSalvoToList)
+  );
 }

@@ -1,56 +1,55 @@
 <template>
-  <v-form v-on:submit.prevent dense>
-    <v-row justify="space-around" v-if="!user">
-      <v-col cols="5">
-        <v-text-field
-          id="userName"
-          type="text"
-          label="User Name"
-          v-model="formData.userName"
-          v-bind:rules="userNameRules"
-        ></v-text-field>
-      </v-col>
+  <v-container>
+    <v-form v-on:submit.prevent dense>
+      <v-row justify="space-around" v-if="!currentUser">
+        <v-col cols="4">
+          <v-text-field
+            id="userName"
+            type="text"
+            label="User Name"
+            v-model="formData.userName"
+            :rules="userNameRules"
+          ></v-text-field>
+        </v-col>
 
-      <v-col cols="5">
-        <v-text-field
-          id="password"
-          type="password"
-          label="Password"
-          v-model="formData.password"
-          v-bind:rules="passwordRules"
-        ></v-text-field>
-      </v-col>
+        <v-col cols="4">
+          <v-text-field
+            id="password"
+            type="password"
+            label="Password"
+            v-model="formData.password"
+            :rules="passwordRules"
+          ></v-text-field>
+        </v-col>
 
-      <v-col cols="1">
-        <v-btn small color="primary" type="submit" id="log-in" v-on:click="logIn">Log In!</v-btn>
-      </v-col>
+        <v-col cols="2">
+          <v-btn block color="primary" id="log-in" @click.prevent="logIn">Log In!</v-btn>
+        </v-col>
 
-      <v-col cols="1">
-        <v-btn small color="primary" type="submit" id="sign-up" v-on:click="signUp">Sign Up!</v-btn>
-      </v-col>
-    </v-row>
+        <v-col cols="2">
+          <v-btn block color="primary" id="sign-up" @click.prevent="signUp">Sign Up!</v-btn>
+        </v-col>
+      </v-row>
 
-    <v-row justify="space-around" v-if="user">
-      <v-col cols="8">
-        <h2 class="text-center">Hello {{ user.email }}</h2>
-      </v-col>
+      <v-row justify="space-around" v-else>
+        <v-col cols="8">
+          <h2 class="text-center">Hello {{ currentUser.email }}</h2>
+        </v-col>
 
-      <v-col cols="4">
-        <v-btn small color="primary" type="submit" id="log-out" v-on:click="logOut">Log Out!</v-btn>
-      </v-col>
-    </v-row>
-  </v-form>
+        <v-col cols="2">
+          <v-btn block color="primary" id="log-out" @click.prevent="logOut">Log Out!</v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
-import { emailIsValid } from "../scripts/utilities_script";
+import { emailIsValid, customFetch } from "../scripts/utilities_script";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "LogForms",
-
-  props: {
-    user: Object
-  },
 
   data() {
     return {
@@ -68,21 +67,44 @@ export default {
     };
   },
 
+  computed: mapGetters(["currentUser"]),
+
   methods: {
+    ...mapActions(["getGamesInfo"]),
+
     logIn() {
-      this.$emit("logIn", this.formData);
-      this.formData.userName = "";
-      this.formData.password = "";
-    },
+      let formFields = new URLSearchParams(this.formData);
 
+      customFetch(
+        "POST",
+        "/api/login",
+        [{ "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" }],
+        formFields
+      ).then(response => {
+        if (response.ok) {
+          this.getGamesInfo();
+        }
+      });
+    },
     signUp() {
-      this.$emit("signUp", this.formData);
-      this.formData.userName = "";
-      this.formData.password = "";
+      let formFields = new URLSearchParams(this.formData);
+      customFetch(
+        "POST",
+        "/api/players",
+        [{ "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" }],
+        formFields
+      ).then(response => {
+        if (response.ok) {
+          this.getGamesInfo();
+        }
+      });
     },
-
     logOut() {
-      this.$emit("logOut");
+      customFetch("POST", "/api/logout").then(response => {
+        if (response.ok) {
+          this.getGamesInfo();
+        }
+      });
     }
   }
 };
