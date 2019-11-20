@@ -1,5 +1,12 @@
 <template>
-  <v-col :class="['pa-0', {piece: hasShip}, {hit: hasHit}, {salvo: hasSalvo}]" v-html="contents"></v-col>
+  <v-col
+    :class="['pa-0'
+  , {piece: hasShip}
+  , {hit: hasHit}
+  //, {salvo: hasSalvo}
+  ]"
+    v-html="contents"
+  ></v-col>
 </template>
 
 <script>
@@ -13,7 +20,7 @@ export default {
     ...mapGetters(["playerShips", "playerSalvoes", "opponentSalvoes"]),
 
     id() {
-      return this.$attrs.id;
+      return this.$attrs.id.slice(1, 3);
     },
 
     contents() {
@@ -27,34 +34,28 @@ export default {
         return "";
       }
     },
-
     hasShip() {
       return (
-        this.playerShips.length != 0 &&
+        this.playerShips != null &&
         this.gridType === "p" &&
-        this.playerShips.flatMap(ship => ship.locations).includes(this.id)
+        this.playerShips.includes(this.id)
       );
     },
-
     hasHit() {
       return (
-        this.opponentSalvoes !== null &&
-        Object.values(this.opponentSalvoes)
-          .flatMap(salvo => salvo)
-          .includes(this.id) &&
+        this.opponentSalvoes != null &&
+        this.opponentSalvoes.includes(this.id) &&
         this.gridType === "p"
       );
-    },
-
-    hasSalvo() {
-      return (
-        this.playerSalvoes !== null &&
-        Object.values(this.playerSalvoes)
-          .flatMap(salvo => salvo)
-          .includes(this.id) &&
-        this.letter === "s"
-      );
     }
+
+    // hasSalvo() {
+    //   return (
+    //     this.playerSalvoes !== null &&
+    //     this.playerSalvoes.includes(this.id) &&
+    //     this.letter === "s"
+    //   );
+    // }
   }
 };
 </script>

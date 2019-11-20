@@ -10,8 +10,6 @@ const state = {
 };
 
 const getters = {
-  //All game view
-  gameViewInfo: ({ gameView }) => gameView,
   //State from game player
   gameViewState: ({ gameView }) => {
     return {
@@ -21,10 +19,15 @@ const getters = {
     };
   },
   //Only player ships
-  playerShips: ({ gameView }) => gameView.ships,
+  playerShips: ({ gameView }) =>
+    gameView.ships ? gameView.ships.flatMap(ship => ship.locations) : null,
   //Only player salvoes
   playerSalvoes: ({ gameView }, getters) =>
-    gameView.salvoes[getters.currentUser.id] || null,
+    gameView.salvoes[getters.currentUser.id]
+      ? Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
+          salvo => salvo
+        )
+      : null,
 
   //Oponent salvoes
   opponentSalvoes: ({ gameView }, getters) =>
@@ -32,7 +35,15 @@ const getters = {
       gameView.game_players
         .flatMap(gp => gp.player_detail.id)
         .filter(id => id !== getters.currentUser.id)
-    ] || null,
+    ]
+      ? Object.values(
+          gameView.salvoes[
+            gameView.game_players
+              .flatMap(gp => gp.player_detail.id)
+              .filter(id => id !== getters.currentUser.id)
+          ]
+        ).flatMap(salvo => salvo)
+      : null,
 
   //Server's game state
   gameState: ({ gameState }) => gameState
