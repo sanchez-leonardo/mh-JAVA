@@ -3,14 +3,13 @@
     :class="['pa-0'
   , {piece: hasShip}
   , {hit: hasHit}
-  //, {salvo: hasSalvo}
+  , {salvo: hasSalvo}
   ]"
     v-html="contents"
   ></v-col>
 </template>
 
 <script>
-/* eslint-disable no-console */
 import { mapGetters } from "vuex";
 
 export default {
@@ -20,7 +19,7 @@ export default {
     ...mapGetters(["playerShips", "playerSalvoes", "opponentSalvoes"]),
 
     id() {
-      return this.$attrs.id.slice(1, 3);
+      return this.$attrs.id.slice(1);
     },
 
     contents() {
@@ -44,18 +43,17 @@ export default {
     hasHit() {
       return (
         this.opponentSalvoes != null &&
-        this.opponentSalvoes.includes(this.id) &&
-        this.gridType === "p"
+        this.gridType === "p" &&
+        this.opponentSalvoes.includes(this.id)
+      );
+    },
+    hasSalvo() {
+      return (
+        this.playerSalvoes !== null &&
+        this.gridType === "s" &&
+        this.playerSalvoes.includes(this.id)
       );
     }
-
-    // hasSalvo() {
-    //   return (
-    //     this.playerSalvoes !== null &&
-    //     this.playerSalvoes.includes(this.id) &&
-    //     this.letter === "s"
-    //   );
-    // }
   }
 };
 </script>

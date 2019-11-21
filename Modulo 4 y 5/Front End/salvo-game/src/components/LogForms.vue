@@ -103,6 +103,9 @@ export default {
       customFetch("POST", "/api/logout").then(response => {
         if (response.ok) {
           this.getGamesInfo();
+          if (this.$route.path !== "/") {
+            this.$router.push("/");
+          }
         }
       });
     }

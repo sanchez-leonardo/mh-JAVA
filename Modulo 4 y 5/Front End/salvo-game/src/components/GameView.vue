@@ -46,7 +46,8 @@ export default {
 
     shipsOrSalvoes({ gameViewState }) {
       if (
-        gameViewState.game_state === "ship" ||
+        (gameViewState.game_state === "ship" &&
+          gameViewState.game_player_state === "placing") ||
         (gameViewState.game_state === "waiting_p2" &&
           gameViewState.game_player_state === "placing")
       ) {
