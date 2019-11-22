@@ -275,8 +275,10 @@ function dropPossible(array) {
 //botton para rotar barcos
 function addRotateBtn(cell, imgId) {
   let btn = document.createElement("button");
-  btn.setAttribute("class", "rotate-btn");
+  btn.setAttribute("class", "rotate-btn btn-floating red");
   btn.setAttribute("onclick", `rotateShip("${imgId}")`);
+
+  // btn.innerHTML = `<i class="btn-img tiny material-icons">rotate-right</i>`;
 
   cell.appendChild(btn);
 }
