@@ -7,11 +7,10 @@
     </v-row>
 
     <v-row justify="space-around">
-      <Grid :gridName="playerGrid" :gpId="gpId" :shipsOrSalvoes="shipsOrSalvoes" />
+      <Grid :gridName="playerGrid" :shipsOrSalvoes="shipsOrSalvoes" />
       <v-divider vertical v-if="shipsOrSalvoes === 'salvoes'"></v-divider>
       <Grid
         :gridName="salvoGrid"
-        :gpId="gpId"
         :shipsOrSalvoes="shipsOrSalvoes"
         v-if="shipsOrSalvoes === 'salvoes'"
       />
@@ -26,6 +25,7 @@ import Grid from "./Grid";
 
 export default {
   name: "GameView",
+
   components: {
     Grid
   },
@@ -40,16 +40,11 @@ export default {
   computed: {
     ...mapGetters(["currentUser", "gameViewState"]),
 
-    gpId() {
-      return this.$route.params.id.toString();
-    },
-
     shipsOrSalvoes({ gameViewState }) {
       if (
-        (gameViewState.game_state === "ship" &&
-          gameViewState.game_player_state === "placing") ||
-        (gameViewState.game_state === "waiting_p2" &&
-          gameViewState.game_player_state === "placing")
+        (gameViewState.game_state === "ship" ||
+          gameViewState.game_state === "waiting_p2") &&
+        gameViewState.game_player_state === "placing"
       ) {
         return "ships";
       } else {
@@ -70,7 +65,7 @@ export default {
     if (!this.currentUser) {
       this.getGamesInfo();
     }
-    this.getGameViewInfo(this.gpId);
+    this.getGameViewInfo(this.$route.params.id.toString());
   },
 
   beforeDestroy() {

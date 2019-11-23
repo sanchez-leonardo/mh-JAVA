@@ -14,10 +14,19 @@ const state = {
 };
 
 const getters = {
+  //Id del oponente
+  opponentId: ({ gameView }, getters) => {
+    if (gameView.game_players.length === 2) {
+      return gameView.game_players
+        .flatMap(gp => gp.player_detail.id)
+        .filter(id => id !== getters.currentUser.id)[0];
+    } else {
+      return false;
+    }
+  },
+
   //State from game player
-  gameViewState: ({
-    gameView
-  }) => {
+  gameViewState: ({ gameView }) => {
     return {
       game_state: gameView.game_state,
       game_turn: gameView.game_turn,
@@ -26,42 +35,43 @@ const getters = {
   },
 
   //Only player ships
-  playerShips: ({
-      gameView
-    }) =>
-    gameView.ships.lenght !== 0 ? gameView.ships.flatMap(ship => ship.locations) : [],
+  playerShipsLocations: ({ gameView }) =>
+    gameView.ships.lenght !== 0
+      ? gameView.ships.flatMap(ship => ship.locations)
+      : [],
 
   //Only player salvoes
-  playerSalvoes: ({
-      gameView
-    }, getters) =>
-    Object.entries(gameView.salvoes).length !== 0 ?
-    Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
-      salvo => salvo
-    ) : [],
+  playerSalvoesLocations: ({ gameView }, getters) =>
+    gameView.game_players.length == 2 &&
+    Object.entries(gameView.salvoes).length !== 0
+      ? Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
+          salvo => salvo
+        )
+      : [],
 
   //Oponent salvoes
-  opponentSalvoes: ({
-    gameView
-  }, getters) => {
-    if (gameView.game_players.length == 2 && Object.entries(gameView.salvoes).length > 1) {
-
+  opponentSalvoesLocations: ({ gameView }, getters) => {
+    if (
+      gameView.game_players.length == 2 &&
+      Object.entries(gameView.salvoes).length > 1
+    ) {
       return Object.values(
         gameView.salvoes[
           gameView.game_players
-          .flatMap(gp => gp.player_detail.id)
-          .filter(id => id !== getters.currentUser.id)
+            .flatMap(gp => gp.player_detail.id)
+            .filter(id => id !== getters.currentUser.id)[0]
         ]
-      ).flatMap(salvo => salvo)
+      ).flatMap(salvo => salvo);
     } else {
-      return []
+      return [];
     }
   },
 
+  //Fleet Report
+  fleetStatus: ({ gameView }) => gameView.fleet_status || {},
+
   //Server's game state
-  gameState: ({
-    gameState
-  }) => gameState
+  gameState: ({ gameState }) => gameState
 };
 
 const mutations = {
@@ -86,25 +96,19 @@ const mutations = {
 };
 
 const actions = {
-  getGameViewInfo({
-    commit
-  }, gpId) {
+  getGameViewInfo({ commit }, gpId) {
     fetch("/api/game_view/" + gpId)
       .then(response => response.json())
       .then(data => commit(SET_GAME_VIEW_INFO, data));
   },
 
-  getGameState({
-    commit
-  }, gpId) {
+  getGameState({ commit }, gpId) {
     fetch("/api/game_state/" + gpId)
       .then(response => response.json())
       .then(data => commit(SET_GAME_STATE_INFO, data));
   },
 
-  clearGameViewInfo({
-    commit
-  }) {
+  clearGameViewInfo({ commit }) {
     commit(CLEAR_GAME_VIEW_INFO);
   }
 };

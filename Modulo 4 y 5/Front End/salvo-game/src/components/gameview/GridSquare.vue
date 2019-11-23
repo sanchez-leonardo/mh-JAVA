@@ -1,12 +1,5 @@
 <template>
-  <v-col
-    :class="['pa-0'
-  , {piece: hasShip}
-  , {hit: hasHit}
-  , {salvo: hasSalvo}
-  ]"
-    v-html="contents"
-  ></v-col>
+  <v-col :class="['pa-0', {piece: hasShip}, {hit: hasHit}, {salvo: hasSalvo}]" v-html="contents"></v-col>
 </template>
 
 <script>
@@ -16,7 +9,11 @@ export default {
   props: { gridType: String, letter: String, number: Number },
 
   computed: {
-    ...mapGetters(["playerShips", "playerSalvoes", "opponentSalvoes"]),
+    ...mapGetters([
+      "playerShipsLocations",
+      "playerSalvoesLocations",
+      "opponentSalvoesLocations"
+    ]),
 
     id() {
       return this.$attrs.id.slice(1);
@@ -35,23 +32,23 @@ export default {
     },
     hasShip() {
       return (
-        this.playerShips != null &&
+        this.playerShipsLocations != null &&
         this.gridType === "p" &&
-        this.playerShips.includes(this.id)
+        this.playerShipsLocations.includes(this.id)
       );
     },
     hasHit() {
       return (
-        this.opponentSalvoes != null &&
+        this.opponentSalvoesLocations != null &&
         this.gridType === "p" &&
-        this.opponentSalvoes.includes(this.id)
+        this.opponentSalvoesLocations.includes(this.id)
       );
     },
     hasSalvo() {
       return (
-        this.playerSalvoes !== null &&
+        this.playerSalvoesLocations !== null &&
         this.gridType === "s" &&
-        this.playerSalvoes.includes(this.id)
+        this.playerSalvoesLocations.includes(this.id)
       );
     }
   }

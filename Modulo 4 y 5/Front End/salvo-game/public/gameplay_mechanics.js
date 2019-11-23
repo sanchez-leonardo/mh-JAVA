@@ -252,7 +252,7 @@ function fits(id, array) {
             fits: false,
             positions: array
           };
-    case "patrolboat":
+    case "patrol_boat":
       return array.length >= 2
         ? {
             fits: true,

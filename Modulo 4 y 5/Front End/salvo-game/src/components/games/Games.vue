@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { customFetch } from "../scripts/utilities_script";
+import { customFetch } from "../../scripts/utilities_script";
 
 import Leaderboard from "./LearderboardTable";
 import GamesTable from "./CurrentGamesTable";

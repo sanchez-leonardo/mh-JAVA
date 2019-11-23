@@ -30,26 +30,33 @@
         >Fire!</v-btn>
       </v-col>
     </v-row>
+    <v-row v-if="shipsOrSalvoes === 'salvoes'">
+      <v-col>
+        <FleetStatus :playerId="playerId()" />
+      </v-col>
+    </v-row>
   </v-col>
 </template>
 
 <script>
 /* eslint-disable no-console */
-import { mapActions } from "vuex";
-import { customFetch } from "../scripts/utilities_script";
+import { mapActions, mapGetters } from "vuex";
+import { customFetch } from "../../scripts/utilities_script";
 
-import GridLine from "./GridLine";
 import ShipsContainer from "./ShipsContainer";
+import GridLine from "./GridLine";
+import FleetStatus from "./FleetStatusTable";
 
 export default {
   name: "Grid",
 
   components: {
     GridLine,
-    ShipsContainer
+    ShipsContainer,
+    FleetStatus
   },
 
-  props: { gridName: String, gpId: String, shipsOrSalvoes: String },
+  props: { gridName: String, shipsOrSalvoes: String },
 
   data() {
     return {
@@ -58,12 +65,18 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["currentUser", "opponentId"]),
+
     gridType() {
       if (this.gridName === "player") {
         return "p";
       } else {
         return "s";
       }
+    },
+
+    gpId() {
+      return this.$route.params.id.toString();
     }
   },
 
@@ -75,6 +88,14 @@ export default {
 
   methods: {
     ...mapActions(["getGameViewInfo"]),
+
+    playerId() {
+      if (this.gridName === "player") {
+        return this.currentUser.id;
+      } else {
+        return this.opponentId;
+      }
+    },
 
     postShipList() {
       if (window.shipsForPost.length === 5) {

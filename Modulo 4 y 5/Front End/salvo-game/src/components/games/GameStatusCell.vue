@@ -7,7 +7,7 @@
 
 
 <script>
-import { customFetch } from "../scripts/utilities_script";
+import { customFetch } from "../../scripts/utilities_script";
 
 export default {
   props: { content: Object },
