@@ -177,7 +177,7 @@ public class GamePlayer {
 
     //Comprueba que haya 2 jugadores y que la lista de salvoes del oponente tenga salvoes
     //para no caer en nullpointerexception, debería ser corregido con la implementación de estados de partida
-    if (getGame().getGameState().equals("salvo")
+    if ((getGame().getGameState().equals("salvo") || getGame().getGameState().equals("over"))
             && getGame().getGamePlayers().stream()
             .filter(gp -> gp.getId() != this.getId()).findFirst().get().getSalvoes() != null) {
 

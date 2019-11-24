@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center" class="mb-4" no-gutters>
+  <v-container tag="section" fluid>
+    <v-row justify="center" class="mb-4 mt-2" no-gutters>
       <v-col cols="3">
         <v-btn block color="primary" id="back-to-games" @click="goToGames">Go Back</v-btn>
       </v-col>
@@ -33,12 +33,13 @@ export default {
   data() {
     return {
       playerGrid: "player",
-      salvoGrid: "salvo"
+      salvoGrid: "salvo",
+      intervalId: ""
     };
   },
 
   computed: {
-    ...mapGetters(["currentUser", "gameViewState"]),
+    ...mapGetters(["currentUser", "gameViewState", "gameState"]),
 
     shipsOrSalvoes({ gameViewState }) {
       if (
@@ -54,10 +55,68 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getGamesInfo", "getGameViewInfo", "clearGameViewInfo"]),
+    ...mapActions([
+      "getGamesInfo",
+      "getGameViewInfo",
+      "clearGameViewInfo",
+      "getGameState"
+    ]),
 
     goToGames() {
       this.$router.push("/");
+    },
+
+    removeDND() {
+      if (this.gameViewState.game_state === "salvo") {
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("drag", window.drag));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("dragstart", window.dragstart));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("dragend", window.dragend));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("dragover", window.dragover));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("dragenter", window.dragenter));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("dragleave", window.dragleave));
+
+        document
+          .querySelectorAll("*")
+          .forEach(el => el.removeEventListener("drop", window.drop));
+      }
+    },
+
+    checkForChanges() {
+      let id = setInterval(this.changesChange, 10000);
+
+      this.intervalId = id;
+    },
+
+    async changesChange() {
+      await this.getGameState(this.$route.params.id.toString());
+
+      if (
+        this.gameViewState.game_state != this.gameState.game_state ||
+        this.gameViewState.game_turn == this.gameState.game_turn + 1 ||
+        this.gameViewState.game_player_state != this.gameState.game_player_state
+      ) {
+        this.getGameViewInfo(this.$route.params.id.toString());
+      } else if (this.gameViewState.game_state == "over") {
+        window.clearInterval(this.intervalId);
+        this.intervalId = "";
+      }
     }
   },
 
@@ -65,11 +124,20 @@ export default {
     if (!this.currentUser) {
       this.getGamesInfo();
     }
-    this.getGameViewInfo(this.$route.params.id.toString());
+
+    this.getGameViewInfo(this.$route.params.id.toString()).then(() =>
+      this.checkForChanges()
+    );
   },
 
   beforeDestroy() {
     this.clearGameViewInfo();
+
+    if (this.gameState.game_state != "over") {
+      window.clearInterval(this.intervalId);
+    }
+
+    window.salvoesForPost.length = 0;
   }
 };
 </script>

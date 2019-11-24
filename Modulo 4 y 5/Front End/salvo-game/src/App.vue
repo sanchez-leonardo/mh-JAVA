@@ -23,3 +23,11 @@ export default {
   }
 };
 </script>
+<style>
+#app {
+  background-image: url("./assets/backgrounds/warships-background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+</style>

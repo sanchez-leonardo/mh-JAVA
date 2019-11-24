@@ -17,176 +17,139 @@ let shipLocations = [];
 let provisoryShip = [];
 
 /* Eventos sobre elemento arrastrado */
-document.addEventListener(
-  "drag",
-  function(event) {
-    let ship = event.target;
-    ship.classList.add("hide");
-  },
-  false
-);
+document.addEventListener("drag", drag);
+function drag(event) {
+  let ship = event.target;
+  ship.classList.add("hide");
+}
 
-document.addEventListener(
-  "dragstart",
-  function(event) {
-    //referencia de elemento arrastrado, no todos los eventListener tienen acceso
-    event.dataTransfer.setData("shipId", event.target.id);
-    event.dataTransfer.effectAllowed = "move";
+document.addEventListener("dragstart", dragstart);
+function dragstart(event) {
+  //referencia de elemento arrastrado, no todos los eventListener tienen acceso
+  event.dataTransfer.setData("shipId", event.target.id);
+  event.dataTransfer.effectAllowed = "move";
 
-    draggedItemId = event.dataTransfer.getData("shipId");
+  draggedItemId = event.dataTransfer.getData("shipId");
 
-    let cell = event.target.parentElement;
+  let cell = event.target.parentElement;
 
-    if (cell.classList.contains("piece")) {
-      let availableSpace = availableSpaceTakingIntoAccountShipRotation(
-        cell,
-        draggedItemId
-      );
+  if (cell.classList.contains("piece")) {
+    let availableSpace = availableSpaceTakingIntoAccountShipRotation(
+      cell,
+      draggedItemId
+    );
 
-      let data = fits(draggedItemId, availableSpace);
+    let data = fits(draggedItemId, availableSpace);
 
-      provisoryShip = data.positions;
+    provisoryShip = data.positions;
 
-      data.positions.forEach(square => square.classList.remove("piece"));
+    data.positions.forEach(square => square.classList.remove("piece"));
 
-      event.target.nextSibling.remove();
-    }
-  },
-  false
-);
+    event.target.nextSibling.remove();
+  }
+}
 
-document.addEventListener(
-  "dragend",
-  function(event) {
-    let ship = event.target;
+document.addEventListener("dragend", dragend);
+function dragend(event) {
+  let ship = event.target;
 
-    ship.classList.remove("hide");
-  },
-  false
-);
+  ship.classList.remove("hide");
+}
 
 /*Eventos sobre el contenedor destino*/
 //efecto permitido del contenedor destino drop/no drop
-document.addEventListener(
-  "dragover",
-  function(event) {
-    let cell = event.target;
-    if (cell.classList.contains("wah")) {
-      // prevent default to allow drop
-      event.preventDefault();
-      event.dataTransfer.effectAllowed = "move";
-    } else {
-      event.preventDefault();
-      event.dataTransfer.effectAllowed = "none";
-    }
-  },
-  false
-);
+document.addEventListener("dragover", dragover);
+function dragover(event) {
+  let cell = event.target;
+  if (cell.classList.contains("wah")) {
+    // prevent default to allow drop
+    event.preventDefault();
+    event.dataTransfer.effectAllowed = "move";
+  } else {
+    event.preventDefault();
+    event.dataTransfer.effectAllowed = "none";
+  }
+}
 
 //Lógica de mostrar posiciones permitidas
-document.addEventListener(
-  "dragenter",
-  function(event) {
-    let cell = event.target;
+document.addEventListener("dragenter", dragenter);
+function dragenter(event) {
+  let cell = event.target;
 
-    if (cell.classList.contains("wah")) {
-      event.preventDefault();
+  if (cell.classList.contains("wah")) {
+    event.preventDefault();
 
-      let availableSpace = availableSpaceTakingIntoAccountShipRotation(
-        cell,
-        draggedItemId
-      );
-      let data = fits(draggedItemId, availableSpace);
+    let availableSpace = availableSpaceTakingIntoAccountShipRotation(
+      cell,
+      draggedItemId
+    );
+    let data = fits(draggedItemId, availableSpace);
 
-      if (data.fits) {
-        shipLocations = data.positions;
+    if (data.fits) {
+      shipLocations = data.positions;
 
-        shipLocations.forEach(square => {
-          if (!square.classList.contains("piece")) {
-            square.classList.add("space");
-            square.classList.remove("noSpace");
-          } else {
-            square.classList.add("noSpace");
-          }
-        });
-      } else {
-        shipLocations = availableSpace;
-        availableSpace.forEach(square => square.classList.add("noSpace"));
-      }
-    } else {
-      Array.from(document.getElementsByClassName("wah")).forEach(square =>
-        square.classList.remove("space", "noSpace")
-      );
-    }
-  },
-  false
-);
-
-document.addEventListener(
-  "dragleave",
-  function(event) {
-    //Resetear celdas cuando se quita el barco del lugar
-    let cell = event.target;
-
-    if (cell.classList.contains("wah")) {
-      let availableSpace = availableSpaceTakingIntoAccountShipRotation(
-        cell,
-        draggedItemId
-      );
-
-      let removeData = fits(draggedItemId, availableSpace);
-
-      removeData.positions
-        .filter(square => !shipLocations.includes(square))
-        .forEach(square => square.classList.remove("space", "noSpace"));
-    }
-  },
-  false
-);
-
-document.addEventListener(
-  "drop",
-  function(event) {
-    let cell = event.target;
-    let ship = document.getElementById(event.dataTransfer.getData("shipId"));
-
-    //Si es en un lugar permitido
-    if (cell.classList.contains("wah")) {
-      // prevent default
-      event.preventDefault();
-
-      if (dropPossible(shipLocations)) {
-        cell.appendChild(ship);
-
-        shipLocations.forEach(square => {
-          square.classList.remove("space");
-          square.classList.add("piece");
-        });
-
-        addShipToArray(shipsForPost, ship.id, shipLocations);
-
-        addRotateBtn(cell, draggedItemId);
-
-        console.log("drop succesfull");
-      } else {
-        if (provisoryShip.length != 0) {
-          provisoryShip.forEach(square => {
-            square.classList.add("piece");
-          });
-
-          addRotateBtn(provisoryShip[0], draggedItemId);
+      shipLocations.forEach(square => {
+        if (!square.classList.contains("piece")) {
+          square.classList.add("space");
+          square.classList.remove("noSpace");
+        } else {
+          square.classList.add("noSpace");
         }
+      });
+    } else {
+      shipLocations = availableSpace;
+      availableSpace.forEach(square => square.classList.add("noSpace"));
+    }
+  } else {
+    Array.from(document.getElementsByClassName("wah")).forEach(square =>
+      square.classList.remove("space", "noSpace")
+    );
+  }
+}
 
-        console.log("drop failed, orangy thingy");
-      }
+document.addEventListener("dragleave", dragleave);
+function dragleave(event) {
+  //Resetear celdas cuando se quita el barco del lugar
+  let cell = event.target;
 
-      Array.from(document.getElementsByClassName("wah")).forEach(square =>
-        square.classList.remove("space", "noSpace")
-      );
-      event.dataTransfer.clearData();
-      draggedItemId = "";
-      shipLocations = [];
-      provisoryShip = [];
+  if (cell.classList.contains("wah")) {
+    let availableSpace = availableSpaceTakingIntoAccountShipRotation(
+      cell,
+      draggedItemId
+    );
+
+    let removeData = fits(draggedItemId, availableSpace);
+
+    removeData.positions
+      .filter(square => !shipLocations.includes(square))
+      .forEach(square => square.classList.remove("space", "noSpace"));
+  }
+}
+
+document.addEventListener("drop", drop);
+
+function drop(event) {
+  let cell = event.target;
+  let ship = document.getElementById(event.dataTransfer.getData("shipId"));
+
+  //Si es en un lugar permitido
+  if (cell.classList.contains("wah")) {
+    // prevent default
+    event.preventDefault();
+
+    if (dropPossible(shipLocations)) {
+      cell.appendChild(ship);
+
+      shipLocations.forEach(square => {
+        square.classList.remove("space");
+        square.classList.add("piece");
+      });
+
+      addShipToArray(shipsForPost, ship.id, shipLocations);
+
+      addRotateBtn(cell, draggedItemId);
+
+      console.log("drop succesfull");
     } else {
       if (provisoryShip.length != 0) {
         provisoryShip.forEach(square => {
@@ -195,19 +158,36 @@ document.addEventListener(
 
         addRotateBtn(provisoryShip[0], draggedItemId);
       }
-      console.log("drop failed, not valid area");
 
-      Array.from(document.getElementsByClassName("wah")).forEach(square =>
-        square.classList.remove("space", "noSpace")
-      );
-      event.dataTransfer.clearData();
-      draggedItemId = "";
-      shipLocations = [];
-      provisoryShip = [];
+      console.log("drop failed, orangy thingy");
     }
-  },
-  false
-);
+
+    Array.from(document.getElementsByClassName("wah")).forEach(square =>
+      square.classList.remove("space", "noSpace")
+    );
+    event.dataTransfer.clearData();
+    draggedItemId = "";
+    shipLocations = [];
+    provisoryShip = [];
+  } else {
+    if (provisoryShip.length != 0) {
+      provisoryShip.forEach(square => {
+        square.classList.add("piece");
+      });
+
+      addRotateBtn(provisoryShip[0], draggedItemId);
+    }
+    console.log("drop failed, not valid area");
+
+    Array.from(document.getElementsByClassName("wah")).forEach(square =>
+      square.classList.remove("space", "noSpace")
+    );
+    event.dataTransfer.clearData();
+    draggedItemId = "";
+    shipLocations = [];
+    provisoryShip = [];
+  }
+}
 
 //Si hay espacio suficiente, devuelve true y un array de posiciones del barco
 function fits(id, array) {
@@ -372,8 +352,6 @@ function addSalvoToList(evt) {
     evt.target.classList.remove("shot");
 
     salvoesForPost.splice(salvoesForPost.indexOf(evt.target.id.slice(1)), 1);
-  } else {
-    alert("Only five shots per round");
   }
 }
 

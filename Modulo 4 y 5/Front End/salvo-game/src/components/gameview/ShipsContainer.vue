@@ -2,13 +2,13 @@
   <div class="available-ships">
     <div class="holder">
       <img
-        src="../../assets/ships/carrierhor.png"
+        :src="require('../../assets/ships/carrierhor.png')"
         class="image shadow"
         alt="carrier shadow"
         draggable="false"
       />
       <img
-        src="../../assets/ships/carrierhor.png"
+        :src="require('../../assets/ships/carrierhor.png')"
         id="carrier"
         class="ship image"
         alt="carrier image"
@@ -17,13 +17,13 @@
     </div>
     <div class="holder">
       <img
-        src="../../assets/ships/battleshiphor.png"
+        :src="require('../../assets/ships/battleshiphor.png')"
         class="image shadow"
         alt="battleship shadow"
         draggable="false"
       />
       <img
-        src="../../assets/ships/battleshiphor.png"
+        :src="require('../../assets/ships/battleshiphor.png')"
         id="battleship"
         class="ship image"
         alt="battleship image"
@@ -32,13 +32,13 @@
     </div>
     <div class="holder">
       <img
-        src="../../assets/ships/destroyerhor.png"
+        :src="require('../../assets/ships/destroyerhor.png')"
         class="image shadow"
         alt="destroyer shadow"
         draggable="false"
       />
       <img
-        src="../../assets/ships/destroyerhor.png"
+        :src="require('../../assets/ships/destroyerhor.png')"
         id="destroyer"
         class="ship image"
         alt="destroyer image"
@@ -47,13 +47,13 @@
     </div>
     <div class="holder">
       <img
-        src="../../assets/ships/submarinehor.png"
+        :src="require('../../assets/ships/submarinehor.png')"
         class="image shadow"
         alt="submarine shadow"
         draggable="false"
       />
       <img
-        src="../../assets/ships/submarinehor.png"
+        :src="require('../../assets/ships/submarinehor.png')"
         id="submarine"
         class="ship image"
         alt="submarine image"
@@ -62,13 +62,13 @@
     </div>
     <div class="holder">
       <img
-        src="../../assets/ships/patrolboathor.png"
+        :src="require('../../assets/ships/patrol_boathor.png')"
         class="image shadow"
         alt="patrolboat shadow"
         draggable="false"
       />
       <img
-        src="../../assets/ships/patrolboathor.png"
+        :src="require('../../assets/ships/patrol_boathor.png')"
         id="patrol_boat"
         class="ship image"
         alt="patrolboat image"
@@ -83,6 +83,3 @@ export default {
   name: "ShipsContainer"
 };
 </script>
-
-<style>
-</style>

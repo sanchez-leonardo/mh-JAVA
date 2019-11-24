@@ -1,11 +1,10 @@
 <template>
-  <v-col cols="5" align-self="center">
-    <h1
-      class="headline font-italic font-weight-medium text-left ma-2"
-    >{{ (gridName + " grid") | capitalize }}</h1>
+  <v-col cols="auto" tag="article">
+    <v-row>
+      <h1 class="headline font-italic font-weight-medium text-left ma-2">{{ gridTitle }}</h1>
+    </v-row>
 
     <ShipsContainer v-if="shipsOrSalvoes === 'ships'" class="ma-2 mx-auto" />
-
     <div :id="gridName + '-grid'" class="ma-2 mx-auto">
       <GridLine
         v-for="(gridLetter, key) in gridLetters"
@@ -15,26 +14,41 @@
       />
     </div>
 
-    <v-row align="center" justify="center" class="ma-2" no-gutters>
+    <v-row justify="space-around" class="ma-2" no-gutters>
       <v-col cols="auto" v-if="shipsOrSalvoes === 'ships' && gridType === 'p'">
         <v-btn medium color="primary" id="post-ships" @click.prevent="postShipList">Place Ships!</v-btn>
       </v-col>
 
-      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'">
-        <v-btn
-          medium
-          color="primary"
-          type="button"
-          id="post-salvo"
-          @click.prevent="postSalvoesList"
-        >Fire!</v-btn>
+      <v-col
+        cols="auto"
+        v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'"
+        justify-self="start"
+      >
+        <h2>Salvoes left: {{ salvoesLeft() }}</h2>
+      </v-col>
+
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'" justify-self="end">
+        <v-btn medium color="primary" id="post-salvo" @click.prevent="postSalvoesList">Fire!</v-btn>
       </v-col>
     </v-row>
-    <v-row v-if="shipsOrSalvoes === 'salvoes'">
-      <v-col>
+
+    <v-row v-if="shipsOrSalvoes === 'salvoes'" align-content="stretch" justify="center">
+      <v-col cols="auto">
         <FleetStatus :playerId="playerId()" />
       </v-col>
     </v-row>
+
+    <v-overlay :value="overlay">
+      <v-btn icon @click="overlay = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+
+      <v-card>
+        <v-card-title>Ooops!</v-card-title>
+        <v-card-subtitle>Something went catastrophic</v-card-subtitle>
+        <v-card-text>{{overlayMsg}}</v-card-text>
+      </v-card>
+    </v-overlay>
   </v-col>
 </template>
 
@@ -60,12 +74,15 @@ export default {
 
   data() {
     return {
-      gridLetters: ["0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+      gridLetters: ["0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+      salvoes: window.salvoesForPost,
+      overlay: false,
+      overlayMsg: ""
     };
   },
 
   computed: {
-    ...mapGetters(["currentUser", "opponentId"]),
+    ...mapGetters(["currentUser", "gamePlayers", "opponentId"]),
 
     gridType() {
       if (this.gridName === "player") {
@@ -77,12 +94,22 @@ export default {
 
     gpId() {
       return this.$route.params.id.toString();
-    }
-  },
+    },
 
-  filters: {
-    capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
+    gridTitle() {
+      if (this.gridName === "player") {
+        return "Your Grid";
+      } else {
+        if (this.gamePlayers.length === 2) {
+          return (
+            this.gamePlayers.filter(
+              gp => gp.player_detail.id === this.opponentId
+            )[0].player_detail.email + "'s Grid"
+          );
+        } else {
+          return "Waiting for a worthy opponent";
+        }
+      }
     }
   },
 
@@ -112,11 +139,15 @@ export default {
           .then(response => {
             if (response.ok) {
               this.getGameViewInfo(this.gpId);
+            } else {
+              this.overlay = !this.overlay;
+              this.overlayMsg = "Your ships were not received";
             }
           })
           .catch(error => console.log(error));
       } else {
-        alert("Place all your ships to continue");
+        this.overlay = !this.overlay;
+        this.overlayMsg = "Place all your ships to continue";
       }
     },
 
@@ -139,12 +170,20 @@ export default {
             if (response.ok) {
               this.getGameViewInfo(this.gpId);
               window.salvoesForPost.length = 0;
+            } else {
+              this.overlay = !this.overlay;
+              this.overlayMsg = "You must wait for your opponent's move";
             }
           })
           .catch(error => console.log(error));
       } else {
-        alert("Could not send salvoes");
+        this.overlay = !this.overlay;
+        this.overlayMsg = "Shoot something";
       }
+    },
+
+    salvoesLeft() {
+      return 5 - this.salvoes.length;
     }
   },
 
@@ -200,19 +239,28 @@ export default {
 }
 
 .piece {
-  background-color: limegreen;
+  background-color: rgb(30, 190, 30);
+}
+
+.piece.hit {
+  background-color: rgb(190, 30, 30);
 }
 
 .salvo {
   background-color: slategrey;
 }
 
-.piece.hit {
-  background-color: crimson;
+.salvo.impact {
+  background-color: rgb(190, 30, 30);
+}
+
+.salvo.image {
+  height: 100%;
+  width: 100%;
 }
 
 .shot {
-  background-color: darkblue;
+  background-color: rgb(110, 110, 26);
 }
 
 /* Ship management */
@@ -229,7 +277,6 @@ export default {
 }
 
 .holder {
-  /* float: left; */
   position: relative;
 }
 
@@ -254,11 +301,11 @@ export default {
 }
 
 .space {
-  background-color: darkgreen;
+  background-color: greenyellow;
 }
 
 .noSpace {
-  background-color: coral;
+  background-color: crimson;
 }
 
 .rotate-btn {
@@ -273,7 +320,24 @@ export default {
 }
 
 .rotated {
-  transform-origin: 10%;
   transform: rotate(90deg);
+}
+
+#carrier.rotated {
+  transform-origin: 10% 60%;
+}
+
+#battleship.rotated {
+  transform-origin: 13% 60%;
+}
+#destroyer.rotated {
+  transform-origin: 17% 55%;
+}
+#submarine.rotated {
+  transform-origin: 17% 60%;
+}
+
+#patrol_boat.rotated {
+  transform-origin: 25% 55%;
 }
 </style>

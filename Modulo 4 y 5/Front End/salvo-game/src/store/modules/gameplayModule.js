@@ -14,6 +14,8 @@ const state = {
 };
 
 const getters = {
+  gamePlayers: ({ gameView }) => gameView.game_players,
+
   //Id del oponente
   opponentId: ({ gameView }, getters) => {
     if (gameView.game_players.length === 2) {
@@ -35,19 +37,25 @@ const getters = {
   },
 
   //Only player ships
-  playerShipsLocations: ({ gameView }) =>
-    gameView.ships.lenght !== 0
-      ? gameView.ships.flatMap(ship => ship.locations)
-      : [],
+  playerShips: ({ gameView }) =>
+    gameView.ships.lenght !== 0 ? gameView.ships : [],
 
   //Only player salvoes
-  playerSalvoesLocations: ({ gameView }, getters) =>
-    gameView.game_players.length == 2 &&
-    Object.entries(gameView.salvoes).length !== 0
-      ? Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
-          salvo => salvo
-        )
-      : [],
+  playerSalvoesLocations: ({ gameView }, getters) => {
+    if (
+      gameView.game_players.length == 2 &&
+      !(
+        Object.entries(gameView.salvoes).length === 0 &&
+        gameView.salvoes.constructor === Object
+      )
+    ) {
+      return Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
+        salvo => salvo
+      );
+    } else {
+      return [];
+    }
+  },
 
   //Oponent salvoes
   opponentSalvoesLocations: ({ gameView }, getters) => {

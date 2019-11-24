@@ -1,13 +1,15 @@
 <template>
-  <v-simple-table>
+  <v-simple-table dark>
     <thead>
       <th class="title text-center">Ship</th>
       <th class="title text-center">Damage</th>
+      <th class="title text-center">Locations</th>
     </thead>
     <tbody>
       <tr v-for="(ship, key) in fleet" :key="key">
-        <td class="text-center">{{ship | shipName}}</td>
-        <td class="text-center">{{shipDamage(ship)}}</td>
+        <td class="text-left">{{ship | shipName}}</td>
+        <DamageCell :shipType="ship" :damage="shipDamage(ship).length"></DamageCell>
+        <td class="text-left">{{shipDamage(ship) | concatLocations}}</td>
       </tr>
     </tbody>
   </v-simple-table>
@@ -16,8 +18,12 @@
 <script>
 import { mapGetters } from "vuex";
 
+import DamageCell from "./FleetStatusDamageCell";
+
 export default {
   name: "FleetStatusTable",
+
+  components: { DamageCell },
 
   props: ["playerId"],
 
@@ -40,7 +46,7 @@ export default {
       return this.fleetByTurn
         .flatMap(turn => turn.hits)
         .filter(obj => obj.ship === type)
-        .flatMap(sub => sub.dmg).length;
+        .flatMap(sub => sub.dmg);
     }
   },
 
@@ -50,6 +56,10 @@ export default {
         "_",
         " "
       );
+    },
+
+    concatLocations(string) {
+      return string.join(", ").toUpperCase();
     }
   }
 };

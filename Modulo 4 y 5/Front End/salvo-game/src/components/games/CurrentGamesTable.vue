@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" tag="article">
-    <v-col cols="12">
-      <h1 class="headline font-italic font-weight-medium text-left">Current Games</h1>
+    <v-col cols="10">
+      <h1 class="headline font-italic font-weight-medium text-left">Active Games</h1>
       <v-simple-table>
         <thead>
           <th></th>

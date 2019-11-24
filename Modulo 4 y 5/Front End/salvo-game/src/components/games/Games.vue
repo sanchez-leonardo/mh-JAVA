@@ -1,9 +1,9 @@
 <template>
-  <v-container tag="section">
+  <v-container tag="section" fluid>
     <v-divider></v-divider>
     <Leaderboard />
     <GamesTable />
-    <v-row justify="center">
+    <v-row justify="center" v-if="currentUser">
       <v-col cols="3">
         <v-btn block color="primary" id="create-game" @click="createGame">Create Game</v-btn>
       </v-col>
@@ -16,6 +16,7 @@ import { customFetch } from "../../scripts/utilities_script";
 
 import Leaderboard from "./LearderboardTable";
 import GamesTable from "./CurrentGamesTable";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Games",
@@ -24,6 +25,8 @@ export default {
     Leaderboard,
     GamesTable
   },
+
+  computed: mapGetters(["currentUser"]),
 
   methods: {
     createGame() {
