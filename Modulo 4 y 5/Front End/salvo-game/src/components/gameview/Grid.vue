@@ -38,17 +38,18 @@
       </v-col>
     </v-row>
 
-    <v-overlay :value="overlay">
-      <v-btn icon @click="overlay = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-
+    <v-dialog v-model="dialog" max-width="500">
       <v-card>
-        <v-card-title>Ooops!</v-card-title>
-        <v-card-subtitle>Something went catastrophic</v-card-subtitle>
-        <v-card-text>{{overlayMsg}}</v-card-text>
+        <v-card-title class="text-center display-1 font-weight-medium">{{dialogTitle}}</v-card-title>
+        <v-spacer></v-spacer>
+        <v-card-text class="font-weight-medium">{{dialogMessage}}</v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+        </v-card-actions>
       </v-card>
-    </v-overlay>
+    </v-dialog>
   </v-col>
 </template>
 
@@ -76,8 +77,9 @@ export default {
     return {
       gridLetters: ["0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
       salvoes: window.salvoesForPost,
-      overlay: false,
-      overlayMsg: ""
+      dialog: false,
+      dialogTitle: "Something went catastrophic",
+      dialogMessage: "There was a serious issue somewhere"
     };
   },
 
@@ -140,14 +142,16 @@ export default {
             if (response.ok) {
               this.getGameViewInfo(this.gpId);
             } else {
-              this.overlay = !this.overlay;
-              this.overlayMsg = "Your ships were not received";
+              this.dialogTitle = "Shipping problems";
+              this.dialogMessage = "Your order was not received";
+              this.dialog = !this.dialog;
             }
           })
           .catch(error => console.log(error));
       } else {
-        this.overlay = !this.overlay;
-        this.overlayMsg = "Place all your ships to continue";
+        this.dialogTitle = "Don't be a hippie";
+        this.dialogMessage = "Place all your ships to continue";
+        this.dialog = !this.dialog;
       }
     },
 
@@ -171,14 +175,16 @@ export default {
               this.getGameViewInfo(this.gpId);
               window.salvoesForPost.length = 0;
             } else {
-              this.overlay = !this.overlay;
-              this.overlayMsg = "You must wait for your opponent's move";
+              this.dialogTitle = "Hakuna your tatas";
+              this.dialogMessage = "Wait for your opponent's move";
+              this.dialog = !this.dialog;
             }
           })
           .catch(error => console.log(error));
       } else {
-        this.overlay = !this.overlay;
-        this.overlayMsg = "Shoot something";
+        this.dialogTitle = "Harsh words won't sink ships";
+        this.dialogMessage = "Place your shots";
+        this.dialog = !this.dialog;
       }
     },
 

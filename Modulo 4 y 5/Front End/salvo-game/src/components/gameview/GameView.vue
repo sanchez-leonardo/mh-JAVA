@@ -15,6 +15,20 @@
         v-if="shipsOrSalvoes === 'salvoes'"
       />
     </v-row>
+
+    <v-dialog v-model="dialogPopUp" max-width="500">
+      <v-card>
+        <v-card-title class="text-center display-1 font-weight-medium">{{dialogTitle}}</v-card-title>
+        <v-spacer></v-spacer>
+        <v-card-text class="font-weight-medium">{{dialogMessage}}</v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="goToGames">To Games Screen</v-btn>
+          <v-btn color="red darken-1" text @click="dialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -34,6 +48,7 @@ export default {
     return {
       playerGrid: "player",
       salvoGrid: "salvo",
+      dialog: true,
       intervalId: ""
     };
   },
@@ -51,6 +66,33 @@ export default {
       } else {
         return "salvoes";
       }
+    },
+
+    dialogPopUp({ gameViewState }) {
+      return this.dialog && gameViewState.game_state === "over";
+    },
+
+    dialogTitle({ gameViewState }) {
+      if (gameViewState.game_player_state === "win") {
+        return "WINNER";
+      } else if (gameViewState.game_player_state === "loss") {
+        return "LOOSER";
+      } else if (gameViewState.game_player_state === "tie") {
+        return "TIED";
+      } else {
+        return "ERROR!";
+      }
+    },
+    dialogMessage({ gameViewState }) {
+      if (gameViewState.game_player_state === "win") {
+        return "Congratulations! You've killed an approximate of 10000 men and women";
+      } else if (gameViewState.game_player_state === "loss") {
+        return "The red tainted seas are a testament of your failure";
+      } else if (gameViewState.game_player_state === "tie") {
+        return "It's hard to understand if you are both formidable strategists or an equal dissapointment";
+      } else {
+        return "If you are reading this, contact the devs!";
+      }
     }
   },
 
@@ -63,6 +105,11 @@ export default {
     ]),
 
     goToGames() {
+      this.$router.push("/");
+    },
+
+    goToGamesFromModal() {
+      this.dialog = false;
       this.$router.push("/");
     },
 

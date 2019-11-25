@@ -42,17 +42,20 @@
       </v-row>
     </v-form>
 
-    <v-overlay :value="overlay">
-      <v-btn icon @click="overlay = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-
+    <v-dialog v-model="dialog" max-width="500">
       <v-card>
-        <v-card-title>Ooops!</v-card-title>
-        <v-card-subtitle>You tried to enter and failed miserably</v-card-subtitle>
-        <v-card-text>Check your email and password and try again</v-card-text>
+        <v-card-title class="display-1 font-weight-medium">DENIED</v-card-title>
+        <v-spacer></v-spacer>
+        <v-card-text class="font-italic font-weight-medium">You tried to enter and failed miserably</v-card-text>
+        <v-spacer></v-spacer>
+        <v-card-text class="font-weight-medium">{{dialogMessage}}</v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+        </v-card-actions>
       </v-card>
-    </v-overlay>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -65,7 +68,8 @@ export default {
 
   data() {
     return {
-      overlay: false,
+      dialog: false,
+      dialogMessage: "Check your email and password and try again",
       valid: false,
       formData: {
         userName: "",
@@ -97,7 +101,8 @@ export default {
         if (response.ok) {
           this.getGamesInfo();
         } else {
-          this.overlay = !this.overlay;
+          this.dialogMessage = "Incorrect password or username";
+          this.dialog = !this.dialog;
         }
       });
     },
@@ -112,7 +117,8 @@ export default {
         if (response.ok) {
           this.logIn();
         } else {
-          this.overlay = !this.overlay;
+          this.dialogMessage = "Username already in use, most likely";
+          this.dialog = !this.dialog;
         }
       });
     },
@@ -124,7 +130,9 @@ export default {
             this.$router.push("/");
           }
         } else {
-          this.overlay = !this.overlay;
+          this.dialogMessage =
+            "I have no idea how you posible failed at logging out...";
+          this.dialog = !this.dialog;
         }
       });
     }
