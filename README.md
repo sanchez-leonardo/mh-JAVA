@@ -1,5 +1,7 @@
 # mh-JAVA
-Distintos proyectos del curso:
+Proyectos del curso de desarrollo web:
+  -Frond End: HTML, CSS, JS, Bootsrap, Vue.Js
+  -Back End: Java, Spring, Gradle
 
 -Modulo 1: Pagina web simple utilizando HTML, CSS
 
