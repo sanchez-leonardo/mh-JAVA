@@ -9,7 +9,8 @@ export default {
     return createElement("img", {
       attrs: {
         src: require("../../assets/" + this.image),
-        alt: this.alt + " image"
+        alt: this.alt + " image",
+        draggable: false
       }
     });
   }

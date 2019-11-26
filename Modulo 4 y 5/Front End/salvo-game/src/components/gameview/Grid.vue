@@ -27,12 +27,16 @@
         <h2>Salvoes left: {{ salvoesLeft() }}</h2>
       </v-col>
 
-      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'" justify-self="end">
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'">
+        <v-divider></v-divider>
+      </v-col>
+
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'">
         <v-btn medium color="primary" id="post-salvo" @click.prevent="postSalvoesList">Fire!</v-btn>
       </v-col>
     </v-row>
 
-    <v-row v-if="shipsOrSalvoes === 'salvoes'" align-content="stretch" justify="center">
+    <v-row v-if="shipsOrSalvoes === 'salvoes'" justify="center">
       <v-col cols="auto">
         <FleetStatus :playerId="playerId()" />
       </v-col>
@@ -205,22 +209,10 @@ export default {
 /* Grid */
 #player-grid,
 #salvo-grid {
-  /* display: grid; */
-  /* grid-template-columns: 1fr; */
-  /* grid-template-rows: repeat(11, 1fr); */
   width: 500px;
-  /* height: 500px; */
-  /* margin: 0 auto; */
-  /* border: solid 2px black; */
 }
 
-/*.grid-line {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-} */
-
 .grid-square {
-  display: inline-block;
   position: relative;
   border: solid 1px black;
 }
@@ -270,7 +262,6 @@ export default {
 }
 
 /* Ship management */
-
 #player {
   display: flex;
   flex-direction: column;
@@ -315,14 +306,14 @@ export default {
 }
 
 .rotate-btn {
-  display: inline-block;
-  width: 50%;
-  height: 50%;
   position: relative;
   z-index: 5;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+  top: 25%;
+  left: 25%;
+}
+
+.btn-img {
+  color: white;
 }
 
 .rotated {

@@ -113,38 +113,6 @@ export default {
       this.$router.push("/");
     },
 
-    removeDND() {
-      if (this.gameViewState.game_state === "salvo") {
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("drag", window.drag));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("dragstart", window.dragstart));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("dragend", window.dragend));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("dragover", window.dragover));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("dragenter", window.dragenter));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("dragleave", window.dragleave));
-
-        document
-          .querySelectorAll("*")
-          .forEach(el => el.removeEventListener("drop", window.drop));
-      }
-    },
-
     checkForChanges() {
       let id = setInterval(this.changesChange, 10000);
 

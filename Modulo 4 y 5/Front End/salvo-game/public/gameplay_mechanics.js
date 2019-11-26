@@ -18,12 +18,14 @@ let provisoryShip = [];
 
 /* Eventos sobre elemento arrastrado */
 document.addEventListener("drag", drag);
+
 function drag(event) {
   let ship = event.target;
   ship.classList.add("hide");
 }
 
 document.addEventListener("dragstart", dragstart);
+
 function dragstart(event) {
   //referencia de elemento arrastrado, no todos los eventListener tienen acceso
   event.dataTransfer.setData("shipId", event.target.id);
@@ -50,6 +52,7 @@ function dragstart(event) {
 }
 
 document.addEventListener("dragend", dragend);
+
 function dragend(event) {
   let ship = event.target;
 
@@ -59,6 +62,7 @@ function dragend(event) {
 /*Eventos sobre el contenedor destino*/
 //efecto permitido del contenedor destino drop/no drop
 document.addEventListener("dragover", dragover);
+
 function dragover(event) {
   let cell = event.target;
   if (cell.classList.contains("wah")) {
@@ -73,6 +77,7 @@ function dragover(event) {
 
 //Lógica de mostrar posiciones permitidas
 document.addEventListener("dragenter", dragenter);
+
 function dragenter(event) {
   let cell = event.target;
 
@@ -108,6 +113,7 @@ function dragenter(event) {
 }
 
 document.addEventListener("dragleave", dragleave);
+
 function dragleave(event) {
   //Resetear celdas cuando se quita el barco del lugar
   let cell = event.target;
@@ -193,55 +199,45 @@ function drop(event) {
 function fits(id, array) {
   switch (id) {
     case "carrier":
-      return array.length >= 5
-        ? {
-            fits: true,
-            positions: array.slice(0, 5)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 5 ? {
+        fits: true,
+        positions: array.slice(0, 5)
+      } : {
+        fits: false,
+        positions: array
+      };
     case "battleship":
-      return array.length >= 4
-        ? {
-            fits: true,
-            positions: array.slice(0, 4)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 4 ? {
+        fits: true,
+        positions: array.slice(0, 4)
+      } : {
+        fits: false,
+        positions: array
+      };
     case "destroyer":
-      return array.length >= 3
-        ? {
-            fits: true,
-            positions: array.slice(0, 3)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 3 ? {
+        fits: true,
+        positions: array.slice(0, 3)
+      } : {
+        fits: false,
+        positions: array
+      };
     case "submarine":
-      return array.length >= 3
-        ? {
-            fits: true,
-            positions: array.slice(0, 3)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 3 ? {
+        fits: true,
+        positions: array.slice(0, 3)
+      } : {
+        fits: false,
+        positions: array
+      };
     case "patrol_boat":
-      return array.length >= 2
-        ? {
-            fits: true,
-            positions: array.slice(0, 2)
-          }
-        : {
-            fits: false,
-            positions: array
-          };
+      return array.length >= 2 ? {
+        fits: true,
+        positions: array.slice(0, 2)
+      } : {
+        fits: false,
+        positions: array
+      };
   }
 }
 //true si es una posición válida
@@ -254,11 +250,11 @@ function dropPossible(array) {
 
 //botton para rotar barcos
 function addRotateBtn(cell, imgId) {
-  let btn = document.createElement("button");
-  btn.setAttribute("class", "rotate-btn btn-floating red");
+  let btn = document.createElement("a");
+  btn.setAttribute("class", "rotate-btn btn btn-floating");
   btn.setAttribute("onclick", `rotateShip("${imgId}")`);
 
-  // btn.innerHTML = `<i class="btn-img tiny material-icons">rotate-right</i>`;
+  btn.innerHTML = `<i class="btn-img tiny material-icons">loop</i>`;
 
   cell.appendChild(btn);
 }
