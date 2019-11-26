@@ -1,5 +1,5 @@
 <template>
-  <v-row class="grid-line" no-gutters>
+  <v-row class="grid-line flex-row" no-gutters>
     <grid-square
       v-for="(number, key) in 11"
       :key="key"

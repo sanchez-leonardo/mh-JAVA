@@ -5,7 +5,7 @@
     </v-row>
 
     <ShipsContainer v-if="shipsOrSalvoes === 'ships'" class="ma-2 mx-auto" />
-    <div :id="gridName + '-grid'" class="ma-2 mx-auto">
+    <div :id="gridName + '-grid'" class="d-flex flex-column ma-2 mx-auto">
       <GridLine
         v-for="(gridLetter, key) in gridLetters"
         :key="key"
@@ -210,120 +210,99 @@ export default {
 #player-grid,
 #salvo-grid {
   width: 500px;
+  height: 500px;
 }
-
+.grid-line {
+  max-height: auto;
+}
 .grid-square {
   position: relative;
   border: solid 1px black;
 }
-
-.grid-square > p {
-  text-align: center;
-  color: white;
-}
-
 .column-name,
 .column-num {
-  background-color: darkgray;
+  background-color: #455a64;
 }
-
+.column-name > p,
+.column-num > p {
+  color: white;
+}
 .blank {
-  background-color: black;
+  background-color: #263238;
 }
-
 .wah,
 .battle-square {
-  background-color: cornflowerblue;
+  background-color: #1565c0;
 }
-
 .piece {
-  background-color: rgb(30, 190, 30);
+  background-color: #80cbc4;
 }
-
 .piece.hit {
-  background-color: rgb(190, 30, 30);
+  background-color: #ef5350;
 }
-
 .salvo {
-  background-color: slategrey;
+  background-color: #78909c;
 }
-
 .salvo.impact {
-  background-color: rgb(190, 30, 30);
+  background-color: #ef5350;
 }
-
 .salvo.image {
   height: 100%;
   width: 100%;
 }
-
 .shot {
-  background-color: rgb(110, 110, 26);
+  background-color: #ff8f00;
 }
-
 /* Ship management */
 #player {
   display: flex;
   flex-direction: column;
 }
-
 .available-ships {
   width: 500px;
   display: flex;
   height: 30px;
 }
-
 .holder {
   position: relative;
 }
-
 .image {
   position: absolute;
   z-index: 2;
   left: 0;
 }
-
 .shadow {
   opacity: 0.5;
   position: relative;
   z-index: 0;
 }
-
 .holder .image {
   width: 100%;
 }
-
 .wah .image {
   height: 100%;
 }
-
 .space {
-  background-color: greenyellow;
+  background-color: #4caf50;
 }
-
 .noSpace {
-  background-color: crimson;
+  background-color: #f44336;
 }
-
 .rotate-btn {
-  position: relative;
+  position: absolute;
   z-index: 5;
   top: 25%;
   left: 25%;
 }
-
 .btn-img {
   color: white;
 }
-
 .rotated {
   transform: rotate(90deg);
 }
-
 #carrier.rotated {
   transform-origin: 10% 60%;
 }
-
 #battleship.rotated {
   transform-origin: 13% 60%;
 }
@@ -333,7 +312,6 @@ export default {
 #submarine.rotated {
   transform-origin: 17% 60%;
 }
-
 #patrol_boat.rotated {
   transform-origin: 25% 55%;
 }
