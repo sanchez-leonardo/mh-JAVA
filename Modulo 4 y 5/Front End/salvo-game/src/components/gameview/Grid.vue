@@ -21,14 +21,22 @@
 
       <v-col
         cols="auto"
+        v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'"
+        justify-self="start"
+      >
+        <h2>In case you cannot wait 10 secs...</h2>
+      </v-col>
+
+      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'">
+        <v-btn medium color="primary" id="post-salvo" @click.prevent="getGameViewData">Refresh!</v-btn>
+      </v-col>
+
+      <v-col
+        cols="auto"
         v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'"
         justify-self="start"
       >
         <h2>Salvoes left: {{ salvoesLeft() }}</h2>
-      </v-col>
-
-      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'">
-        <v-divider></v-divider>
       </v-col>
 
       <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'">
@@ -130,6 +138,10 @@ export default {
       }
     },
 
+    getGameViewData() {
+      this.getGameViewInfo(this.gpId);
+    },
+
     postShipList() {
       if (window.shipsForPost.length === 5) {
         customFetch(
@@ -144,7 +156,7 @@ export default {
         )
           .then(response => {
             if (response.ok) {
-              this.getGameViewInfo(this.gpId);
+              this.getGameViewData();
             } else {
               this.dialogTitle = "Shipping problems";
               this.dialogMessage = "Your order was not received";
@@ -176,7 +188,7 @@ export default {
         )
           .then(response => {
             if (response.ok) {
-              this.getGameViewInfo(this.gpId);
+              this.getGameViewData();
               window.salvoesForPost.length = 0;
             } else {
               this.dialogTitle = "Hakuna your tatas";

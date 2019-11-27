@@ -26,19 +26,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Leaderboard",
 
-  computed: mapGetters(["leaderboardInfo"]),
-
-  methods: {
-    ...mapActions(["getLeaderboardInfo"])
-  },
-
-  created() {
-    this.getLeaderboardInfo();
-  }
+  computed: mapGetters(["leaderboardInfo"])
 };
 </script>

@@ -2,7 +2,7 @@
   <v-col
     :class="['d-flex','justify-center','align-center',{piece: hasShip}, {hit: hasHit}, {salvo: hasSalvo}]"
   >
-    <p v-if="this.letter ==='0' || this.number === 0" v-text="contents()"></p>
+    <p class="ma-0" v-if="this.letter ==='0' || this.number === 0" v-text="contents()"></p>
     <DynamicImage
       :id="shipType"
       :class="['ship', 'image', {rotated: isRotated}]"

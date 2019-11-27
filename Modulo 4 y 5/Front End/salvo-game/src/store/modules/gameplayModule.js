@@ -49,9 +49,13 @@ const getters = {
         gameView.salvoes.constructor === Object
       )
     ) {
-      return Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
-        salvo => salvo
-      );
+      if (gameView.salvoes[getters.currentUser.id]) {
+        return Object.values(gameView.salvoes[getters.currentUser.id]).flatMap(
+          salvo => salvo
+        );
+      } else {
+        return [];
+      }
     } else {
       return [];
     }
