@@ -195,10 +195,6 @@ public class SalvoApplication {
       Score scoreP2G4 = new Score(player2, game4, 0.5);
       Score scoreP1G4 = new Score(player1, game4, 0.5);
 
-      //Extra al testbed para probar ties y orden
-      //Score scoreP3G8 = new Score(player3, game8, 0.5);
-      //Score scoreP4G8 = new Score(player4, game8, 0.5);
-
       List<Score> testScores = Arrays.asList(scoreP1G1, scoreP2G1, scoreP1G2, scoreP2G2, scoreP2G3, scoreP4G3,
               scoreP2G4, scoreP1G4/*, scoreP3G8, scoreP4G8*/);
 
@@ -239,8 +235,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .antMatchers("/rest/**").permitAll()//temporal para chequeo de datos, a cambiar por denyall
-            .antMatchers(/*"/api/games",*/ "/api/game_view/**",
+            .antMatchers("/rest/**").denyAll()
+            .antMatchers("/api/game_view/**",
                     "/api/game/**/players", "/api/games/players/**/ships").hasAuthority("USER") // Removida /api/games
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated();
