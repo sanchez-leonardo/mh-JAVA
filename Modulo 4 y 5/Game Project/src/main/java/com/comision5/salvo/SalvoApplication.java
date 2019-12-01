@@ -237,7 +237,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
             .antMatchers("/rest/**").denyAll()
             .antMatchers("/api/game_view/**",
-                    "/api/game/**/players", "/api/games/players/**/ships").hasAuthority("USER") // Removida /api/games
+                    "/api/game/**/players", "/api/games/players/**/ships").hasAuthority("USER")
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated();
 

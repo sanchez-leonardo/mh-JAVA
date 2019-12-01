@@ -1,0 +1,8 @@
+Back end:
+-Acceder a la carpeta "Game Project", ejecutar la tarea "gradle bootrun"
+
+Front end:
+1. Acceder a la carpeta Frontend, ejecutar la tarea "npm install" para instalar dependencias de Vue.js
+2. Ejecutar la tarea "npm run serve" para iniciar el dev server
+
+-El front end esta configurado para acceder al puerto 8080 que utiliza el back end; si es necesario cambiar las configuraciones de puertos, acceder a larchivo "vue.config.js" y modificar la entrada proxy
