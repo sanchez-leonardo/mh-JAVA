@@ -21,12 +21,16 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
@@ -252,6 +256,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutUrl("/api/logout")
             .permitAll();
 
+    //Cors para Deploy
+//    http.cors();
+
     // turn off checking for CSRF tokens
     http.csrf().disable();
 
@@ -274,6 +281,20 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.logout()
             .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
   }
+// PARA DEPLOY
+//  @Bean
+//  public CorsConfigurationSource corsConfigurationSource() {
+//    final CorsConfiguration configuration = new CorsConfiguration();
+//    configuration.applyPermitDefaultValues();
+//    configuration.addAllowedOrigin("https://mh-battleshipgame.herokuapp.com");
+//    configuration.addAllowedMethod("*");
+//    configuration.addAllowedHeader("*");
+//    configuration.setAllowCredentials(true);
+//    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//    source.registerCorsConfiguration("/**", configuration);
+//    return source;
+//  }
+
 
   private void clearAuthenticationAttributes(HttpServletRequest request) {
     HttpSession session = request.getSession(false);
@@ -281,4 +302,5 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
   }
+
 }

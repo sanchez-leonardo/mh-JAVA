@@ -23,9 +23,7 @@ public class Ship {
   @Column(name = "ship_locations")
   private List<String> shipLocations;
 
-
-  private Ship() {
-  }
+  public Ship(){}
 
   public Ship(String shipType, List<String> shipLocations, GamePlayer gamePlayer) {
     this.shipType = shipType;
@@ -61,9 +59,8 @@ public class Ship {
     this.gamePlayer = gamePlayer;
   }
 
-
-  //Métodos para DTOs
-  //Objeto de detalles para /game_view
+  // Métodos para DTOs
+  // Objeto de detalles para /game_view
   public Map<String, Object> shipDetails() {
     Map<String, Object> shipObj = new LinkedHashMap<>();
 
@@ -73,10 +70,9 @@ public class Ship {
     return shipObj;
   }
 
-
-  //comprueba si hubo algun hit en algun barco
-  //Si los hay devuelve el array de impactos y si no los hay devuelve null
-  //Sirve para comprobar y para dar resultados
+  // comprueba si hubo algun hit en algun barco
+  // Si los hay devuelve el array de impactos y si no los hay devuelve null
+  // Sirve para comprobar y para dar resultados
   public List<String> wasHit(List<String> salvoes) {
     List<String> hitList = new ArrayList<>();
 
@@ -94,10 +90,10 @@ public class Ship {
 
   }
 
-  //Comprueba si el barco fue hundido
-  //en base a una lista de ubicaciones provista
+  // Comprueba si el barco fue hundido
+  // en base a una lista de ubicaciones provista
 
-  public boolean wasSunk(List<String> salvoes){
+  public boolean wasSunk(List<String> salvoes) {
     return salvoes.containsAll(getShipLocations());
   }
 }
