@@ -12,7 +12,7 @@ const getters = {
       .sort((a, b) => b.scores.total - a.scores.total)
       .slice(0, 5);
   },
-  currentGames: state => state.games.games,
+  currentGames: state => state.games.games.reverse(),
   currentUser: state => state.games.currentUser
 };
 

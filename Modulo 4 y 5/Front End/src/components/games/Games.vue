@@ -35,6 +35,7 @@ export default {
     ...mapActions(["getLeaderboardInfo", "getGamesInfo"]),
 
     updateGamesList() {
+      this.getLeaderboardInfo();
       this.getGamesInfo();
     },
 

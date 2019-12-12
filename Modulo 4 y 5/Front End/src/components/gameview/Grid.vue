@@ -14,7 +14,12 @@
       />
     </div>
 
-    <v-row justify="space-around" class="ma-2" no-gutters>
+    <v-row
+      justify="space-around"
+      class="ma-2"
+      v-if="gameViewState.game_state !=='over' "
+      no-gutters
+    >
       <v-col cols="auto" v-if="shipsOrSalvoes === 'ships' && gridType === 'p'">
         <v-btn medium color="primary" id="post-ships" @click.prevent="postShipList">Place Ships!</v-btn>
       </v-col>
@@ -24,7 +29,7 @@
         v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'"
         justify-self="start"
       >
-        <h2>In case you cannot wait 10 secs...</h2>
+        <h2>Patience is a virtue...</h2>
       </v-col>
 
       <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 'p'">
@@ -34,13 +39,27 @@
       <v-col
         cols="auto"
         v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'"
+        v-show="!ableToFire"
+        justify-self="start"
+      >
+        <h2>Waiting...</h2>
+      </v-col>
+
+      <v-col
+        cols="auto"
+        v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'"
+        v-show="ableToFire"
         justify-self="start"
       >
         <h2>Salvoes left: {{ salvoesLeft() }}</h2>
       </v-col>
 
-      <v-col cols="auto" v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'">
-        <v-btn medium color="primary" id="post-salvo" @click.prevent="postSalvoesList">Fire!</v-btn>
+      <v-col
+        cols="auto"
+        v-if="shipsOrSalvoes === 'salvoes' && gridType === 's'"
+        v-show="ableToFire"
+      >
+        <v-btn medium color="red darken-1" id="post-salvo" @click.prevent="postSalvoesList">Fire!</v-btn>
       </v-col>
     </v-row>
 
@@ -96,7 +115,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["currentUser", "gamePlayers", "opponentId"]),
+    ...mapGetters(["currentUser", "gamePlayers", "opponentId",
+      "gameViewState"]),
 
     gridType() {
       if (this.gridName === "player") {
@@ -124,6 +144,13 @@ export default {
           return "Waiting for a worthy opponent";
         }
       }
+    },
+
+    ableToFire() {
+      return (
+        this.gameViewState.game_player_state === "placing" &&
+        this.gameViewState.game_state === "salvo"
+      );
     }
   },
 
@@ -165,7 +192,7 @@ export default {
           })
           .catch(error => console.log(error));
       } else {
-        this.dialogTitle = "Don't be a hippie";
+        this.dialogTitle = "Do war, not love";
         this.dialogMessage = "Place all your ships to continue";
         this.dialog = !this.dialog;
       }
@@ -198,7 +225,7 @@ export default {
           })
           .catch(error => console.log(error));
       } else {
-        this.dialogTitle = "Harsh words won't sink ships";
+        this.dialogTitle = "Ideals are peaceful, History is violent";
         this.dialogMessage = "Place your shots";
         this.dialog = !this.dialog;
       }
