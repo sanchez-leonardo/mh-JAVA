@@ -12,7 +12,7 @@ const getters = {
       .sort((a, b) => b.scores.total - a.scores.total)
       .slice(0, 5);
   },
-  currentGames: state => state.games.games.reverse(),
+  currentGames: state => state.games.games,
   currentUser: state => state.games.currentUser
 };
 
@@ -24,7 +24,10 @@ const mutations = {
 
 const actions = {
   getLeaderboardInfo({ commit }) {
-    fetch("/api/leaderboard")
+    fetch("https://mh-battleship.herokuapp.com/api/leaderboard", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(response => response.json())
       .then(data => {
         commit(SET_LEADERBOARD_INFO, data);
@@ -32,7 +35,10 @@ const actions = {
   },
 
   getGamesInfo({ commit }) {
-    fetch("/api/games")
+    fetch("https://mh-battleship.herokuapp.com/api/games", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(response => response.json())
       .then(data => {
         commit(SET_GAMES_INFO, data);

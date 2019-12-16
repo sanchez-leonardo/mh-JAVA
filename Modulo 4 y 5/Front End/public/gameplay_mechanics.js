@@ -154,8 +154,6 @@ function drop(event) {
       addShipToArray(shipsForPost, ship.id, shipLocations);
 
       addRotateBtn(cell, draggedItemId);
-
-      console.log("drop succesfull");
     } else {
       if (provisoryShip.length != 0) {
         provisoryShip.forEach(square => {
@@ -164,8 +162,6 @@ function drop(event) {
 
         addRotateBtn(provisoryShip[0], draggedItemId);
       }
-
-      console.log("drop failed, orangy thingy");
     }
 
     Array.from(document.getElementsByClassName("wah")).forEach(square =>
@@ -183,7 +179,6 @@ function drop(event) {
 
       addRotateBtn(provisoryShip[0], draggedItemId);
     }
-    console.log("drop failed, not valid area");
 
     Array.from(document.getElementsByClassName("wah")).forEach(square =>
       square.classList.remove("space", "noSpace")
@@ -199,45 +194,55 @@ function drop(event) {
 function fits(id, array) {
   switch (id) {
     case "carrier":
-      return array.length >= 5 ? {
-        fits: true,
-        positions: array.slice(0, 5)
-      } : {
-        fits: false,
-        positions: array
-      };
+      return array.length >= 5
+        ? {
+            fits: true,
+            positions: array.slice(0, 5)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "battleship":
-      return array.length >= 4 ? {
-        fits: true,
-        positions: array.slice(0, 4)
-      } : {
-        fits: false,
-        positions: array
-      };
+      return array.length >= 4
+        ? {
+            fits: true,
+            positions: array.slice(0, 4)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "destroyer":
-      return array.length >= 3 ? {
-        fits: true,
-        positions: array.slice(0, 3)
-      } : {
-        fits: false,
-        positions: array
-      };
+      return array.length >= 3
+        ? {
+            fits: true,
+            positions: array.slice(0, 3)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "submarine":
-      return array.length >= 3 ? {
-        fits: true,
-        positions: array.slice(0, 3)
-      } : {
-        fits: false,
-        positions: array
-      };
+      return array.length >= 3
+        ? {
+            fits: true,
+            positions: array.slice(0, 3)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
     case "patrol_boat":
-      return array.length >= 2 ? {
-        fits: true,
-        positions: array.slice(0, 2)
-      } : {
-        fits: false,
-        positions: array
-      };
+      return array.length >= 2
+        ? {
+            fits: true,
+            positions: array.slice(0, 2)
+          }
+        : {
+            fits: false,
+            positions: array
+          };
   }
 }
 //true si es una posición válida
